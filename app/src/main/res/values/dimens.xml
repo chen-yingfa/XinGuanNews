@@ -5,4 +5,6 @@
     <dimen name="toolbarHeight">54dp</dimen>
     <dimen name="cardViewCornerRadius">8dp</dimen>
     <dimen name="cardViewMarginBottom">0dp</dimen>
+    <dimen name="cardViewDatePadding">3dp</dimen>
+    <dimen name="cardViewTitleTextSize">16sp</dimen>
 </resources>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBgDark"
     tools:context=".MainActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -11,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/colorPrimary"
+
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toTopOf="@id/scrollView2"
@@ -19,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <SearchView
-            android:id="@+id/toolbarSearchView"
+            android:id="@+id/actionBarSearchView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"></SearchView>
@@ -49,6 +51,7 @@
                 android:layout_marginRight="@dimen/cardViewMargin"
                 android:layout_marginBottom="@dimen/cardViewMarginBottom"
                 android:padding="@dimen/cardViewPadding"
+                app:cardBackgroundColor="@color/colorCardBgDark"
                 app:cardCornerRadius="@dimen/cardViewCornerRadius"
                 app:contentPadding="@dimen/cardViewPadding">
 
@@ -61,8 +64,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="@string/article_card_default_title"
-                        android:textSize="14sp"
+                        android:text="@string/articleDefaultTitle"
+                        android:textColor="@color/colorTextDark"
+                        android:textSize="@dimen/cardViewTitleTextSize"
                         android:textStyle="bold"
                         tools:text="文章（新闻/论文）名称" />
 
@@ -74,15 +78,20 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/article_card_default_description"
+                            android:text="@string/articleDefaultDescription"
+                            android:textColor="@color/colorTextDark"
                             tools:text="此处显示新闻内容一部分，或者说摘要。不要很长，文字尺寸小一点。今天有人死了，都 0202 年，还有人这么封建，今年是建元十三年。第三次世界大战即将爆发。" />
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TextView" />
+                        android:paddingLeft="@dimen/cardViewDatePadding"
+                        android:paddingTop="@dimen/cardViewDatePadding"
+                        android:paddingRight="@dimen/cardViewDatePadding"
+                        android:paddingBottom="0dp"
+                        android:text="@string/articleDefaultDate"
+                        android:textColor="@color/colorTextDark" />
 
                 </LinearLayout>
 
@@ -96,6 +105,7 @@
                 android:layout_marginRight="@dimen/cardViewMargin"
                 android:layout_marginBottom="@dimen/cardViewMarginBottom"
                 android:padding="@dimen/cardViewPadding"
+                app:cardBackgroundColor="@color/colorCardBgDark"
                 app:cardCornerRadius="@dimen/cardViewCornerRadius"
                 app:contentPadding="@dimen/cardViewPadding">
 
@@ -108,8 +118,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="@string/article_card_default_title"
-                        android:textSize="14sp"
+                        android:text="@string/articleDefaultTitle"
+                        android:textColor="@color/colorTextDark"
+                        android:textSize="@dimen/cardViewTitleTextSize"
                         android:textStyle="bold"
                         tools:text="文章（新闻/论文）名称" />
 
@@ -121,9 +132,21 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/article_card_default_description"
+                            android:text="@string/articleDefaultDescription"
+                            android:textColor="@color/colorTextDark"
                             tools:text="此处显示新闻内容一部分，或者说摘要。不要很长，文字尺寸小一点。今天有人死了，都 0202 年，还有人这么封建，今年是建元十三年。第三次世界大战即将爆发。" />
                     </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/cardViewDatePadding"
+                        android:paddingTop="@dimen/cardViewDatePadding"
+                        android:paddingRight="@dimen/cardViewDatePadding"
+                        android:paddingBottom="0dp"
+                        android:text="@string/articleDefaultDate"
+                        android:textColor="@color/colorTextDark" />
+
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -136,6 +159,7 @@
                 android:layout_marginRight="@dimen/cardViewMargin"
                 android:layout_marginBottom="@dimen/cardViewMarginBottom"
                 android:padding="@dimen/cardViewPadding"
+                app:cardBackgroundColor="@color/colorCardBgDark"
                 app:cardCornerRadius="@dimen/cardViewCornerRadius"
                 app:contentPadding="@dimen/cardViewPadding">
 
@@ -148,8 +172,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="@string/article_card_default_title"
-                        android:textSize="14sp"
+                        android:text="@string/articleDefaultTitle"
+                        android:textColor="@color/colorTextDark"
+                        android:textSize="@dimen/cardViewTitleTextSize"
                         android:textStyle="bold"
                         tools:text="文章（新闻/论文）名称" />
 
@@ -161,9 +186,21 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/article_card_default_description"
+                            android:text="@string/articleDefaultDescription"
+                            android:textColor="@color/colorTextDark"
                             tools:text="此处显示新闻内容一部分，或者说摘要。不要很长，文字尺寸小一点。今天有人死了，都 0202 年，还有人这么封建，今年是建元十三年。第三次世界大战即将爆发。" />
                     </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/cardViewDatePadding"
+                        android:paddingTop="@dimen/cardViewDatePadding"
+                        android:paddingRight="@dimen/cardViewDatePadding"
+                        android:paddingBottom="0dp"
+                        android:text="@string/articleDefaultDate"
+                        android:textColor="@color/colorTextDark" />
+
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -176,6 +213,7 @@
                 android:layout_marginRight="@dimen/cardViewMargin"
                 android:layout_marginBottom="@dimen/cardViewMarginBottom"
                 android:padding="@dimen/cardViewPadding"
+                app:cardBackgroundColor="@color/colorCardBgDark"
                 app:cardCornerRadius="@dimen/cardViewCornerRadius"
                 app:contentPadding="@dimen/cardViewPadding">
 
@@ -188,8 +226,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="@string/article_card_default_title"
-                        android:textSize="14sp"
+                        android:text="@string/articleDefaultTitle"
+                        android:textColor="@color/colorTextDark"
+                        android:textSize="@dimen/cardViewTitleTextSize"
                         android:textStyle="bold"
                         tools:text="文章（新闻/论文）名称" />
 
@@ -201,9 +240,21 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/article_card_default_description"
+                            android:text="@string/articleDefaultDescription"
+                            android:textColor="@color/colorTextDark"
                             tools:text="此处显示新闻内容一部分，或者说摘要。不要很长，文字尺寸小一点。今天有人死了，都 0202 年，还有人这么封建，今年是建元十三年。第三次世界大战即将爆发。" />
                     </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/cardViewDatePadding"
+                        android:paddingTop="@dimen/cardViewDatePadding"
+                        android:paddingRight="@dimen/cardViewDatePadding"
+                        android:paddingBottom="0dp"
+                        android:text="@string/articleDefaultDate"
+                        android:textColor="@color/colorTextDark" />
+
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -216,6 +267,7 @@
                 android:layout_marginRight="@dimen/cardViewMargin"
                 android:layout_marginBottom="@dimen/cardViewMarginBottom"
                 android:padding="@dimen/cardViewPadding"
+                app:cardBackgroundColor="@color/colorCardBgDark"
                 app:cardCornerRadius="@dimen/cardViewCornerRadius"
                 app:contentPadding="@dimen/cardViewPadding">
 
@@ -228,8 +280,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="@string/article_card_default_title"
-                        android:textSize="14sp"
+                        android:text="@string/articleDefaultTitle"
+                        android:textColor="@color/colorTextDark"
+                        android:textSize="@dimen/cardViewTitleTextSize"
                         android:textStyle="bold"
                         tools:text="文章（新闻/论文）名称" />
 
@@ -241,9 +294,21 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/article_card_default_description"
+                            android:text="@string/articleDefaultDescription"
+                            android:textColor="@color/colorTextDark"
                             tools:text="此处显示新闻内容一部分，或者说摘要。不要很长，文字尺寸小一点。今天有人死了，都 0202 年，还有人这么封建，今年是建元十三年。第三次世界大战即将爆发。" />
                     </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/cardViewDatePadding"
+                        android:paddingTop="@dimen/cardViewDatePadding"
+                        android:paddingRight="@dimen/cardViewDatePadding"
+                        android:paddingBottom="0dp"
+                        android:text="@string/articleDefaultDate"
+                        android:textColor="@color/colorTextDark" />
+
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -256,6 +321,7 @@
                 android:layout_marginRight="@dimen/cardViewMargin"
                 android:layout_marginBottom="@dimen/cardViewMarginBottom"
                 android:padding="@dimen/cardViewPadding"
+                app:cardBackgroundColor="@color/colorCardBgDark"
                 app:cardCornerRadius="@dimen/cardViewCornerRadius"
                 app:contentPadding="@dimen/cardViewPadding">
 
@@ -268,8 +334,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="@string/article_card_default_title"
-                        android:textSize="14sp"
+                        android:text="@string/articleDefaultTitle"
+                        android:textColor="@color/colorTextDark"
+                        android:textSize="@dimen/cardViewTitleTextSize"
                         android:textStyle="bold"
                         tools:text="文章（新闻/论文）名称" />
 
@@ -281,9 +348,21 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/article_card_default_description"
+                            android:text="@string/articleDefaultDescription"
+                            android:textColor="@color/colorTextDark"
                             tools:text="此处显示新闻内容一部分，或者说摘要。不要很长，文字尺寸小一点。今天有人死了，都 0202 年，还有人这么封建，今年是建元十三年。第三次世界大战即将爆发。" />
                     </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/cardViewDatePadding"
+                        android:paddingTop="@dimen/cardViewDatePadding"
+                        android:paddingRight="@dimen/cardViewDatePadding"
+                        android:paddingBottom="0dp"
+                        android:text="@string/articleDefaultDate"
+                        android:textColor="@color/colorTextDark" />
+
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -296,6 +375,7 @@
                 android:layout_marginRight="@dimen/cardViewMargin"
                 android:layout_marginBottom="@dimen/cardViewMarginBottom"
                 android:padding="@dimen/cardViewPadding"
+                app:cardBackgroundColor="@color/colorCardBgDark"
                 app:cardCornerRadius="@dimen/cardViewCornerRadius"
                 app:contentPadding="@dimen/cardViewPadding">
 
@@ -308,8 +388,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="@string/article_card_default_title"
-                        android:textSize="14sp"
+                        android:text="@string/articleDefaultTitle"
+                        android:textColor="@color/colorTextDark"
+                        android:textSize="@dimen/cardViewTitleTextSize"
                         android:textStyle="bold"
                         tools:text="文章（新闻/论文）名称" />
 
@@ -321,9 +402,21 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/article_card_default_description"
+                            android:text="@string/articleDefaultDescription"
+                            android:textColor="@color/colorTextDark"
                             tools:text="此处显示新闻内容一部分，或者说摘要。不要很长，文字尺寸小一点。今天有人死了，都 0202 年，还有人这么封建，今年是建元十三年。第三次世界大战即将爆发。" />
                     </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/cardViewDatePadding"
+                        android:paddingTop="@dimen/cardViewDatePadding"
+                        android:paddingRight="@dimen/cardViewDatePadding"
+                        android:paddingBottom="0dp"
+                        android:text="@string/articleDefaultDate"
+                        android:textColor="@color/colorTextDark" />
+
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -336,6 +429,7 @@
                 android:layout_marginRight="@dimen/cardViewMargin"
                 android:layout_marginBottom="@dimen/cardViewMarginBottom"
                 android:padding="@dimen/cardViewPadding"
+                app:cardBackgroundColor="@color/colorCardBgDark"
                 app:cardCornerRadius="@dimen/cardViewCornerRadius"
                 app:contentPadding="@dimen/cardViewPadding">
 
@@ -348,8 +442,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="@string/article_card_default_title"
-                        android:textSize="14sp"
+                        android:text="@string/articleDefaultTitle"
+                        android:textColor="@color/colorTextDark"
+                        android:textSize="@dimen/cardViewTitleTextSize"
                         android:textStyle="bold"
                         tools:text="文章（新闻/论文）名称" />
 
@@ -361,9 +456,21 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/article_card_default_description"
+                            android:text="@string/articleDefaultDescription"
+                            android:textColor="@color/colorTextDark"
                             tools:text="此处显示新闻内容一部分，或者说摘要。不要很长，文字尺寸小一点。今天有人死了，都 0202 年，还有人这么封建，今年是建元十三年。第三次世界大战即将爆发。" />
                     </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/cardViewDatePadding"
+                        android:paddingTop="@dimen/cardViewDatePadding"
+                        android:paddingRight="@dimen/cardViewDatePadding"
+                        android:paddingBottom="0dp"
+                        android:text="@string/articleDefaultDate"
+                        android:textColor="@color/colorTextDark" />
+
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -376,6 +483,7 @@
                 android:layout_marginRight="@dimen/cardViewMargin"
                 android:layout_marginBottom="@dimen/cardViewMarginBottom"
                 android:padding="@dimen/cardViewPadding"
+                app:cardBackgroundColor="@color/colorCardBgDark"
                 app:cardCornerRadius="@dimen/cardViewCornerRadius"
                 app:contentPadding="@dimen/cardViewPadding">
 
@@ -388,8 +496,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="@string/article_card_default_title"
-                        android:textSize="14sp"
+                        android:text="@string/articleDefaultTitle"
+                        android:textColor="@color/colorTextDark"
+                        android:textSize="@dimen/cardViewTitleTextSize"
                         android:textStyle="bold"
                         tools:text="文章（新闻/论文）名称" />
 
@@ -401,9 +510,21 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/article_card_default_description"
+                            android:text="@string/articleDefaultDescription"
+                            android:textColor="@color/colorTextDark"
                             tools:text="此处显示新闻内容一部分，或者说摘要。不要很长，文字尺寸小一点。今天有人死了，都 0202 年，还有人这么封建，今年是建元十三年。第三次世界大战即将爆发。" />
                     </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/cardViewDatePadding"
+                        android:paddingTop="@dimen/cardViewDatePadding"
+                        android:paddingRight="@dimen/cardViewDatePadding"
+                        android:paddingBottom="0dp"
+                        android:text="@string/articleDefaultDate"
+                        android:textColor="@color/colorTextDark" />
+
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -416,6 +537,7 @@
                 android:layout_marginRight="@dimen/cardViewMargin"
                 android:layout_marginBottom="@dimen/cardViewMarginBottom"
                 android:padding="@dimen/cardViewPadding"
+                app:cardBackgroundColor="@color/colorCardBgDark"
                 app:cardCornerRadius="@dimen/cardViewCornerRadius"
                 app:contentPadding="@dimen/cardViewPadding">
 
@@ -428,8 +550,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="@string/article_card_default_title"
-                        android:textSize="14sp"
+                        android:text="@string/articleDefaultTitle"
+                        android:textColor="@color/colorTextDark"
+                        android:textSize="@dimen/cardViewTitleTextSize"
                         android:textStyle="bold"
                         tools:text="文章（新闻/论文）名称" />
 
@@ -441,9 +564,21 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/article_card_default_description"
+                            android:text="@string/articleDefaultDescription"
+                            android:textColor="@color/colorTextDark"
                             tools:text="此处显示新闻内容一部分，或者说摘要。不要很长，文字尺寸小一点。今天有人死了，都 0202 年，还有人这么封建，今年是建元十三年。第三次世界大战即将爆发。" />
                     </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/cardViewDatePadding"
+                        android:paddingTop="@dimen/cardViewDatePadding"
+                        android:paddingRight="@dimen/cardViewDatePadding"
+                        android:paddingBottom="0dp"
+                        android:text="@string/articleDefaultDate"
+                        android:textColor="@color/colorTextDark" />
+
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -456,6 +591,7 @@
                 android:layout_marginRight="@dimen/cardViewMargin"
                 android:layout_marginBottom="@dimen/cardViewMarginBottom"
                 android:padding="@dimen/cardViewPadding"
+                app:cardBackgroundColor="@color/colorCardBgDark"
                 app:cardCornerRadius="@dimen/cardViewCornerRadius"
                 app:contentPadding="@dimen/cardViewPadding">
 
@@ -468,8 +604,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="@string/article_card_default_title"
-                        android:textSize="14sp"
+                        android:text="@string/articleDefaultTitle"
+                        android:textColor="@color/colorTextDark"
+                        android:textSize="@dimen/cardViewTitleTextSize"
                         android:textStyle="bold"
                         tools:text="文章（新闻/论文）名称" />
 
@@ -481,9 +618,75 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/article_card_default_description"
+                            android:text="@string/articleDefaultDescription"
+                            android:textColor="@color/colorTextDark"
                             tools:text="此处显示新闻内容一部分，或者说摘要。不要很长，文字尺寸小一点。今天有人死了，都 0202 年，还有人这么封建，今年是建元十三年。第三次世界大战即将爆发。" />
                     </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/cardViewDatePadding"
+                        android:paddingTop="@dimen/cardViewDatePadding"
+                        android:paddingRight="@dimen/cardViewDatePadding"
+                        android:paddingBottom="0dp"
+                        android:text="@string/articleDefaultDate"
+                        android:textColor="@color/colorTextDark" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/cardViewMargin"
+                android:layout_marginTop="@dimen/cardViewMargin"
+                android:layout_marginRight="@dimen/cardViewMargin"
+                android:layout_marginBottom="@dimen/cardViewMarginBottom"
+                android:padding="@dimen/cardViewPadding"
+                app:cardBackgroundColor="@color/colorCardBgDark"
+                app:cardCornerRadius="@dimen/cardViewCornerRadius"
+                app:contentPadding="@dimen/cardViewPadding">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/articleDefaultTitle"
+                        android:textColor="@color/colorTextDark"
+                        android:textSize="@dimen/cardViewTitleTextSize"
+                        android:textStyle="bold"
+                        tools:text="文章（新闻/论文）名称" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/articleDefaultDescription"
+                            android:textColor="@color/colorTextDark"
+                            tools:text="此处显示新闻内容一部分，或者说摘要。不要很长，文字尺寸小一点。今天有人死了，都 0202 年，还有人这么封建，今年是建元十三年。第三次世界大战即将爆发。" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/cardViewDatePadding"
+                        android:paddingTop="@dimen/cardViewDatePadding"
+                        android:paddingRight="@dimen/cardViewDatePadding"
+                        android:paddingBottom="0dp"
+                        android:text="@string/articleDefaultDate"
+                        android:textColor="@color/colorTextDark" />
+
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>

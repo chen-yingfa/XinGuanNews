@@ -3,4 +3,12 @@
     <color name="colorPrimary">#BB4444</color>
     <color name="colorPrimaryDark">#663333</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="colorBg">#EEEEEE</color>
+    <color name="colorCardBg">#FFFFFF</color>
+    <color name="colorText">#000000</color>
+    <color name="colorBgDark">#222222</color>
+    <color name="colorCardBgDark">#444444</color>
+    <color name="colorTextDark">#BBBBBB</color>
+
+    <color name="actionBarText">#FFFFFF</color>
 </resources>
