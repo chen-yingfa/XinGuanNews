@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Xin Guan News</string>
     <string name="topbar_text">Xin Guan News</string>
+    <string name="article_card_default_title">文章（新闻/论文）名称 Default Title of News Article</string>
+    <string name="article_card_default_description">此处显示新闻内容一部分，或者说摘要。不要很长，文字尺寸小一点。今天有人死了，都 0202 年，还有人这么封建，今年是建元十三年。第三次世界大战即将爆发。</string>
 </resources>
