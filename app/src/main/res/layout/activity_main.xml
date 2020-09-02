@@ -13,6 +13,7 @@
         android:background="@color/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toTopOf="@id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -27,8 +28,8 @@
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/toolBarHeight"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/toolbarHeight"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,8 +44,59 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/cardViewMargin"
+                android:layout_marginLeft="@dimen/cardViewMargin"
+                android:layout_marginTop="@dimen/cardViewMargin"
+                android:layout_marginRight="@dimen/cardViewMargin"
+                android:layout_marginBottom="@dimen/cardViewMarginBottom"
                 android:padding="@dimen/cardViewPadding"
+                app:cardCornerRadius="@dimen/cardViewCornerRadius"
+                app:contentPadding="@dimen/cardViewPadding">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/article_card_default_title"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="文章（新闻/论文）名称" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/article_card_default_description"
+                            tools:text="此处显示新闻内容一部分，或者说摘要。不要很长，文字尺寸小一点。今天有人死了，都 0202 年，还有人这么封建，今年是建元十三年。第三次世界大战即将爆发。" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/cardViewMargin"
+                android:layout_marginTop="@dimen/cardViewMargin"
+                android:layout_marginRight="@dimen/cardViewMargin"
+                android:layout_marginBottom="@dimen/cardViewMarginBottom"
+                android:padding="@dimen/cardViewPadding"
+                app:cardCornerRadius="@dimen/cardViewCornerRadius"
                 app:contentPadding="@dimen/cardViewPadding">
 
                 <LinearLayout
@@ -79,8 +131,12 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/cardViewMargin"
+                android:layout_marginLeft="@dimen/cardViewMargin"
+                android:layout_marginTop="@dimen/cardViewMargin"
+                android:layout_marginRight="@dimen/cardViewMargin"
+                android:layout_marginBottom="@dimen/cardViewMarginBottom"
                 android:padding="@dimen/cardViewPadding"
+                app:cardCornerRadius="@dimen/cardViewCornerRadius"
                 app:contentPadding="@dimen/cardViewPadding">
 
                 <LinearLayout
@@ -115,8 +171,12 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/cardViewMargin"
+                android:layout_marginLeft="@dimen/cardViewMargin"
+                android:layout_marginTop="@dimen/cardViewMargin"
+                android:layout_marginRight="@dimen/cardViewMargin"
+                android:layout_marginBottom="@dimen/cardViewMarginBottom"
                 android:padding="@dimen/cardViewPadding"
+                app:cardCornerRadius="@dimen/cardViewCornerRadius"
                 app:contentPadding="@dimen/cardViewPadding">
 
                 <LinearLayout
@@ -151,8 +211,12 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/cardViewMargin"
+                android:layout_marginLeft="@dimen/cardViewMargin"
+                android:layout_marginTop="@dimen/cardViewMargin"
+                android:layout_marginRight="@dimen/cardViewMargin"
+                android:layout_marginBottom="@dimen/cardViewMarginBottom"
                 android:padding="@dimen/cardViewPadding"
+                app:cardCornerRadius="@dimen/cardViewCornerRadius"
                 app:contentPadding="@dimen/cardViewPadding">
 
                 <LinearLayout
@@ -187,8 +251,12 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/cardViewMargin"
+                android:layout_marginLeft="@dimen/cardViewMargin"
+                android:layout_marginTop="@dimen/cardViewMargin"
+                android:layout_marginRight="@dimen/cardViewMargin"
+                android:layout_marginBottom="@dimen/cardViewMarginBottom"
                 android:padding="@dimen/cardViewPadding"
+                app:cardCornerRadius="@dimen/cardViewCornerRadius"
                 app:contentPadding="@dimen/cardViewPadding">
 
                 <LinearLayout
@@ -223,8 +291,12 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/cardViewMargin"
+                android:layout_marginLeft="@dimen/cardViewMargin"
+                android:layout_marginTop="@dimen/cardViewMargin"
+                android:layout_marginRight="@dimen/cardViewMargin"
+                android:layout_marginBottom="@dimen/cardViewMarginBottom"
                 android:padding="@dimen/cardViewPadding"
+                app:cardCornerRadius="@dimen/cardViewCornerRadius"
                 app:contentPadding="@dimen/cardViewPadding">
 
                 <LinearLayout
@@ -259,8 +331,12 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/cardViewMargin"
+                android:layout_marginLeft="@dimen/cardViewMargin"
+                android:layout_marginTop="@dimen/cardViewMargin"
+                android:layout_marginRight="@dimen/cardViewMargin"
+                android:layout_marginBottom="@dimen/cardViewMarginBottom"
                 android:padding="@dimen/cardViewPadding"
+                app:cardCornerRadius="@dimen/cardViewCornerRadius"
                 app:contentPadding="@dimen/cardViewPadding">
 
                 <LinearLayout
@@ -295,8 +371,92 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/cardViewMargin"
+                android:layout_marginLeft="@dimen/cardViewMargin"
+                android:layout_marginTop="@dimen/cardViewMargin"
+                android:layout_marginRight="@dimen/cardViewMargin"
+                android:layout_marginBottom="@dimen/cardViewMarginBottom"
                 android:padding="@dimen/cardViewPadding"
+                app:cardCornerRadius="@dimen/cardViewCornerRadius"
+                app:contentPadding="@dimen/cardViewPadding">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/article_card_default_title"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="文章（新闻/论文）名称" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/article_card_default_description"
+                            tools:text="此处显示新闻内容一部分，或者说摘要。不要很长，文字尺寸小一点。今天有人死了，都 0202 年，还有人这么封建，今年是建元十三年。第三次世界大战即将爆发。" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/cardViewMargin"
+                android:layout_marginTop="@dimen/cardViewMargin"
+                android:layout_marginRight="@dimen/cardViewMargin"
+                android:layout_marginBottom="@dimen/cardViewMarginBottom"
+                android:padding="@dimen/cardViewPadding"
+                app:cardCornerRadius="@dimen/cardViewCornerRadius"
+                app:contentPadding="@dimen/cardViewPadding">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/article_card_default_title"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="文章（新闻/论文）名称" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/article_card_default_description"
+                            tools:text="此处显示新闻内容一部分，或者说摘要。不要很长，文字尺寸小一点。今天有人死了，都 0202 年，还有人这么封建，今年是建元十三年。第三次世界大战即将爆发。" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/cardViewMargin"
+                android:layout_marginTop="@dimen/cardViewMargin"
+                android:layout_marginRight="@dimen/cardViewMargin"
+                android:layout_marginBottom="@dimen/cardViewMarginBottom"
+                android:padding="@dimen/cardViewPadding"
+                app:cardCornerRadius="@dimen/cardViewCornerRadius"
                 app:contentPadding="@dimen/cardViewPadding">
 
                 <LinearLayout

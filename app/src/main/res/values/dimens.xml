@@ -2,5 +2,7 @@
 <resources>
     <dimen name="cardViewMargin">8dp</dimen>
     <dimen name="cardViewPadding">8dp</dimen>
-    <dimen name="toolBarHeight">80dp</dimen>
+    <dimen name="toolbarHeight">54dp</dimen>
+    <dimen name="cardViewCornerRadius">8dp</dimen>
+    <dimen name="cardViewMarginBottom">0dp</dimen>
 </resources>
