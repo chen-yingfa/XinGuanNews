@@ -35,6 +35,6 @@ dependencies {
     //noinspection GradleCompatible
     implementation 'com.android.support:design:30.0.0'
     implementation 'de.hdodenhof:circleimageview:2.1.0'
-
+    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
 
 }
