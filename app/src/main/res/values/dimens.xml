@@ -3,6 +3,8 @@
     <dimen name="cardViewMargin">8dp</dimen>
     <dimen name="cardViewPadding">8dp</dimen>
     <dimen name="toolbarHeight">54dp</dimen>
+    <dimen name="tablayoutHeight">60dp</dimen>
+
     <dimen name="cardViewCornerRadius">8dp</dimen>
     <dimen name="cardViewMarginBottom">0dp</dimen>
     <dimen name="cardViewDatePadding">3dp</dimen>
@@ -13,4 +15,5 @@
     <dimen name="appbar_padding">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 </resources>
