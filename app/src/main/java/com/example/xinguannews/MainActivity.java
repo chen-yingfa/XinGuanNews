@@ -16,6 +16,10 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+<<<<<<< HEAD
+=======
+
+>>>>>>> apiAdapter
 import java.util.ArrayList;
 import java.util.List;
 import android.view.Menu;
@@ -42,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("onCreate");
+        ArticleApiAdapter articleApiAdapter = new ArticleApiAdapter();
+        articleApiAdapter.getArticles();
+
         setContentView(R.layout.activity_main);
         myToolbar = findViewById(R.id.toolbar);                             //get instance of the widget
         mDrawerLayout = (DrawerLayout) findViewById(R.id.mDrawerLayout);
