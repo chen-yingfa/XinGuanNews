@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 
+import java.util.ArrayList;
 import java.util.List;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("onCreate");
+        ArticleApiAdapter articleApiAdapter = new ArticleApiAdapter();
+        articleApiAdapter.getArticles();
+
         setContentView(R.layout.activity_main);
         myToolbar = findViewById(R.id.toolbar);                             //get instance of the widget
         mDrawerLayout = (DrawerLayout) findViewById(R.id.mDrawerLayout);
