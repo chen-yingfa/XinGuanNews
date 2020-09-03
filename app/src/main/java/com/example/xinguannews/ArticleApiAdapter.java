@@ -1,5 +1,8 @@
 package com.example.xinguannews;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.net.URL;
 
@@ -26,10 +29,18 @@ public class ArticleApiAdapter {
     }
 
     private ArrayList<Article> getArticleList(String type, int page, int size) {
-        String url = getUrlEventList(type, page, size);
+        String urlStr = getUrlEventList(type, page, size);
         ArrayList<Article> ret = new ArrayList<Article>();
         try {
-            URL cs = new URL(url);
+            URL url = new URL(urlStr);
+            URLConnection conn = url.openConnection();
+            InputStreamReader isr = new InputStreamReader(conn.getInputStream());
+            BufferedReader br = new BufferedReader(isr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
+            br.close();
         } catch (Exception e) {
             System.out.println(e);
         }
