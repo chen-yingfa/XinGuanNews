@@ -1,0 +1,16 @@
+<menu
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/nav_one"
+            android:icon="@drawable/ic_launcher_background" android:checkable="true"
+            android:title="@string/xin_guan_news"/>
+        <item android:id="@+id/nav_two" android:checkable="true"
+            android:title="@string/xin_guan_news"/>
+        <item android:id="@+id/nav_three" android:checkable="true"
+            android:title="@string/xin_guan_news"/>
+        <item android:id="@+id/nav_four" android:checkable="true"
+            android:title="@string/xin_guan_news"/>
+    </group>
+</menu>
