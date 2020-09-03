@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             //通过HomeAsUp来让导航按钮显示出来
             actionBar.setDisplayHomeAsUpEnabled(true);
             //设置Indicator来添加一个点击图标
-            actionBar.setHomeAsUpIndicator(R.drawable.people0);
+            actionBar.setHomeAsUpIndicator(R.drawable.people1);
         }
         navigationView.setCheckedItem(R.id.nav_one); //设置第一个默认选中
         navigationView.setNavigationItemSelectedListener(new  NavigationView.OnNavigationItemSelectedListener() {
@@ -87,11 +87,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    //you bug
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            //R.id.home修改导航按钮的点击事件为打开侧滑栏
-            case R.drawable.people0:
-                mDrawerLayout.openDrawer(GravityCompat.START);  //open navigation
+
+            case R.drawable.people1:
+                mDrawerLayout.openDrawer(GravityCompat.START);  // 打开 open navigation
                 break;
             default:
 
