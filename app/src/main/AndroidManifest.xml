@@ -10,9 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name=".MainActivity2"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".test2"
+            android:label="@string/title_activity_test2"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <!-- android:theme="@style/AppTheme"> -->
         <activity android:name=".MainActivity">
             <intent-filter>

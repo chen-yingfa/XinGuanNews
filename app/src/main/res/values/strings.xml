@@ -4,8 +4,24 @@
     <string name="articleDefaultTitle">默认标题 Default Title</string>
     <string name="articleDefaultDescription">此处显示新闻内容一部分，或者说摘要。不要很长，文字尺寸小一点。今天有人死了，都 0202 年，还有人这么封建，今年是建元十三年。第三次世界大战即将爆发。</string>
     <string name="articleDefaultDate">2020年09月02日</string>
-    <string name="xin_guan_news">Xin Guan News</string>
+
     <string name="title_activity_main2">MainActivity2</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
+
+    <string name="nav_button_1">主页</string>
+    <string name="nav_button_2">缓存新闻列表</string>
+    <string name="nav_button_3">图谱/统计图</string>
+    <string name="nav_button_4">学者</string>
+    <string name="nav_button_5">退出</string>
+
+    <string-array name="tab_A">
+        <item>Item 1A</item>
+        <item>Item 1B</item>
+    </string-array>
+
+    <string-array name="tab_B">
+        <item>Item 2A</item>
+    </string-array>
+    <string name="title_activity_test2">test2</string>
 </resources>
