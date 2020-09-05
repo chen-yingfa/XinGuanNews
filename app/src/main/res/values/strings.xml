@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Xin Guan News</string>
+    <string name="app_name">新冠疫情新闻</string>
     <string name="actionBarText">新冠疫情新闻</string>
     <string name="articleDefaultTitle">默认标题 Default Title</string>
     <string name="articleDefaultDescription">此处显示新闻内容一部分，或者说摘要。不要很长，文字尺寸小一点。今天有人死了，都 0202 年，还有人这么封建，今年是建元十三年。第三次世界大战即将爆发。</string>
@@ -120,7 +120,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="action_settings">settings</string>
     <string name="action_favorite">favorite</string>
-    <string name="title_edit_tags_page">修改新闻标签</string>
+
+    <string name="title_edit_tags">修改新闻标签</string>
 
     <string name="title_home">主页</string>
     <string name="title_expert">专家</string>

@@ -49,15 +49,16 @@ public abstract class Article {
     }
 
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("_id: " + _id + "\n"
-                + "title: " + title + "\n"
-                + "category: " + category + "\n"
-                + "content: " + content + "\n"
-                + "date: " + date + "\n"
-                + "type: " + type
-        );
-        return sb.toString();
+//        StringBuilder sb = new StringBuilder();
+//        sb.append("_id: " + _id + "\n"
+//                + "title: " + title + "\n"
+//                + "category: " + category + "\n"
+//                + "content: " + content + "\n"
+//                + "date: " + date + "\n"
+//                + "type: " + type
+//        );
+//        return sb.toString();
+        return type + " " + title;
     }
 }
 

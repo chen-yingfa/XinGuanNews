@@ -127,7 +127,7 @@ public class ArticleFragment extends Fragment implements SwipeRefreshLayout.OnRe
         if (act != null) {
             ArticleApiAdapter articleApiAdapter = new ArticleApiAdapter(act, articles);
             articleApiAdapter.addListener(this);
-            articleApiAdapter.getArticles();
+            articleApiAdapter.getArticles(type);
 //            ArticleThread thread = new ArticleThread(act, articles);
 //            thread.addListener(this);
 //            thread.run();

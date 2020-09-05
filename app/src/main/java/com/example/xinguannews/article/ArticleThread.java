@@ -146,8 +146,9 @@ public class ArticleThread extends Thread {
     private List<Article> parseArticlesJson(String jsonStr) {
 //        System.out.println("-----");
         System.out.println("start parsing JSON string of articles...");
-//        System.out.println("jsonStr:");
-//        System.out.println(jsonStr);
+        System.out.println("type, page, size = " + type + ", " + page + ", " + size);
+        System.out.println("jsonStr:");
+        System.out.println(jsonStr);
 //        System.out.println("-----");
         List<Article> articles = new ArrayList<>();
         try {
@@ -157,9 +158,7 @@ public class ArticleThread extends Thread {
                 JsonArray dataArray = jsonObject.get("data").getAsJsonArray();
                 for (JsonElement articleElem : dataArray) {
                     JsonObject articleObj = articleElem.getAsJsonObject();
-//                    System.out.println(articleElem);
                     Article article = parseArticle(articleObj);  // 解析文章的 JSON 串
-//                    System.out.println(article);
                     articles.add(article);
                 }
             } else {
@@ -169,9 +168,9 @@ public class ArticleThread extends Thread {
             System.out.println(e);
         }
         System.out.println("Done getting JSON string");
-//        for (Article art : articles) {
-//            System.out.println(art);
-//        }
+        for (Article art : articles) {
+            System.out.println(art);
+        }
         return articles;
     }
 
@@ -200,7 +199,7 @@ public class ArticleThread extends Thread {
 
     private News parseNews(JsonObject json) {
 //        System.out.println("parse news");
-        System.out.println(json);
+//        System.out.println(json);
 
         String _id;
         String category;
@@ -244,6 +243,9 @@ public class ArticleThread extends Thread {
     }
 
     private Paper parsePaper(JsonObject json) {
+        System.out.println("parsePaper");
+        System.out.println("json:");
+        System.out.println(json);
         // common member of all Articles
         String _id;
         String category;
@@ -267,9 +269,11 @@ public class ArticleThread extends Thread {
         // members of Papers
         String aminerId = parseString(json, jsonNameAminerId);
         List<String> authors = parseAuthors(json);
+        System.out.println("a");
         String doi = parseString(json, jsonNameDoi);
         String pdf = parseString(json, jsonNamePdf);
 
+        System.out.println("1");
         _id = parse_id(json);
         category = parseCategory(json);
         content = parseString(json, jsonNameContent);
@@ -278,6 +282,7 @@ public class ArticleThread extends Thread {
         geoInfos = parseGeoInfos(json);
         ID = parseString(json, jsonNameID);
         influence = parseFloat(json, jsonNameInfluence);
+        System.out.println("2");
         lang = parseString(json, jsonNameLang);
         regionIds = parseRegionIds(json);
         relatedEvents = parseRelatedEvents(json);
@@ -468,7 +473,7 @@ public class ArticleThread extends Thread {
         JsonArray arr = json.get(jsonNameAuthors).getAsJsonArray();
         for (JsonElement e : arr) {
             JsonObject obj = e.getAsJsonObject();
-            authors.add(obj.get(jsonNameAuthors).getAsString());
+            authors.add(obj.get("name").getAsString());
         }
         return authors;
     }
@@ -476,7 +481,7 @@ public class ArticleThread extends Thread {
     // fundamental parser
     private String parseString(JsonObject json, final String name) {
         if (!json.has(name)) {
-//            System.out.println("missing: " + name);
+            System.out.println("missing: " + name);
             return null;
         }
         return json.get(name).getAsString();

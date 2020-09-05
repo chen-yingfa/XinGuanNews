@@ -63,16 +63,11 @@ public class ArticleApiAdapter {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-//                for (Article article : articles) {
-//                    activity.addArticle(article);
-//                }
-//                activity.onGotArticles(articles);
                 for (ArticleThreadListener lis : thread.getListeners()) {
                     lis.onThreadFinish(thread);
                 }
             }
         });
-//        activity.onGotArticles(articles);
     }
 
     /*
