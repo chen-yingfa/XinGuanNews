@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="toolbar_Height">48dp</dimen>
-    <dimen name="tab_layout_height">60dp</dimen>
+    <dimen name="tab_bar_height">36dp</dimen>
 
     <dimen name="card_view_title_text_size">16sp</dimen>
     <dimen name="card_view_corner_radius">16dp</dimen>
@@ -21,7 +21,6 @@
     <dimen name="text_margin">16dp</dimen>
     <dimen name="search_icon_padding">10dp</dimen>
     <dimen name="nav_menu_head_height">100dp</dimen>
-    <dimen name="tab_bar_height">48dp</dimen>
     <dimen name="article_activity_padding">12dp</dimen>
     <dimen name="text_size">14sp</dimen>
     <dimen name="padding_article_activity_title">6dp</dimen>
