@@ -69,43 +69,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         onRefresh();
     }
 
-
-
-    private void initNavMenu() {
-//        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_home_white_24dp);
-        }
-        navigationView.setCheckedItem(R.id.nav_menu_item_home); // 默认选中 home
-        // 设置菜单项的监听事件
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                mainDrawerLayout.closeDrawers();
-                switch (menuItem.getItemId()) {
-                    case R.id.nav_menu_item_home:
-                        // 每个菜单项的点击事件，通过Intent实现点击item简单实现活动页面的跳转。
-                        // Intent intent = new Intent(MainActivity.this, Main2Activity.class);
-                        // 第二个 Main2Activity.class 需要你自己 new 一个 Activity 来做出其他功能页面
-                        // startActivity(intent);
-                        break;
-                    case R.id.nav_menu_item_edit_tags:
-                        break;
-                    case R.id.nav_menu_item_expert:
-                        break;
-                    case R.id.nav_menu_item_diagram:
-                        break;
-                    case R.id.nav_menu_item_downloads:
-                        break;
-                    default:
-                }
-                return true;
-            }
-        });
-    }
-
     @Override
     protected void onStart() {
         super.onStart();
