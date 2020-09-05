@@ -21,6 +21,7 @@ import java.util.Arrays;
 // 用于从新闻接口下载信息
 // 注：通过网络下载信息不能阻塞主线程
 public class ArticleThread extends Thread {
+    // news API url params
     private final String urlEventList = "https://covid-dashboard.aminer.cn/api/events/list";
     private final String urlEpidemicInfo = "https://covid-dashboard.aminer.cn/api/dist/epidemic.json";
     private final String urlParamStrType = "type";
@@ -30,7 +31,7 @@ public class ArticleThread extends Thread {
 
     private final String defaultType = "all";
     private final int defaultPage = 1;
-    private final int defaultSize = 5;
+    private final int defaultSize = 50;
 
     // json member names
     private final String jsonName_id = "_id";

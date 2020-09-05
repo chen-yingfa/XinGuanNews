@@ -24,8 +24,8 @@ public class ArticleApiAdapter {
     final public static String urlParamStrSize = "size";
     final public static String urlParamStrTypeValues[] = {"all", "event", "points", "news", "paper"};
     final public static String defaultType = "all";
-    final public static int defaultPage = 1;
-    final public static int defaultSize = 5;
+    final public static int defaultPage = 10;
+    final public static int defaultSize = 50;
 
     private ArticleThreadListener listener;
     private Activity activity;
@@ -76,13 +76,13 @@ public class ArticleApiAdapter {
     }
 
     /*
-    * @return url (String) corresponding to the request to call of the API
-    * */
+     * @return url (String) corresponding to the request to call of the API
+     * */
     public String getUrlEventList(String type, int page, int size) {
         StringBuilder sb = new StringBuilder(urlEventList);
         sb.append("?" + urlParamStrType + "=" + type + "&"
-                      + urlParamStrPage + "=" + page + "&"
-                      + urlParamStrSize + "=" + size);
+                + urlParamStrPage + "=" + page + "&"
+                + urlParamStrSize + "=" + size);
         return sb.toString();
     }
 }
