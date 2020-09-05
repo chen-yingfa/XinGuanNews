@@ -28,6 +28,11 @@
 
                 app:titleTextColor="@color/colorWhite" />
 
+<!--            <button-->
+<!--                android:id="@+id/menu_refresh"-->
+<!--                android:showAsAction="never"-->
+<!--                android:title="@string/menu_refresh"/>-->
+
             <SearchView
                 android:id="@+id/searchView1"
                 android:layout_width="wrap_content"

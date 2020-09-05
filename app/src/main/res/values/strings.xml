@@ -5,6 +5,8 @@
     <string name="articleDefaultDescription">此处显示新闻内容一部分，或者说摘要。不要很长，文字尺寸小一点。今天有人死了，都 0202 年，还有人这么封建，今年是建元十三年。第三次世界大战即将爆发。</string>
     <string name="articleDefaultDate">2020年09月02日</string>
 
+    <string name="menu_refresh">refresh</string>
+
     <string name="title_activity_main2">MainActivity2</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>

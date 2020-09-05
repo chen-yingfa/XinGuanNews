@@ -69,11 +69,10 @@ class AdapterThread extends Thread {
 
     public void run() {
         String urlStr = getUrlArticles(type, page, size);
-        System.out.println("URL: " + urlStr);
+        System.out.println("API URL: " + urlStr);
         StringBuilder stringBuilder = new StringBuilder(); // 用 StringBuilder 连接每一行
         try {
             URL url = new URL(urlStr);
-            System.out.println("GETTING FROM: " + urlStr);
             URLConnection conn = url.openConnection();
             InputStreamReader isr = new InputStreamReader(conn.getInputStream());
             BufferedReader br = new BufferedReader(isr);
@@ -129,9 +128,9 @@ class AdapterThread extends Thread {
             System.out.println(e);
         }
         System.out.println("Done getting JSON string");
-        for (Article art : articles) {
-            System.out.println(art);
-        }
+//        for (Article art : articles) {
+//            System.out.println(art);
+//        }
         return articles;
     }
 

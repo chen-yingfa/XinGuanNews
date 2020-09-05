@@ -3,12 +3,10 @@ package com.example.xinguannews.ui.main;
 import android.content.Context;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.xinguannews.R;
 import com.example.xinguannews.article.Article;
 
 import java.util.ArrayList;
@@ -22,15 +20,16 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     private List<String> tabTitles = new ArrayList<>();
     private List<Fragment> fragments = new ArrayList<>();
-    private final Context mContext;
+    private final Context context;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
-        mContext = context;
+        this.context = context;
     }
 
+    // 在所有 Fragment 中添加一个给定文章
     public void addArticle(Article article) {
-        System.out.println("addArticle int SectionsPagerAdapter");
+        System.out.println("addArticle in SectionsPagerAdapter");
         for (Fragment f : fragments) {
             if (f instanceof ArticleFragment) {
 //                System.out.println("articleFragment.addArticleCard(article)");
@@ -40,6 +39,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         }
     }
 
+    // 添加一个 Fragment
     public void addFragment(Fragment fragment, String title) {
         fragments.add(fragment);
         tabTitles.add(title);
