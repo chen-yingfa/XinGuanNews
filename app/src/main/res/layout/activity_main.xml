@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mDrawerLayout"
@@ -24,17 +23,18 @@
                 android:layout_height="match_parent"
                 android:layout_weight="5"
                 android:background="@color/colorPrimary"
-                app:titleTextColor="@color/colorWhite"
+                android:gravity="end"
                 android:textAlignment="textEnd"
 
-                android:gravity="end" />
+                app:titleTextColor="@color/colorWhite" />
 
             <SearchView
                 android:id="@+id/searchView1"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="12"
+                android:layout_weight="1"
                 android:background="@color/colorPrimary"
+                android:paddingRight="@dimen/searchIconPadding"
                 android:searchIcon="@drawable/ic_action_search" />
 
         </LinearLayout>
@@ -43,9 +43,10 @@
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:tabIndicatorColor="@color/colorPrimary"
             app:tabMode="scrollable"
-            app:tabSelectedTextColor="@color/colorRed"
-            app:tabTextColor="@color/colorBlack">
+            app:tabSelectedTextColor="@color/colorPrimary"
+            app:tabTextColor="@color/colorText">
 
         </com.google.android.material.tabs.TabLayout>
 
@@ -53,8 +54,7 @@
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            >
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         </androidx.viewpager.widget.ViewPager>
 
@@ -65,8 +65,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:headerLayout="@layout/n_head"
-        app:menu="@menu/n_menu"
-        >
-    </com.google.android.material.navigation.NavigationView>
+        app:headerLayout="@layout/nav_menu_head"
+        app:menu="@menu/nav_menu"></com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>

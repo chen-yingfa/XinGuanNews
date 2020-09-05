@@ -1,4 +1,4 @@
-package com.example.xinguannews;
+package com.example.xinguannews.article;
 
 public class ArticleEntity {
     public String label;

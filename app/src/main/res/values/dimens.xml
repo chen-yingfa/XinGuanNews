@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="cardViewMargin">8dp</dimen>
-    <dimen name="cardViewPadding">8dp</dimen>
-    <dimen name="toolbarHeight">54dp</dimen>
-    <dimen name="tablayoutHeight">60dp</dimen>
+    <dimen name="toolbar_Height">54dp</dimen>
+    <dimen name="tab_layout_height">60dp</dimen>
 
-    <dimen name="cardViewCornerRadius">8dp</dimen>
-    <dimen name="cardViewMarginBottom">0dp</dimen>
-    <dimen name="cardViewDatePadding">3dp</dimen>
-    <dimen name="cardViewTitleTextSize">16sp</dimen>
+    <dimen name="card_view_title_text_size">16sp</dimen>
+    <dimen name="card_view_corner_radius">16dp</dimen>
+    <dimen name="card_view_content_padding">8dp</dimen>
+    <dimen name="card_view_time_padding">2dp</dimen>
+    <dimen name="card_view_margin">12dp</dimen>
+    <dimen name="card_view_margin_bottom">0dp</dimen>
+    <dimen name="card_view_title_padding">4dp</dimen>
+    <item name="card_view_time_alpha" type="dimen" format="float">0.7</item>
+
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
@@ -16,4 +19,5 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="searchIconPadding">12dp</dimen>
 </resources>

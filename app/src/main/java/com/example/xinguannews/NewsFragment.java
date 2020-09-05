@@ -23,24 +23,24 @@ public class NewsFragment extends Fragment {
 
     }
 
-    @Nullable
-
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.list_item,container,false);
-        tv = (TextView) view.findViewById(R.id.text_response);
-        fab = (FloatingActionButton) view.findViewById(R.id.fab);
-        return view;
-    }
-
-    @SuppressLint("HandlerLeak")
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        onAttach(getActivity());
-        Bundle bundle = getArguments();
-        data =bundle.getString("name","top");
-        tv.setText(data);
-
-    }
+//    @Nullable
+//
+//    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        View view = inflater.inflate(R.layout.list_articles,container,false);
+//        tv = (TextView) view.findViewById(R.id.text_response);
+//        fab = (FloatingActionButton) view.findViewById(R.id.fab);
+//        return view;
+//    }
+//
+//    @SuppressLint("HandlerLeak")
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        onAttach(getActivity());
+//        Bundle bundle = getArguments();
+//        data =bundle.getString("name","top");
+//        tv.setText(data);
+//
+//    }
 
 }

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.xinguannews">
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,8 +14,7 @@
         <activity
             android:name=".test2"
             android:label="@string/title_activity_test2"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
-        <!-- android:theme="@style/AppTheme"> -->
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" /> <!-- android:theme="@style/AppTheme"> -->
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
     </application>
 
 </manifest>

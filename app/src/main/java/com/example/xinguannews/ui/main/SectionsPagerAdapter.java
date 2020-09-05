@@ -9,6 +9,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.xinguannews.R;
+import com.example.xinguannews.article.Article;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -16,8 +20,8 @@ import com.example.xinguannews.R;
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-    @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2};
+    private List<String> tabTitles = new ArrayList<>();
+    private List<Fragment> fragments = new ArrayList<>();
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -25,22 +29,39 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         mContext = context;
     }
 
+    public void addArticle(Article article) {
+        System.out.println("addArticle int SectionsPagerAdapter");
+        for (Fragment f : fragments) {
+            if (f instanceof ArticleFragment) {
+//                System.out.println("articleFragment.addArticleCard(article)");
+                ArticleFragment articleFragment = (ArticleFragment) f;
+                articleFragment.addArticleCard(article);
+            }
+        }
+    }
+
+    public void addFragment(Fragment fragment, String title) {
+        fragments.add(fragment);
+        tabTitles.add(title);
+        notifyDataSetChanged();
+    }
+
     @Override
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
-        return PlaceholderFragment.newInstance(position + 1);
+        return fragments.get(position);
     }
 
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return mContext.getResources().getString(TAB_TITLES[position]);
+        return tabTitles.get(position);
     }
 
     @Override
     public int getCount() {
         // Show 2 total pages.
-        return 2;
+        return fragments.size();
     }
 }

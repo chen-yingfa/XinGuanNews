@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardViewTemplate"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/card_view_margin"
+    android:layout_marginTop="@dimen/card_view_margin"
+    android:layout_marginRight="@dimen/card_view_margin"
+    android:layout_marginBottom="@dimen/card_view_margin_bottom"
+    app:cardBackgroundColor="@color/colorCardBg"
+    app:cardCornerRadius="@dimen/card_view_corner_radius"
+    app:contentPadding="@dimen/card_view_content_padding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/card_view_title_padding"
+            android:text="Title"
+            android:textSize="@dimen/card_view_title_text_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="身体发肤，受之父母，不敢毁伤，孝之始也。立身行道，扬名于后世，以显父母，孝之终也。This is generated, but margin is not working." />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="@dimen/card_view_time_alpha"
+            android:padding="@dimen/card_view_time_padding"
+            android:text="2020-09-05"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
