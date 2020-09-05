@@ -270,7 +270,9 @@ public class ArticleThread extends Thread {
         String aminerId = parseString(json, jsonNameAminerId);
         List<String> authors = parseAuthors(json);
         System.out.println("a");
+        System.out.println(json.get(jsonNameDoi));
         String doi = parseString(json, jsonNameDoi);
+        System.out.println("aa");
         String pdf = parseString(json, jsonNamePdf);
 
         System.out.println("1");
@@ -288,6 +290,7 @@ public class ArticleThread extends Thread {
         relatedEvents = parseRelatedEvents(json);
         segText = parseSegText(json);
         source = parseString(json, jsonNameSource);
+        System.out.println("3");
         tFlag = parseLong(json, jsonNameTFlag);
         time = parseString(json, jsonNameTime);
         title = parseString(json, jsonNameTitle);
@@ -320,7 +323,7 @@ public class ArticleThread extends Thread {
         String type;
         List<String> urls;
 
-        System.out.println("parseArticleJson");
+//        System.out.println("parseArticleJson");
         _id = parseString(json, jsonName_id);
         category = parseString(json, jsonNameCategory);
         content = parseString(json, jsonNameContent);
@@ -362,12 +365,13 @@ public class ArticleThread extends Thread {
     // JSON 串转成 ArticleEntity 数组
     private List<ArticleEntity> parseArticleEntities(JsonObject json) {
 //        System.out.println("parseArticleEntities");
-        if (!json.has(jsonNameEntities)) {
+        JsonElement val = json.get(jsonNameEntities);
+        if (val == null || val.isJsonNull()) {
             System.out.println("No entities found");
             return null;
         }
         List<ArticleEntity> entities = new ArrayList<ArticleEntity>();
-        JsonArray entitiesJsonArray = json.get(jsonNameEntities).getAsJsonArray();
+        JsonArray entitiesJsonArray = val.getAsJsonArray();
         for (JsonElement elem : entitiesJsonArray) {
             JsonObject obj = elem.getAsJsonObject();
             ArticleEntity entity = parseArticleEntity(obj);
@@ -384,11 +388,12 @@ public class ArticleThread extends Thread {
 
     private List<ArticleGeoInfo> parseGeoInfos(JsonObject json) {
 //        System.out.println("parseGeoInfos");
-        if (!json.has(jsonNameGeoInfo)) {
+        JsonElement val = json.get(jsonNameGeoInfo);
+        if (val == null || val.isJsonNull()) {
 //            System.out.println("missing GeoInfo member");
             return null;
         }
-        JsonArray arr = json.get(jsonNameGeoInfo).getAsJsonArray();
+        JsonArray arr = val.getAsJsonArray();
         List<ArticleGeoInfo> list = new ArrayList<ArticleGeoInfo>();
         for (JsonElement e : arr) {
             list.add(parseGeoInfo(e));
@@ -480,24 +485,30 @@ public class ArticleThread extends Thread {
 
     // fundamental parser
     private String parseString(JsonObject json, final String name) {
-        if (!json.has(name)) {
+        JsonElement val = json.get(name);
+        if (val == null || val.isJsonNull()) {
             System.out.println("missing: " + name);
             return null;
         }
-        return json.get(name).getAsString();
+        return val.getAsString();
     }
 
     private Float parseFloat(JsonObject json, final String name) {
 //        System.out.println("parseFloat");
-        if (!json.has(name)) {
+        JsonElement val = json.get(name);
+        if (val == null || val.isJsonNull()) {
 //            System.out.println("JsonObject missing: " + name);
             return null;
         }
-        return json.get(name).getAsFloat();
+        return val.getAsFloat();
     }
 
     private Long parseLong(JsonObject json, final String name) {
-        if (!json.has(name)) return null;
-        return json.get(name).getAsLong();
+        JsonElement val = json.get(name);
+        if (val == null || val.isJsonNull()) {
+            System.out.println("missing: " + name);
+            return null;
+        }
+        return val.getAsLong();
     }
 }

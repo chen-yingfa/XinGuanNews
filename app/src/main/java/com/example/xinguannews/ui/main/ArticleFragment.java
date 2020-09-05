@@ -30,14 +30,14 @@ public class ArticleFragment extends Fragment implements SwipeRefreshLayout.OnRe
 //    CardView cardViewTemplate;
 //    LinearLayout linearLayoutCardList;
 
-    String type;
-    List<Article> articles = new ArrayList<>();
-    LayoutInflater layoutInflater;
+    private String type;
+    private List<Article> articles = new ArrayList<>();
+    private LayoutInflater layoutInflater;
 
     // 用于管理 RecyclerView 和其显示数据
-    CardListAdapter adapter;
-    RecyclerView recyclerView;
-    SwipeRefreshLayout swipeRefreshLayout;
+    private CardListAdapter adapter;
+    private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -128,9 +128,6 @@ public class ArticleFragment extends Fragment implements SwipeRefreshLayout.OnRe
             ArticleApiAdapter articleApiAdapter = new ArticleApiAdapter(act, articles);
             articleApiAdapter.addListener(this);
             articleApiAdapter.getArticles(type);
-//            ArticleThread thread = new ArticleThread(act, articles);
-//            thread.addListener(this);
-//            thread.run();
         }
     }
 }

@@ -3,19 +3,10 @@ package com.example.xinguannews.article;
 import android.app.Activity;
 
 import com.example.xinguannews.ArticleThreadListener;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URLConnection;
-import java.util.ArrayList;
 import java.util.List;
-import java.net.URL;
-import java.util.Arrays;
 
+
+// 外部类应该都通过本接口类调用获取文章信息的函数，此类是 ArticleThread 和其他类的接口
 public class ArticleApiAdapter {
     final public static String urlEventList = "https://covid-dashboard.aminer.cn/api/events/list";
     final public static String urlEpidemicInfo = "https://covid-dashboard.aminer.cn/api/dist/epidemic.json";
