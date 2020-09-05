@@ -2,6 +2,7 @@ package com.example.xinguannews;
 
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -70,6 +71,42 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         initTabLayout();
 //        getAllArticles();
         onRefresh();
+    }
+
+    @Override
+    protected void onStart() {
+
+
+        //=============================================以下部分为 nav 调用部分
+        super.onStart();
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar !=null){
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_home);
+        }
+        navigationView.setCheckedItem(R.id.nav_one);//设置第一个默认选中
+        navigationView.setNavigationItemSelectedListener(new  NavigationView.OnNavigationItemSelectedListener() {
+            //设置菜单项的监听事件
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                mainDrawerLayout.closeDrawers();
+                switch (menuItem.getItemId()) {
+                    case R.id.nav_one:
+                        //每个菜单项的点击事件，通过Intent实现点击item简单实现活动页面的跳转。
+                        /*Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+                        //第二个Main2Activity.class需要你自己new一个 Activity来做出其他功能页面
+                        startActivity(intent);*/
+                        break;
+                    case R.id.nav_exit:
+
+                        break;
+                    default:
+                }
+                return true;
+            }
+        });
+   // ==============================================以上部分为 nav drawerlayout部分功能实现
     }
 
     private void initTabLayout() {

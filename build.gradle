@@ -1,8 +1,12 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {
-        google()
-        jcenter()
+        //国内镜像库 用来解决gradle fail 的问题 可以注释掉
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+    //    google()
+     //   jcenter()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.0.1"
@@ -14,8 +18,11 @@ buildscript {
 
 allprojects {
     repositories {
-        google()
-        jcenter()
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+    //    google()
+    //    jcenter()
     }
 }
 
