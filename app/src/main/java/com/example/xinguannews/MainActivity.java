@@ -69,13 +69,11 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         setSupportActionBar(toolbar);
 
         initTabLayout();
-//        getAllArticles();
         onRefresh();
     }
 
     @Override
     protected void onStart() {
-
 
         //=============================================以下部分为 nav 调用部分
         super.onStart();
@@ -123,27 +121,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         viewPager.setOffscreenPageLimit(5);
         viewPager.setAdapter(sectionsPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
-    }
-
-    public void getAllArticles() {
-        ArticleApiAdapter articleApiAdapter = new ArticleApiAdapter(this, articles);
-        articleApiAdapter.getArticles("all", 5, 20);
-        isGettingArticles = true;
-    }
-
-    public void onGotArticles(List<Article> articles) {
-        System.out.println("onGotArticles");
-        System.out.println(articles);
-        System.out.println(Thread.currentThread());
-        isGettingArticles = false;
-        this.articles = articles;
-        for (Article article : articles) {
-            addArticle(article);
-        }
-    }
-
-    public void addArticle(Article article) {
-        sectionsPagerAdapter.addArticle(article);
     }
 
     @Override
