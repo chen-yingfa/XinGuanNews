@@ -9,11 +9,9 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
-import com.example.xinguannews.ui.main.SectionsPagerAdapter;
+import com.example.xinguannews.ui.main.CardListPagerAdapter;
 
 public class test2 extends AppCompatActivity {
 
@@ -23,7 +21,7 @@ public class test2 extends AppCompatActivity {
         setContentView(R.layout.activity_test2);
 
 
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        CardListPagerAdapter sectionsPagerAdapter = new CardListPagerAdapter(this, getSupportFragmentManager());
 
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);

@@ -1,6 +1,8 @@
 package com.example.xinguannews.article;
 
-public class ArticleEntity {
+import java.io.Serializable;
+
+public class ArticleEntity implements Serializable {
     public String label;
     public String url;
 

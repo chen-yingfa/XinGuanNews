@@ -23,7 +23,10 @@ import java.util.Arrays;
 public class ArticleThread extends Thread {
     // news API url params
     private final String urlEventList = "https://covid-dashboard.aminer.cn/api/events/list";
+    private final String urlEvent = "https://covid-dashboard.aminer.cn/api/event/";
     private final String urlEpidemicInfo = "https://covid-dashboard.aminer.cn/api/dist/epidemic.json";
+    private final String urlAllEvents = "https://covid-dashboard.aminer.cn/api/dist/events.json";
+    private final String urlDiagram = "https://innovaapi.aminer.cn/covid/api/v1/pneumonia/entityquery";
     private final String urlParamStrType = "type";
     private final String urlParamStrPage = "page";
     private final String urlParamStrSize = "size";

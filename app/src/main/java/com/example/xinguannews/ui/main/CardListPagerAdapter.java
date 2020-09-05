@@ -16,13 +16,13 @@ import java.util.List;
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-public class SectionsPagerAdapter extends FragmentPagerAdapter {
+public class CardListPagerAdapter extends FragmentPagerAdapter {
 
     private List<String> tabTitles = new ArrayList<>();
-    private List<ArticleFragment> fragments = new ArrayList<>();
+    private List<CardListFragment> fragments = new ArrayList<>();
     private final Context context;
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm) {
+    public CardListPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
         this.context = context;
     }
@@ -30,14 +30,14 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     // 在所有 Fragment 中添加一个给定文章
     public void addArticle(Article article) {
         System.out.println("addArticle in SectionsPagerAdapter");
-        for (ArticleFragment f : fragments) {
+        for (CardListFragment f : fragments) {
 //            System.out.println("articleFragment.addArticleCard(article)");
             f.addArticleCard(article);
         }
     }
 
     // 添加一个 Fragment
-    public void addFragment(ArticleFragment fragment, String title) {
+    public void addFragment(CardListFragment fragment, String title) {
         fragments.add(fragment);
         tabTitles.add(title);
         notifyDataSetChanged();
@@ -58,11 +58,10 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        // Show 2 total pages.
         return fragments.size();
     }
 
-    public List<ArticleFragment> getFragments() {
+    public List<CardListFragment> getFragments() {
         return fragments;
     }
 }

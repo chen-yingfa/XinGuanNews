@@ -13,22 +13,17 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.example.xinguannews.article.Article;
 import com.example.xinguannews.article.ArticleThread;
-import com.example.xinguannews.ui.main.ArticleFragment;
-import com.example.xinguannews.ui.main.SectionsPagerAdapter;
-import com.google.android.material.bottomnavigation.BottomNavigationMenu;
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
+import com.example.xinguannews.ui.main.CardListFragment;
+import com.example.xinguannews.ui.main.CardListPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, ArticleThreadListener {
@@ -36,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     private DrawerLayout mainDrawerLayout;
     private NavigationView navigationView;
-    private SectionsPagerAdapter sectionsPagerAdapter;
+    private CardListPagerAdapter sectionsPagerAdapter;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private final List<Fragment> mFragmentList = new ArrayList<>();
@@ -65,12 +60,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         toolbar = findViewById(R.id.toolbar);        // get instance of the widget
         setSupportActionBar(toolbar);
-
-//        mainDrawerLayout = (DrawerLayout) findViewById(R.id.mDrawerLayout);
-//        navigationView = (NavigationView) findViewById(R.id.nav_design);
-
-//        View v = navigationView.getHeaderView(0);
-//        CircleImageView circleImageView = (CircleImageView) v.findViewById(R.id.icon_image);
 
         // setup bottom navigation menu
         BottomNavigationView bottomNavigationMenu = (BottomNavigationView) findViewById(R.id.nav_bottom_menu);
@@ -125,11 +114,11 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     private void initTabLayout() {
         // Setup tab layout
-        sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        sectionsPagerAdapter = new CardListPagerAdapter(this, getSupportFragmentManager());
 
-        sectionsPagerAdapter.addFragment(new ArticleFragment(typeAll), pageTitleAll);
-        sectionsPagerAdapter.addFragment(new ArticleFragment(typeNews), pageTitleNews);
-        sectionsPagerAdapter.addFragment(new ArticleFragment(typePaper), pageTitlePaper);
+        sectionsPagerAdapter.addFragment(new CardListFragment(typeAll), pageTitleAll);
+        sectionsPagerAdapter.addFragment(new CardListFragment(typeNews), pageTitleNews);
+        sectionsPagerAdapter.addFragment(new CardListFragment(typePaper), pageTitlePaper);
 
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
@@ -159,14 +148,14 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     @Override
     public void onThreadFinish(ArticleThread thread) {
-        for (ArticleFragment fragment : sectionsPagerAdapter.getFragments()) {
+        for (CardListFragment fragment : sectionsPagerAdapter.getFragments()) {
             fragment.onThreadFinish(thread);
         }
     }
 
     @Override
     public void onRefresh() {
-        for (ArticleFragment fragment : sectionsPagerAdapter.getFragments()) {
+        for (CardListFragment fragment : sectionsPagerAdapter.getFragments()) {
             fragment.onRefresh();
         }
     }

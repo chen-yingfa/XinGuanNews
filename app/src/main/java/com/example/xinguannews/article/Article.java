@@ -1,8 +1,9 @@
 package com.example.xinguannews.article;
 
+import java.io.Serializable;
 import java.util.List;
 
-public abstract class Article {
+public abstract class Article implements Serializable {
     public String _id;
     public String category;
     public String content;

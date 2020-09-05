@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class ArticleFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, ArticleThreadListener {
+public class CardListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, ArticleThreadListener {
 //    CardView cardViewTemplate;
 //    LinearLayout linearLayoutCardList;
 
@@ -35,7 +35,7 @@ public class ArticleFragment extends Fragment implements SwipeRefreshLayout.OnRe
     private LayoutInflater layoutInflater;
 
     // 用于管理 RecyclerView 和其显示数据
-    private CardListAdapter adapter;
+    private CardListRecyclerViewAdapter adapter;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -43,7 +43,7 @@ public class ArticleFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     private PageViewModel pageViewModel;
 
-    public ArticleFragment(String type) {
+    public CardListFragment(String type) {
         this.type = type;
     }
 
@@ -81,7 +81,7 @@ public class ArticleFragment extends Fragment implements SwipeRefreshLayout.OnRe
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.article_fragment, container, false);
+        View root = inflater.inflate(R.layout.card_list_fragment, container, false);
         layoutInflater = inflater;
 
 
@@ -90,10 +90,9 @@ public class ArticleFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
         // 与 RecyclerView 及其 Adapter 连接
         recyclerView = root.findViewById(R.id.recycler_view_card_list);
-        adapter = new CardListAdapter(articles);
-        recyclerView.setAdapter(adapter);         // bind RecyclerView and Adapter
+        adapter = new CardListRecyclerViewAdapter(articles);
+        recyclerView.setAdapter(adapter);            // bind RecyclerView and Adapter
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
 
         // listen to refresh gesture (swipe down)
         swipeRefreshLayout = root.findViewById(R.id.swiperefresh_article);
@@ -104,12 +103,13 @@ public class ArticleFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     public void updateArticles(List<Article> articles) {
         this.articles = articles;
-        adapter = new CardListAdapter(articles);
+        adapter = new CardListRecyclerViewAdapter(articles);
         adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
+    // 在下载线程下载完毕时候运行（该线程将下载的文章数据传过来）
     @Override
     public void onThreadFinish(ArticleThread thread) {
         System.out.println("onThreadFinish");

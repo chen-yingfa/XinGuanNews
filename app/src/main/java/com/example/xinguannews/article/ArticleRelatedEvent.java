@@ -1,6 +1,8 @@
 package com.example.xinguannews.article;
 
-public class ArticleRelatedEvent {
+import java.io.Serializable;
+
+public class ArticleRelatedEvent implements Serializable {
     public String id;
     public float score;
     public ArticleRelatedEvent(String id, float score) {

@@ -1,6 +1,8 @@
 package com.example.xinguannews.article;
 
-public class ArticleGeoInfo {
+import java.io.Serializable;
+
+public class ArticleGeoInfo implements Serializable {
     public String geoName;
     public float latitude;
     public float longitude;
