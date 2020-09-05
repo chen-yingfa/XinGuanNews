@@ -57,9 +57,9 @@ public class ArticleFragment extends Fragment implements SwipeRefreshLayout.OnRe
     // 根据 article 的成员变量返回相应的 CardView（以显示到屏幕上）
     public View articleToCardLayout(Article article) {
         View cardLayout = layoutInflater.inflate(R.layout.card_article, null, true);
-        TextView textTitle = (TextView) cardLayout.findViewById(R.id.card_article_title);
-        TextView textContent = (TextView) cardLayout.findViewById(R.id.card_article_content);
-        TextView textTime = (TextView) cardLayout.findViewById(R.id.card_article_time);
+        TextView textTitle = cardLayout.findViewById(R.id.card_article_title);
+        TextView textContent = cardLayout.findViewById(R.id.card_article_content);
+        TextView textTime = cardLayout.findViewById(R.id.card_article_time);
         textTitle.setText(article.title);
         textContent.setText(article.content);
         textTime.setText(article.date);
@@ -89,14 +89,14 @@ public class ArticleFragment extends Fragment implements SwipeRefreshLayout.OnRe
         // （因为此 Fragment 的 View 仍未创建）
 
         // 与 RecyclerView 及其 Adapter 连接
-        recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view_card_list);
+        recyclerView = root.findViewById(R.id.recycler_view_card_list);
         adapter = new CardListAdapter(articles);
         recyclerView.setAdapter(adapter);         // bind RecyclerView and Adapter
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
         // listen to refresh gesture (swipe down)
-        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swiperefresh_article);
+        swipeRefreshLayout = root.findViewById(R.id.swiperefresh_article);
         swipeRefreshLayout.setOnRefreshListener(this);
         onRefresh();
         return root;

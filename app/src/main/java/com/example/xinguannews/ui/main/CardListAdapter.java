@@ -37,14 +37,26 @@ public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.ViewHo
     // 然后 RecyclerView 会自动添加到列表中
     @Override
     public void onBindViewHolder(CardListAdapter.ViewHolder holder, int pos) {
+        final int maxLenContent = 64;
+        final int maxLenTitle = 42;
+
         Article article = articles.get(pos);
 
         TextView textTitle = holder.textTitle;
         TextView textContent = holder.textContent;
         TextView textTime = holder.textTime;
-        textTitle.setText(article.title);
-        textContent.setText(article.content);
+        textTitle.setText(cutIfOverflow(article.title, maxLenTitle));
+        textContent.setText(cutIfOverflow(article.content, maxLenContent));
         textTime.setText(article.time);
+    }
+
+    public String cutIfOverflow(String s, int maxLen) {
+        final String overflowToken = "...";
+        if (s.length() > maxLen) {
+            return s.substring(0, maxLen - overflowToken.length()) + overflowToken;
+        } else {
+            return s;
+        }
     }
 
     @Override
