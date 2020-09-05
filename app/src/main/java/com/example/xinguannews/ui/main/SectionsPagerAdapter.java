@@ -19,7 +19,7 @@ import java.util.List;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     private List<String> tabTitles = new ArrayList<>();
-    private List<Fragment> fragments = new ArrayList<>();
+    private List<ArticleFragment> fragments = new ArrayList<>();
     private final Context context;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -30,17 +30,14 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     // 在所有 Fragment 中添加一个给定文章
     public void addArticle(Article article) {
         System.out.println("addArticle in SectionsPagerAdapter");
-        for (Fragment f : fragments) {
-            if (f instanceof ArticleFragment) {
-//                System.out.println("articleFragment.addArticleCard(article)");
-                ArticleFragment articleFragment = (ArticleFragment) f;
-                articleFragment.addArticleCard(article);
-            }
+        for (ArticleFragment f : fragments) {
+//            System.out.println("articleFragment.addArticleCard(article)");
+            f.addArticleCard(article);
         }
     }
 
     // 添加一个 Fragment
-    public void addFragment(Fragment fragment, String title) {
+    public void addFragment(ArticleFragment fragment, String title) {
         fragments.add(fragment);
         tabTitles.add(title);
         notifyDataSetChanged();
@@ -63,5 +60,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         // Show 2 total pages.
         return fragments.size();
+    }
+
+    public List<ArticleFragment> getFragments() {
+        return fragments;
     }
 }

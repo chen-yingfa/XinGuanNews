@@ -1,24 +1,24 @@
 package com.example.xinguannews.ui.main;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.xinguannews.R;
+import com.example.xinguannews.ArticleThreadListener;
 import com.example.xinguannews.article.Article;
+import com.example.xinguannews.article.ArticleApiAdapter;
+import com.example.xinguannews.article.ArticleThread;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,22 +26,25 @@ import java.util.List;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class ArticleFragment extends Fragment {
+public class ArticleFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, ArticleThreadListener {
 //    CardView cardViewTemplate;
 //    LinearLayout linearLayoutCardList;
+
+    String type;
     List<Article> articles = new ArrayList<>();
     LayoutInflater layoutInflater;
 
     // 用于管理 RecyclerView 和其显示数据
     CardListAdapter adapter;
     RecyclerView recyclerView;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
     private PageViewModel pageViewModel;
 
-    public ArticleFragment() {
-        // pass
+    public ArticleFragment(String type) {
+        this.type = type;
     }
 
     // 添加一个 Article 到列表
@@ -49,16 +52,6 @@ public class ArticleFragment extends Fragment {
 //        System.out.println("addArticleCard");
         articles.add(0, article);
         adapter.notifyItemInserted(0);
-
-//        // 未执行 onCreateView 时，LayoutInflater 为 null，所以无法在列表中添加元素。
-//        if (layoutInflater == null) {
-//            System.out.println("Fragment missing: layoutInflater");
-//            return;
-//        }
-//        View cardLayout = articleToCardLayout(article);
-//        TextView title = (TextView) cardLayout.findViewById(R.id.card_article_title);
-//        LinearLayout layout = (LinearLayout) getView().findViewById(R.id.linearLayoutCardList);
-//        layout.addView(cardLayout);
     }
 
     // 根据 article 的成员变量返回相应的 CardView（以显示到屏幕上）
@@ -101,6 +94,43 @@ public class ArticleFragment extends Fragment {
         recyclerView.setAdapter(adapter);         // bind RecyclerView and Adapter
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+
+        // listen to refresh gesture (swipe down)
+        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swiperefresh_article);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        onRefresh();
         return root;
+    }
+
+    public void updateArticles(List<Article> articles) {
+        this.articles = articles;
+        adapter = new CardListAdapter(articles);
+        adapter.notifyDataSetChanged();
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
+
+    @Override
+    public void onThreadFinish(ArticleThread thread) {
+        System.out.println("onThreadFinish");
+        updateArticles(thread.getArticles());
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
+    @Override
+    public void onRefresh() {
+        System.out.println("onRefresh");
+        Activity act = getActivity();
+        System.out.println(act);
+        if (act != null) {
+            ArticleApiAdapter articleApiAdapter = new ArticleApiAdapter(act, articles);
+            articleApiAdapter.addListener(this);
+            articleApiAdapter.getArticles();
+//            ArticleThread thread = new ArticleThread(act, articles);
+//            thread.addListener(this);
+//            thread.run();
+        }
     }
 }

@@ -3,11 +3,10 @@ package com.example.xinguannews;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
@@ -19,6 +18,7 @@ import java.util.List;
 
 import com.example.xinguannews.article.Article;
 import com.example.xinguannews.article.ArticleApiAdapter;
+import com.example.xinguannews.article.ArticleThread;
 import com.example.xinguannews.ui.main.ArticleFragment;
 import com.example.xinguannews.ui.main.SectionsPagerAdapter;
 import com.google.android.material.navigation.NavigationView;
@@ -27,7 +27,7 @@ import com.google.android.material.tabs.TabLayout;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, ArticleThreadListener {
     private androidx.appcompat.widget.Toolbar toolbar;
 
     private DrawerLayout mainDrawerLayout;
@@ -37,6 +37,14 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private final List<Fragment> mFragmentList = new ArrayList<>();
 
+    // types
+    private final String typeAll = "all";
+    private final String typeNews = "news";
+    private final String typeEvent = "event";
+    private final String typePaper = "paper";
+    private final String typePoints = "points";
+
+    // tab pages
     private List<String> pageTitleList;
     private final String pageTitleAll = "所有文章";
     private final String pageTitleNews = "新闻";
@@ -60,16 +68,17 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         initTabLayout();
-        getAllArticles();
+//        getAllArticles();
+        onRefresh();
     }
 
     private void initTabLayout() {
         // Setup tab layout
         sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
 
-        sectionsPagerAdapter.addFragment(new ArticleFragment(), pageTitleAll);
-        sectionsPagerAdapter.addFragment(new ArticleFragment(), pageTitleNews);
-        sectionsPagerAdapter.addFragment(new ArticleFragment(), pageTitlePaper);
+        sectionsPagerAdapter.addFragment(new ArticleFragment(typeAll), pageTitleAll);
+        sectionsPagerAdapter.addFragment(new ArticleFragment(typeNews), pageTitleNews);
+        sectionsPagerAdapter.addFragment(new ArticleFragment(typePaper), pageTitlePaper);
 
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
@@ -80,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getAllArticles() {
-        ArticleApiAdapter articleApiAdapter = new ArticleApiAdapter(this);
+        ArticleApiAdapter articleApiAdapter = new ArticleApiAdapter(this, articles);
         articleApiAdapter.getArticles("all", 5, 20);
         isGettingArticles = true;
     }
@@ -114,8 +123,18 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private CardView genCardView(Article article) {
-        return null;
+    @Override
+    public void onThreadFinish(ArticleThread thread) {
+        for (ArticleFragment fragment : sectionsPagerAdapter.getFragments()) {
+            fragment.onThreadFinish(thread);
+        }
+    }
+
+    @Override
+    public void onRefresh() {
+        for (ArticleFragment fragment : sectionsPagerAdapter.getFragments()) {
+            fragment.onRefresh();
+        }
     }
 }
 

@@ -17,6 +17,7 @@ public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.ViewHo
     private List<Article> articles;
 
     public CardListAdapter(List<Article> articles) {
+//        System.out.println("called constructor of CardListAdapter");
         this.articles = articles;    // 与某个数据进行连接（articles 是个引用）
     }
 
@@ -37,8 +38,6 @@ public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.ViewHo
     @Override
     public void onBindViewHolder(CardListAdapter.ViewHolder holder, int pos) {
         Article article = articles.get(pos);
-//        System.out.println("onBindViewHolder");
-//        System.out.println(article);
 
         TextView textTitle = holder.textTitle;
         TextView textContent = holder.textContent;
