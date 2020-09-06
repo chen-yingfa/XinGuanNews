@@ -31,5 +31,5 @@
     <dimen name="sheet_edit_tag_margin_top">64dp</dimen>
 
     <dimen name="alpha_darkener">0.6</dimen>
-    <dimen name="margin_right_icon">14dp</dimen>
+    <dimen name="padding_bar_hor">14dp</dimen>
 </resources>
