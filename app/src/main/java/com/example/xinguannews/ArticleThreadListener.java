@@ -4,5 +4,6 @@ import com.example.xinguannews.article.Article;
 import com.example.xinguannews.article.ArticleThread;
 
 public interface ArticleThreadListener {
-    void onThreadFinish(final ArticleThread thread);
+    void onFinishGettingArticles(final ArticleThread thread);
+//    void onLoadPageFinish(final ArticleThread thread);
 }

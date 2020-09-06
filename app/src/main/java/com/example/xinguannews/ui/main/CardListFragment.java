@@ -2,6 +2,7 @@ package com.example.xinguannews.ui.main;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -28,25 +28,22 @@ import java.util.List;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class CardListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, ArticleThreadListener {
-//    CardView cardViewTemplate;
-//    LinearLayout linearLayoutCardList;
-
-    private long lastRefreshTime;
-
+public class CardListFragment extends Fragment
+        implements SwipeRefreshLayout.OnRefreshListener, ArticleThreadListener {
+    private int nPage = 1;
+    private int pageSize = 20;
     public String type;
     public String title;
     private List<Article> articles = new ArrayList<>();
+    boolean isLoading = false;
+
     private LayoutInflater layoutInflater;
 
     // 用于管理 RecyclerView 和其显示数据
-    private CardListRecyclerViewAdapter adapter;
     private RecyclerView recyclerView;
+    private CardListRecyclerViewAdapter adapter;
+    private LinearLayoutManager linearLayoutManager;
     private SwipeRefreshLayout swipeRefreshLayout;
-
-    private static final String ARG_SECTION_NUMBER = "section_number";
-
-    private PageViewModel pageViewModel;
 
     public CardListFragment(String type, String title) {
         this.type = type;
@@ -55,7 +52,6 @@ public class CardListFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     // 添加一个 Article 到列表
     public void addArticleCard(Article article) {
-//        System.out.println("addArticleCard");
         articles.add(0, article);
         adapter.notifyItemInserted(0);
     }
@@ -75,12 +71,6 @@ public class CardListFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
-        int index = 1;
-        if (getArguments() != null) {
-            index = getArguments().getInt(ARG_SECTION_NUMBER);
-        }
-        pageViewModel.setIndex(index);
     }
 
     // 注：此函数末端会调用 onRefresh，即所有 CardListFragment 都会在创建是自动刷新获取内容。
@@ -97,15 +87,45 @@ public class CardListFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         // 与 RecyclerView 及其 Adapter 连接
         recyclerView = root.findViewById(R.id.recycler_view_card_list);
-        adapter = new CardListRecyclerViewAdapter(articles);
-        recyclerView.setAdapter(adapter);            // bind RecyclerView and Adapter
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        // listen to refresh gesture (swipe down)
         swipeRefreshLayout = root.findViewById(R.id.swiperefresh_article);
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        initAdapter();
+        initRefreshListener();
+        initScrollListener();
+        return root;
+    }
+
+    private void initAdapter() {
+        adapter = new CardListRecyclerViewAdapter(articles); // bind data (list of articles) to Adapter
+        recyclerView.setAdapter(adapter);                   // bind RecyclerView and Adapter
+    }
+
+    private void initRefreshListener() {
+        // listen to refresh gesture (swipe down)
         swipeRefreshLayout.setOnRefreshListener(this);
         onRefresh();
-        return root;
+    }
+
+    private void initScrollListener(){
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager llm = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (!isLoading) {
+                    if (llm != null && llm.findLastVisibleItemPosition() == articles.size() - 1) {
+                        loadMore();
+                        isLoading = true;
+                    }
+                }
+            }
+        });
     }
 
     public void updateArticles(List<Article> articles) {
@@ -116,34 +136,81 @@ public class CardListFragment extends Fragment implements SwipeRefreshLayout.OnR
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
+    public void addArticles(List<Article> articles) {
+        this.articles.addAll(articles);
+        adapter.notifyDataSetChanged();
+    }
+
     // 在下载线程下载完毕时候运行（该线程将下载的文章数据传过来）
     @Override
-    public void onThreadFinish(ArticleThread thread) {
+    public void onFinishGettingArticles(ArticleThread thread) {
         System.out.println("onThreadFinish");
-        updateArticles(thread.getArticles());
-        if (swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(false);
+        if (swipeRefreshLayout.isRefreshing()) { // refresh
+            articles.clear();
+            swipeRefreshLayout.setRefreshing(false); // make sure refresh animation stops
+            nPage = 0;
         }
+        ++nPage;
+        // load more
+        addArticles(thread.getArticles());
+        isLoading = false;
     }
 
     @Override
     public void onRefresh() {
         System.out.println("onRefresh, type: " + type);
         // TODO: don't refresh if just recently refreshed;
-        long curTime = System.currentTimeMillis();
-        lastRefreshTime = System.currentTimeMillis();
 
+        // make sure the refreshing animation starts
         if (!swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(true);
         }
+
+        nPage = 1;
         Activity act = getActivity();
         System.out.println(act);
         if (act != null) {
-            ArticleApiAdapter articleApiAdapter = new ArticleApiAdapter(act, articles);
-            articleApiAdapter.addListener(this);
-            articleApiAdapter.getArticles(type);
+            ArticleApiAdapter aaa = new ArticleApiAdapter(act);
+            aaa.addListener(this);
+            aaa.getArticles(type, nPage, pageSize);
+            isLoading = false;
         }
     }
 
-    public String getType() { return type; }
+    // load more articles and append to end of list
+    public void loadMore() {
+        System.out.println("loadMore");
+        // NOTE: must not block UI thread
+        articles.add(null);
+        adapter.notifyItemInserted(articles.size() - 1);
+
+        class LoadMoreRunnable implements Runnable {
+            ArticleThreadListener listener;
+            public LoadMoreRunnable(ArticleThreadListener listener) {
+                this.listener = listener;
+            }
+            @Override
+            public void run() {
+                articles.remove(articles.size() - 1);
+                int scrollPosition = articles.size();
+                adapter.notifyItemRemoved(scrollPosition);
+
+                ArticleApiAdapter aaa = new ArticleApiAdapter(getActivity());
+                aaa.addListener(listener);
+                aaa.getArticles(type, nPage + 1, pageSize);
+            }
+        }
+        Handler handler = new Handler();
+        handler.postDelayed(new LoadMoreRunnable(this), 1600);
+    }
+
+    private void getNextPage() {
+        ArticleApiAdapter aaa = new ArticleApiAdapter(getActivity());
+        aaa.addListener(this);
+        aaa.getArticles(type, nPage + 1, pageSize);
+    }
+
+    public String getType() {
+        return type;
+    }
 }

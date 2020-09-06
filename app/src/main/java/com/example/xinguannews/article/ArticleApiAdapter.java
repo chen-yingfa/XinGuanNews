@@ -20,11 +20,9 @@ public class ArticleApiAdapter {
 
     private ArticleThreadListener listener;
     private Activity activity;
-    private List<Article> articles;
 
-    public ArticleApiAdapter(Activity activity, List<Article> articles) {
+    public ArticleApiAdapter(Activity activity) {
         this.activity = activity;
-        this.articles = articles;
     }
 
     // 添加一个监听器，成功获取 Articles 后通知监听器
@@ -44,9 +42,10 @@ public class ArticleApiAdapter {
     }
 
     public void getArticles(String type, int page, int size) {
-        ArticleThread adapterThread = new ArticleThread(activity, articles, type, page, size);
-        adapterThread.addListener(listener);
-        adapterThread.start();
+        System.out.println("getArticles: " + type + " " + page + " " + size);
+        ArticleThread thr = new ArticleThread(activity, type, page, size);
+        thr.addListener(listener);
+        thr.start();
     }
 
     public void onFinishGettingArticles(final ArticleThread thread) {
@@ -55,7 +54,7 @@ public class ArticleApiAdapter {
             @Override
             public void run() {
                 for (ArticleThreadListener lis : thread.getListeners()) {
-                    lis.onThreadFinish(thread);
+                    lis.onFinishGettingArticles(thread);
                 }
             }
         });

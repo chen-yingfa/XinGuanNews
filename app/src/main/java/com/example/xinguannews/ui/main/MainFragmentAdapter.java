@@ -18,11 +18,11 @@ import java.util.List;
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-public class CardListPagerAdapter extends FragmentStatePagerAdapter {
+public class MainFragmentAdapter extends FragmentStatePagerAdapter {
     private List<CardListFragment> fragments = new ArrayList<>();
     private final Context context;
 
-    public CardListPagerAdapter(Context context, FragmentManager fm) {
+    public MainFragmentAdapter(Context context, FragmentManager fm) {
         super(fm);
         this.context = context;
     }

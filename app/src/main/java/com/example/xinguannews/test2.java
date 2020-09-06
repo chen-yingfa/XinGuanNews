@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 
-import com.example.xinguannews.ui.main.CardListPagerAdapter;
+import com.example.xinguannews.ui.main.MainFragmentAdapter;
 
 public class test2 extends AppCompatActivity {
 
@@ -21,7 +21,7 @@ public class test2 extends AppCompatActivity {
         setContentView(R.layout.activity_test2);
 
 
-        CardListPagerAdapter sectionsPagerAdapter = new CardListPagerAdapter(this, getSupportFragmentManager());
+        MainFragmentAdapter sectionsPagerAdapter = new MainFragmentAdapter(this, getSupportFragmentManager());
 
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);

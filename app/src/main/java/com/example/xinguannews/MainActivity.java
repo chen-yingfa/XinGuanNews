@@ -23,7 +23,7 @@ import java.util.Set;
 
 import com.example.xinguannews.article.ArticleThread;
 import com.example.xinguannews.ui.main.CardListFragment;
-import com.example.xinguannews.ui.main.CardListPagerAdapter;
+import com.example.xinguannews.ui.main.MainFragmentAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.chip.Chip;
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity
     private View linearLayoutMain;
     private Toolbar toolbar;
     private ImageButton buttonEditCategory;
-    private CardListPagerAdapter cardListPagerAdapter;
+    private MainFragmentAdapter cardListPagerAdapter;
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity
 
     private void initTabLayout() {
         // Setup tab layout
-        cardListPagerAdapter = new CardListPagerAdapter(this, getSupportFragmentManager());
+        cardListPagerAdapter = new MainFragmentAdapter(this, getSupportFragmentManager());
 
         for (String category : selectedCategories) {
             addTab(category);
@@ -191,7 +191,6 @@ public class MainActivity extends AppCompatActivity
             // 状态发生变化
             @Override
             public void onStateChanged(View bottomSheet, int newState) {
-                System.out.println("onStateChanged");
                 if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
                     listener.onConfirmCategorySelection();
                 }
@@ -235,7 +234,6 @@ public class MainActivity extends AppCompatActivity
         // need this because we can't change the set during iteration
         Set<String> toRm = new HashSet<String>();
         // handle newly removed categories
-        System.out.println("handle newly removed categories");
         for (String category : selectedCategories) {
             if (!curSelectedCategories.contains(category)) {
                 System.out.println(category);
@@ -245,7 +243,6 @@ public class MainActivity extends AppCompatActivity
         }
         for (String s : toRm) selectedCategories.remove(s);
 
-        System.out.println("handle newly added categories");
         // handle newly added categories
         for (String category : curSelectedCategories) {
             if (!selectedCategories.contains(category)) {
@@ -258,7 +255,6 @@ public class MainActivity extends AppCompatActivity
         }
 
         // save selected categories
-        System.out.println("saving to Selected Categories");
         System.out.println(selectedCategories);
         SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
@@ -333,9 +329,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onThreadFinish(ArticleThread thread) {
+    public void onFinishGettingArticles(ArticleThread thread) {
         for (CardListFragment fragment : cardListPagerAdapter.getFragments()) {
-            fragment.onThreadFinish(thread);
+            fragment.onFinishGettingArticles(thread);
         }
     }
 

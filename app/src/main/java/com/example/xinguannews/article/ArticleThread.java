@@ -32,7 +32,7 @@ public class ArticleThread extends Thread {
 
     private final String defaultType = "all";
     private final int defaultPage = 1;
-    private final int defaultSize = 50;
+    private final int defaultSize = 20;
 
     // json member names
     private final String jsonName_id = "_id";
@@ -67,18 +67,16 @@ public class ArticleThread extends Thread {
     private Activity activity;
 
     // 最小参数的构造函数
-    public ArticleThread(Activity activity, List<Article> articles) {
+    public ArticleThread(Activity activity) {
         this.activity = activity;
-        this.articles = articles;
         this.type = defaultType;
         this.page = defaultPage;
         this.size = defaultSize;
     }
 
     // 获取信息的参数通过构造函数传入
-    public ArticleThread(Activity activity, List<Article> articles, String type, int page, int size) {
+    public ArticleThread(Activity activity, String type, int page, int size) {
         this.activity = activity;
-        this.articles = articles;
         this.type = type;
         this.page = page;
         this.size = size;
@@ -123,7 +121,7 @@ public class ArticleThread extends Thread {
             @Override
             public void run() {
                 for (ArticleThreadListener listener : listeners) {
-                    listener.onThreadFinish(thread);
+                    listener.onFinishGettingArticles(thread);
                 }
             }
         });
@@ -145,12 +143,8 @@ public class ArticleThread extends Thread {
     // 解析新闻接口所返回的 JSON 串
     // 返回 Articles 数组（ List<Article> ）
     private List<Article> parseArticlesJson(String jsonStr) {
-//        System.out.println("-----");
         System.out.println("start parsing JSON string of articles...");
         System.out.println("type, page, size = " + type + ", " + page + ", " + size);
-//        System.out.println("jsonStr:");
-//        System.out.println(jsonStr);
-//        System.out.println("-----");
         List<Article> articles = new ArrayList<>();
         try {
             JsonElement jsonElement = JsonParser.parseString(jsonStr);
@@ -170,10 +164,10 @@ public class ArticleThread extends Thread {
         }
         System.out.println("Done getting JSON string");
         System.out.println("Got " + articles.size() + " articles");
-        for (Article art : articles) {
-//            System.out.println(art);
-            System.out.println(art.tFlag);
-        }
+//        for (Article art : articles) {
+////            System.out.println(art);
+//            System.out.println(art.tFlag);
+//        }
         return articles;
     }
 
@@ -187,6 +181,7 @@ public class ArticleThread extends Thread {
         // 注：现在我先直接每个子类自己解析所有成员，这是不好的代码。
         String type = parseString(json, jsonNameType);
 //        System.out.println("parseArticle, type: " + type);
+//        System.out.println(json);
 
         switch(type) {
             case "news":
@@ -201,9 +196,6 @@ public class ArticleThread extends Thread {
     }
 
     private News parseNews(JsonObject json) {
-//        System.out.println("parse news");
-//        System.out.println(json);
-
         String _id;
         String category;
         String content;
@@ -246,8 +238,6 @@ public class ArticleThread extends Thread {
     }
 
     private Paper parsePaper(JsonObject json) {
-//        System.out.println("parsePaper");
-//        System.out.println("JSON: " + json);
         // common member of all Articles
         String _id;
         String category;
@@ -256,13 +246,13 @@ public class ArticleThread extends Thread {
         List<ArticleEntity> entities;
         List<ArticleGeoInfo> geoInfos;
         String ID;
-        float influence;
+        Float influence;
         String lang;
         List<String> regionIds;
         List<ArticleRelatedEvent> relatedEvents;
         List<String> segText;
         String source;
-        long tFlag;
+        Long tFlag;
         String time;
         String title;
         String type;
@@ -307,13 +297,13 @@ public class ArticleThread extends Thread {
         List<ArticleEntity> entities;
         List<ArticleGeoInfo> geoInfos;
         String ID;
-        float influence;
+        Float influence;
         String lang;
         List<String> regionIds;
         List<ArticleRelatedEvent> relatedEvents;
         List<String> segText;
         String source;
-        long tFlag;
+        Long tFlag;
         String time;
         String title;
         String type;
@@ -400,8 +390,8 @@ public class ArticleThread extends Thread {
     private ArticleGeoInfo parseGeoInfo(JsonElement json) {
         JsonObject obj = json.getAsJsonObject();
         String geoName = obj.get("geoName").getAsString();
-        float latitude = obj.get("latitude").getAsFloat();
-        float longitude = obj.get("longitude").getAsFloat();
+        Float latitude = obj.get("latitude").getAsFloat();
+        Float longitude = obj.get("longitude").getAsFloat();
         String originText = obj.get("originText").getAsString();
         return new ArticleGeoInfo(geoName, latitude, longitude, originText);
     }
@@ -430,7 +420,7 @@ public class ArticleThread extends Thread {
         for (JsonElement e : arr) {
             JsonObject obj = e.getAsJsonObject();
             String id = obj.get("id").getAsString();
-            float score = obj.get("score").getAsFloat();
+            Float score = obj.get("score").getAsFloat();
             list.add(new ArticleRelatedEvent(id, score));
         }
         return list;
@@ -483,7 +473,7 @@ public class ArticleThread extends Thread {
     private String parseString(JsonObject json, final String name) {
         JsonElement val = json.get(name);
         if (val == null || val.isJsonNull()) {
-            System.out.println("missing: " + name);
+            System.out.println("parseString(), missing: " + name);
             return null;
         }
         return val.getAsString();
@@ -493,7 +483,7 @@ public class ArticleThread extends Thread {
 //        System.out.println("parseFloat");
         JsonElement val = json.get(name);
         if (val == null || val.isJsonNull()) {
-//            System.out.println("JsonObject missing: " + name);
+            System.out.println("ParseFloat(), missing: " + name);
             return null;
         }
         return val.getAsFloat();
