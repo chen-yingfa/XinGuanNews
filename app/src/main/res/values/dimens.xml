@@ -9,7 +9,7 @@
     <dimen name="card_view_time_padding">2dp</dimen>
     <dimen name="card_view_margin">12dp</dimen>
     <dimen name="card_view_margin_bottom">0dp</dimen>
-    <dimen name="card_view_title_padding">4dp</dimen>
+    <dimen name="card_view_title_padding">6dp</dimen>
     <item name="card_view_time_alpha" type="dimen" format="float">0.7</item>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
@@ -25,10 +25,11 @@
     <dimen name="text_size">14sp</dimen>
     <dimen name="padding_article_activity_title">6dp</dimen>
     <dimen name="padding_article_activity_time">6dp</dimen>
-    <dimen name="padding_article_activity_content">6dp</dimen>
+    <dimen name="padding_article_activity_content">12dp</dimen>
     <dimen name="padding_article_activity">16dp</dimen>
     <dimen name="padding_panel_edit_tag_body">12dp</dimen>
     <dimen name="sheet_edit_tag_margin_top">64dp</dimen>
 
     <dimen name="alpha_darkener">0.6</dimen>
+    <dimen name="margin_right_icon">14dp</dimen>
 </resources>

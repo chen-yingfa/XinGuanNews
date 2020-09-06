@@ -70,10 +70,8 @@
                     android:id="@+id/article_activity_text_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
                     android:padding="@dimen/padding_article_activity_content"
                     android:text="@string/article_default_description"
-                    android:textAlignment="center"
                     android:textSize="@dimen/text_size" />
 
                 <TextView

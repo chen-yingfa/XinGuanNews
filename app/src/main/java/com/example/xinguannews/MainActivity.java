@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity
     private BottomSheetBehavior sheetBehavior;
     private LinearLayout bottomSheetEditCategory;
     private ImageButton buttonCancelEditCategory;
-    private View darkener;
     private ChipGroup chipGroupSelectedCategory;
     private ChipGroup chipGroupDeselectedCategory;
     LinkedHashMap<String, Chip> categoryChips;
@@ -149,7 +148,6 @@ public class MainActivity extends AppCompatActivity
 
     private void initEditCategoryUi() {
         // get XML elements
-        darkener = findViewById(R.id.darkener);
         buttonCancelEditCategory = findViewById(R.id.button_cancel_edit_category);
         buttonEditCategory = findViewById(R.id.button_edit_category);
         bottomSheetEditCategory = findViewById(R.id.bottom_sheet_edit_category);
@@ -157,7 +155,6 @@ public class MainActivity extends AppCompatActivity
         chipGroupDeselectedCategory = findViewById(R.id.chip_group_deselected_category);
 
         sheetBehavior = BottomSheetBehavior.from(bottomSheetEditCategory);
-        darkener.setVisibility(View.GONE);
 
         initEditCategoryUiListeners();
         genCategoryChips();
@@ -327,7 +324,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void undarken() {
-        darkener.setVisibility(View.GONE);
         linearLayoutMain.setClickable(true);
     }
 

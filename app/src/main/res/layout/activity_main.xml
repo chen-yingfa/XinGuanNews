@@ -16,6 +16,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_Height"
+            android:background="@color/colorPrimary"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.Toolbar
@@ -31,9 +32,9 @@
 
             <SearchView
                 android:id="@+id/searchView1"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/toolbar_Height"
                 android:layout_height="@dimen/toolbar_Height"
-                android:layout_weight="1"
+                android:layout_marginRight="@dimen/margin_right_icon"
                 android:background="@color/colorPrimary"
                 android:paddingLeft="@dimen/search_icon_padding"
                 android:paddingRight="@dimen/search_icon_padding"
@@ -62,6 +63,7 @@
                 android:id="@+id/button_edit_category"
                 android:layout_width="@dimen/tab_bar_height"
                 android:layout_height="@dimen/tab_bar_height"
+                android:layout_marginRight="@dimen/margin_right_icon"
                 android:background="@drawable/ic_add_primarycolor_24dp"
                 tools:ignore="VectorDrawableCompat" />
 
@@ -90,15 +92,6 @@
 
     </LinearLayout>
 
-    <!--    <com.google.android.material.navigation.NavigationView-->
-    <!--        android:id="@+id/nav_design"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        android:layout_gravity="start"-->
-    <!--        app:headerLayout="@layout/nav_menu_head"-->
-    <!--        app:menu="@menu/nav_menu"></com.google.android.material.navigation.NavigationView>-->
-
-    <include layout="@layout/darkener"/>
     <!-- Adding bottom sheet after main content -->
     <include layout="@layout/bottom_sheet_edit_category" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

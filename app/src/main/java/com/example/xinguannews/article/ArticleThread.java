@@ -169,9 +169,11 @@ public class ArticleThread extends Thread {
             System.out.println(e);
         }
         System.out.println("Done getting JSON string");
-//        for (Article art : articles) {
+        System.out.println("Got " + articles.size() + " articles");
+        for (Article art : articles) {
 //            System.out.println(art);
-//        }
+            System.out.println(art.tFlag);
+        }
         return articles;
     }
 
