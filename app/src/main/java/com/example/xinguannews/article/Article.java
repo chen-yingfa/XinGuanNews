@@ -51,10 +51,6 @@ public abstract class Article implements Serializable {
         this.urls = urls;
     }
 
-    public Article(JsonObject json) {
-
-    }
-
     public String toString() {
 //        StringBuilder sb = new StringBuilder();
 //        sb.append("_id: " + _id + "\n"
@@ -69,7 +65,7 @@ public abstract class Article implements Serializable {
     }
 
     public JsonObject toJsonObject() {
-
+        
         return null;
     }
 }
