@@ -148,8 +148,8 @@ public class ArticleThread extends Thread {
 //        System.out.println("-----");
         System.out.println("start parsing JSON string of articles...");
         System.out.println("type, page, size = " + type + ", " + page + ", " + size);
-        System.out.println("jsonStr:");
-        System.out.println(jsonStr);
+//        System.out.println("jsonStr:");
+//        System.out.println(jsonStr);
 //        System.out.println("-----");
         List<Article> articles = new ArrayList<>();
         try {
@@ -169,9 +169,9 @@ public class ArticleThread extends Thread {
             System.out.println(e);
         }
         System.out.println("Done getting JSON string");
-        for (Article art : articles) {
-            System.out.println(art);
-        }
+//        for (Article art : articles) {
+//            System.out.println(art);
+//        }
         return articles;
     }
 
@@ -244,8 +244,8 @@ public class ArticleThread extends Thread {
     }
 
     private Paper parsePaper(JsonObject json) {
-        System.out.println("parsePaper");
-        System.out.println("JSON: " + json);
+//        System.out.println("parsePaper");
+//        System.out.println("JSON: " + json);
         // common member of all Articles
         String _id;
         String category;
@@ -338,6 +338,10 @@ public class ArticleThread extends Thread {
         urls = parseUrls(json);
         return new Event(_id, category, content, date, entities, geoInfos, ID, influence, lang,
                 regionIds, relatedEvents, segText, source, tFlag, time, title, type, urls);
+    }
+
+    private String parseType(JsonObject json) {
+        return parseString(json, jsonNameType);
     }
 
     private String parse_id(JsonObject json) {

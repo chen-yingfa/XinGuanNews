@@ -20,6 +20,8 @@ import com.example.xinguannews.article.Article;
 import com.example.xinguannews.article.ArticleApiAdapter;
 import com.example.xinguannews.article.ArticleThread;
 
+import java.sql.Time;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +32,10 @@ public class CardListFragment extends Fragment implements SwipeRefreshLayout.OnR
 //    CardView cardViewTemplate;
 //    LinearLayout linearLayoutCardList;
 
-    private String type;
+    private long lastRefreshTime;
+
+    public String type;
+    public String title;
     private List<Article> articles = new ArrayList<>();
     private LayoutInflater layoutInflater;
 
@@ -43,8 +48,9 @@ public class CardListFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     private PageViewModel pageViewModel;
 
-    public CardListFragment(String type) {
+    public CardListFragment(String type, String title) {
         this.type = type;
+        this.title = title;
     }
 
     // 添加一个 Article 到列表
@@ -77,6 +83,7 @@ public class CardListFragment extends Fragment implements SwipeRefreshLayout.OnR
         pageViewModel.setIndex(index);
     }
 
+    // 注：此函数末端会调用 onRefresh，即所有 CardListFragment 都会在创建是自动刷新获取内容。
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
@@ -121,7 +128,11 @@ public class CardListFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onRefresh() {
-        System.out.println("onRefresh");
+        System.out.println("onRefresh, type: " + type);
+        // TODO: don't refresh if just recently refreshed;
+        long curTime = System.currentTimeMillis();
+        lastRefreshTime = System.currentTimeMillis();
+
         if (!swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(true);
         }
@@ -133,4 +144,6 @@ public class CardListFragment extends Fragment implements SwipeRefreshLayout.OnR
             articleApiAdapter.getArticles(type);
         }
     }
+
+    public String getType() { return type; }
 }

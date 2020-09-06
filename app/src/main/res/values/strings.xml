@@ -41,4 +41,6 @@
     <string name="default_category">一个类型</string>
     <string name="group_selected_categorys_title">已选标签</string>
     <string name="group_deselected_categorys_title">未选标签</string>
+
+    <string name="sharedPrefKey">com.example.xinguannews.sharedPref</string>
 </resources>
