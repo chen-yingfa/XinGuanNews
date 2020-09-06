@@ -38,7 +38,7 @@
     <string name="title_diagram">图谱</string>
     <string name="article_default_source">www.sina.weibo.cn/zh/asdf/id/92abce6788bdcfc76cf75aa75fa919</string>
     <string name="source_name">来源：</string>
-    <string name="default_tag">新闻</string>
-    <string name="panel_edit_tag_selected_tags">已选标签</string>
-    <string name="panel_edit_tag_deselected_tags">未选标签</string>
+    <string name="default_category">一个类型</string>
+    <string name="group_selected_categorys_title">已选标签</string>
+    <string name="group_deselected_categorys_title">未选标签</string>
 </resources>

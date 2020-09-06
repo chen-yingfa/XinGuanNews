@@ -59,7 +59,7 @@
             </com.google.android.material.tabs.TabLayout>
 
             <ImageButton
-                android:id="@+id/button_edit_tag"
+                android:id="@+id/button_edit_category"
                 android:layout_width="@dimen/tab_bar_height"
                 android:layout_height="@dimen/tab_bar_height"
                 android:background="@drawable/ic_add_primarycolor_24dp"
@@ -100,5 +100,5 @@
 
     <include layout="@layout/darkener"/>
     <!-- Adding bottom sheet after main content -->
-    <include layout="@layout/bottom_sheet_edit_tag" />
+    <include layout="@layout/bottom_sheet_edit_category" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

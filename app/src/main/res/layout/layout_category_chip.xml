@@ -4,5 +4,8 @@
     style="@style/Widget.MaterialComponents.Chip.Entry"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="@string/default_tag"
-    android:theme="@style/Theme.MaterialComponents.Light" />
+    android:checkable="false"
+    android:text="@string/default_category"
+    android:theme="@style/Theme.MaterialComponents.Light"
+    app:checkedIconVisible="true"
+    app:closeIconVisible="false" />
