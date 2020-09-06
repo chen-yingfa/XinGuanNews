@@ -122,6 +122,9 @@ public class CardListFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onRefresh() {
         System.out.println("onRefresh");
+        if (!swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(true);
+        }
         Activity act = getActivity();
         System.out.println(act);
         if (act != null) {

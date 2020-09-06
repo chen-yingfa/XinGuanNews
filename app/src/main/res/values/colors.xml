@@ -17,4 +17,5 @@
 
 
     <color name="actionBarText">#FFFFFF</color>
+    <color name="grayTranslucent">#CB929292</color>
 </resources>

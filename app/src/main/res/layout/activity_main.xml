@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_constaint_layout"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/linear_layout_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,7 +59,7 @@
             </com.google.android.material.tabs.TabLayout>
 
             <ImageButton
-                android:id="@+id/imageButton2"
+                android:id="@+id/button_edit_tag"
                 android:layout_width="@dimen/tab_bar_height"
                 android:layout_height="@dimen/tab_bar_height"
                 android:background="@drawable/ic_add_primarycolor_24dp"
@@ -102,5 +98,7 @@
     <!--        app:headerLayout="@layout/nav_menu_head"-->
     <!--        app:menu="@menu/nav_menu"></com.google.android.material.navigation.NavigationView>-->
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <include layout="@layout/darkener"/>
+    <!-- Adding bottom sheet after main content -->
+    <include layout="@layout/bottom_sheet_edit_tag" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

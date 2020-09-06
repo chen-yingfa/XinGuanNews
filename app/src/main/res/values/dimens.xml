@@ -27,4 +27,8 @@
     <dimen name="padding_article_activity_time">6dp</dimen>
     <dimen name="padding_article_activity_content">6dp</dimen>
     <dimen name="padding_article_activity">16dp</dimen>
+    <dimen name="padding_panel_edit_tag_body">12dp</dimen>
+    <dimen name="sheet_edit_tag_margin_top">64dp</dimen>
+
+    <dimen name="alpha_darkener">0.6</dimen>
 </resources>

@@ -2,8 +2,6 @@ package com.example.xinguannews.article;
 
 import android.app.Activity;
 
-import androidx.appcompat.view.menu.ActionMenuItem;
-
 import com.example.xinguannews.ArticleThreadListener;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -247,8 +245,7 @@ public class ArticleThread extends Thread {
 
     private Paper parsePaper(JsonObject json) {
         System.out.println("parsePaper");
-        System.out.println("json:");
-        System.out.println(json);
+        System.out.println("JSON: " + json);
         // common member of all Articles
         String _id;
         String category;
@@ -272,13 +269,9 @@ public class ArticleThread extends Thread {
         // members of Papers
         String aminerId = parseString(json, jsonNameAminerId);
         List<String> authors = parseAuthors(json);
-        System.out.println("a");
         System.out.println(json.get(jsonNameDoi));
         String doi = parseString(json, jsonNameDoi);
-        System.out.println("aa");
         String pdf = parseString(json, jsonNamePdf);
-
-        System.out.println("1");
         _id = parse_id(json);
         category = parseCategory(json);
         content = parseString(json, jsonNameContent);
@@ -287,13 +280,11 @@ public class ArticleThread extends Thread {
         geoInfos = parseGeoInfos(json);
         ID = parseString(json, jsonNameID);
         influence = parseFloat(json, jsonNameInfluence);
-        System.out.println("2");
         lang = parseString(json, jsonNameLang);
         regionIds = parseRegionIds(json);
         relatedEvents = parseRelatedEvents(json);
         segText = parseSegText(json);
         source = parseString(json, jsonNameSource);
-        System.out.println("3");
         tFlag = parseLong(json, jsonNameTFlag);
         time = parseString(json, jsonNameTime);
         title = parseString(json, jsonNameTitle);
@@ -347,10 +338,6 @@ public class ArticleThread extends Thread {
         urls = parseUrls(json);
         return new Event(_id, category, content, date, entities, geoInfos, ID, influence, lang,
                 regionIds, relatedEvents, segText, source, tFlag, time, title, type, urls);
-    }
-
-    private String parseType(JsonObject json) {
-        return parseString(json, jsonNameType);
     }
 
     private String parse_id(JsonObject json) {
