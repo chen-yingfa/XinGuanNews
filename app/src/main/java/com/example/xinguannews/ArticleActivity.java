@@ -126,17 +126,17 @@ public class ArticleActivity extends AppCompatActivity implements WbShareCallbac
 
     @Override
     public void onComplete() {
-        Toast.makeText(ArticleActivity.this, "share success", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "成功分享", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onError(UiError uiError) {
-        Toast.makeText(ArticleActivity.this, "share fail:" , Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "分享失败" , Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onCancel() {
-        Toast.makeText(ArticleActivity.this, "cancel", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "取消分享", Toast.LENGTH_SHORT).show();
     }
 
     @Override
