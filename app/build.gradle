@@ -12,6 +12,9 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         android.defaultConfig.vectorDrawables.useSupportLibrary = true
+        ndk {
+            abiFilters 'armeabi' //, 'armeabi-v7a','arm64-v8a'
+        }
     }
 
     buildTypes {
@@ -43,4 +46,7 @@ dependencies {
     implementation 'com.android.support:design:30.0.0'
     implementation 'de.hdodenhof:circleimageview:2.1.0'
     implementation 'com.google.code.gson:gson:2.8.6'
+
+    implementation  'com.sina.weibo.sdk:core:9.12.0:openDefaultRelease@aar'
+
 }

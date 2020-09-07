@@ -37,8 +37,10 @@ public class MainActivity extends AppCompatActivity
 
     private View linearLayoutMain;
     private Toolbar toolbar;
+
     private ImageButton buttonEditCategory;
     private MainFragmentAdapter cardListPagerAdapter;
+
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
