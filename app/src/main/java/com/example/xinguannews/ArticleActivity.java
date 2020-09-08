@@ -33,10 +33,11 @@ public class ArticleActivity extends AppCompatActivity implements WbShareCallbac
 
     private static final String APP_KY = "3487978721";
     private static final String REDIRECT_URL = "http://open.weibo.com/apps/3487978721/privilege/oauth";
-    private static final String SCOPE = "6a1d8e851c885b417f73ee3ec1998ec9";
+    private static final String SCOPE = "fb67dad57a2c79c91e921ec973268ebc";
     private IWBAPI mWBAPI;
 
     private void initSdk() {
+
         AuthInfo authInfo = new AuthInfo(this, APP_KY, REDIRECT_URL, SCOPE);
         mWBAPI = WBAPIFactory.createWBAPI(this);
         mWBAPI.registerApp(this, authInfo);
@@ -47,13 +48,13 @@ public class ArticleActivity extends AppCompatActivity implements WbShareCallbac
         mWBAPI.authorize(new WbAuthListener() {
             @Override
             public void onComplete(Oauth2AccessToken token) {
-                Toast.makeText(ArticleActivity.this, "􀮙􀜗􀴦􀹦􀱮􀛑", Toast.LENGTH_SHORT);}
+                Toast.makeText(ArticleActivity.this, "", Toast.LENGTH_SHORT);}
             @Override
             public void onError(UiError error) {
-                Toast.makeText(ArticleActivity.this, "􀮙􀜗􀴦􀹦􀚊􁲙", Toast.LENGTH_SHORT);}
+                Toast.makeText(ArticleActivity.this, "", Toast.LENGTH_SHORT);}
             @Override
             public void onCancel() {
-                Toast.makeText(ArticleActivity.this, "􀮙􀜗􀴦􀹦􀝐􁁾", Toast.LENGTH_SHORT);}
+                Toast.makeText(ArticleActivity.this, "", Toast.LENGTH_SHORT);}
         });
     }
     @Override
@@ -63,7 +64,7 @@ public class ArticleActivity extends AppCompatActivity implements WbShareCallbac
 
         initSdk();
 
-        Article article = (Article) getIntent().getSerializableExtra("article");
+        final Article article = (Article) getIntent().getSerializableExtra("article");
 
         buttonBack = findViewById(R.id.article_activity_button_back);
         buttonBack.setOnClickListener(new View.OnClickListener() {
@@ -85,12 +86,12 @@ public class ArticleActivity extends AppCompatActivity implements WbShareCallbac
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 ArticleActivity.this.startActivity(Intent.createChooser(intent, "分享"));
   */
-
+                //将要发送到微博得消息 message
                 WeiboMultiMessage message = new WeiboMultiMessage();
 
 
                 TextObject textObject = new TextObject();
-                String text = "Try to share";
+                String text = article.title + "\n\n\n" + article.time +"\n" + article.source+ "\n\n" +  article.content;
 
                 textObject.text = text;
                 message.textObject = textObject;
@@ -126,17 +127,17 @@ public class ArticleActivity extends AppCompatActivity implements WbShareCallbac
 
     @Override
     public void onComplete() {
-        Toast.makeText(ArticleActivity.this, "share success", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(ArticleActivity.this, "share success", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onError(UiError uiError) {
-        Toast.makeText(ArticleActivity.this, "share fail:" , Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(ArticleActivity.this, "share fail:" , Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onCancel() {
-        Toast.makeText(ArticleActivity.this, "cancel", Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(ArticleActivity.this, "cancel", Toast.LENGTH_SHORT).show();
     }
 
     @Override
