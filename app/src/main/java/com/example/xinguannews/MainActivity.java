@@ -1,14 +1,18 @@
 package com.example.xinguannews;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -37,6 +41,9 @@ public class MainActivity extends AppCompatActivity
 
     private View linearLayoutMain;
     private Toolbar toolbar;
+    private View DisappearView;
+    private View DisappearView2;
+    private View DisappearView3;
 
     private ImageButton buttonEditCategory;
     private MainFragmentAdapter cardListPagerAdapter;
@@ -125,8 +132,58 @@ public class MainActivity extends AppCompatActivity
         tabLayout.setupWithViewPager(viewPager);
     }
 
+    @SuppressLint("WrongConstant")
     private void initBottomNavMenu() {
         BottomNavigationView bottomNavigationMenu = findViewById(R.id.nav_bottom_menu);
+
+        // 英发 这段代码是用来解决bug的， bottom_nav_menu 加了超过了3个item之后显示就会有问题,字会消失
+        //--------------------------------------------
+        bottomNavigationMenu.setLabelVisibilityMode(0);  //默认动画
+        bottomNavigationMenu.setLabelVisibilityMode(1); //默认清除动画（显示文字）
+        //---------------------------------------------------fix bug
+
+        // 这里指定默认选中item （即一开始进入哪一个页面）
+        bottomNavigationMenu.getMenu().getItem(2).setChecked(true);
+        // the next it the listener
+
+        final DataFragment Data_Fragment = new DataFragment();
+        final HomeFragment Home_Fragment = new HomeFragment();
+        Data_Fragment.setMessage("图谱");
+        Home_Fragment.setMessage("主页");
+
+        //设置导航栏菜单项Item选中监听
+        bottomNavigationMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                String title = item.getTitle().toString();
+                switch (item.getItemId()) {
+                    case R.id.nav_bottom_home:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_content,Home_Fragment).commitNow();
+
+                        break;
+                    case R.id.nav_bottom_data:
+                        DisappearView = findViewById(R.id.linear_layout_sub1);
+                        DisappearView2 = findViewById(R.id.linear_layout_sub2);
+                        DisappearView3 = findViewById(R.id.view_pager);
+                        DisappearView3.setVisibility(View.GONE);
+
+                        DisappearView.setVisibility(View.GONE);
+                        DisappearView2.setVisibility(View.GONE);
+
+
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_content,Data_Fragment).commitNow();
+                        break;
+                    case R.id.nav_bottom_expert:
+                        break;
+                    case R.id.nav_bottom_diagram:
+                        break;
+                }
+                return true;
+            }
+        });
+
+
+
     }
 
     // 初始化所有类型的标题（中文名称），以及相关成员变量

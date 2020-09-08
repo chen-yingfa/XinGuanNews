@@ -34,6 +34,7 @@
     <string name="title_edit_tags">修改新闻标签</string>
 
     <string name="title_home">主页</string>
+    <string name="title_data">数据</string>
     <string name="title_expert">专家</string>
     <string name="title_diagram">图谱</string>
     <string name="article_default_source">www.sina.weibo.cn/zh/asdf/id/92abce6788bdcfc76cf75aa75fa919</string>
