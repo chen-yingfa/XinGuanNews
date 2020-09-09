@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity
                     case R.id.nav_bottom_data:
                         DisappearView = findViewById(R.id.linear_layout_sub1);
                         DisappearView2 = findViewById(R.id.linear_layout_sub2);
-                        DisappearView3 = findViewById(R.id.view_pager);
+                        DisappearView3 = findViewById(R.id.tabLayout);
                         DisappearView3.setVisibility(View.GONE);
 
                         DisappearView.setVisibility(View.GONE);
