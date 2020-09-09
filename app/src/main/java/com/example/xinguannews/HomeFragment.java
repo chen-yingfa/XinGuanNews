@@ -6,10 +6,13 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +36,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, EpidemicApiThreadListener, CategoryChipListener {
+public class HomeFragment
+        extends Fragment
+        implements
+        SwipeRefreshLayout.OnRefreshListener,
+        EpidemicApiThreadListener,
+        CategoryChipListener,
+//        TextWatcher,
+        SearchView.OnQueryTextListener {
 
     private ImageButton buttonEditCategory;
     private MainFragmentAdapter cardListPagerAdapter;
@@ -90,6 +100,14 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         init();
+        final SearchView searchBar = view.findViewById(R.id.search_view);
+        searchBar.setOnQueryTextListener(this);
+        searchBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchBar.setIconified(false);
+            }
+        });
     }
 
     // init methods（同时获得 XML 元素）
@@ -342,5 +360,24 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         for (CardListFragment fragment : cardListPagerAdapter.getFragments()) {
             fragment.onRefresh();
         }
+    }
+
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        System.out.println("onQueryTextChange");
+        for (CardListFragment fragment : cardListPagerAdapter.getFragments()) {
+            fragment.search(newText);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+//        System.out.println("onQueryTextSubmit");
+//        for (CardListFragment fragment : cardListPagerAdapter.getFragments()) {
+//            fragment.search(query);
+//        }
+        return false;
     }
 }

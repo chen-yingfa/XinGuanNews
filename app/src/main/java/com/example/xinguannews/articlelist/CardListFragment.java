@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -30,12 +29,14 @@ public class CardListFragment extends Fragment
         implements SwipeRefreshLayout.OnRefreshListener, EpidemicApiThreadListener {
     private int nPage = 1;
     private int pageSize = 20;
+    private int maxLoadedArticlesCount = 1000;
+
     public String type;
     public String title;
+    public String filter = "";
     private List<Article> articles = new ArrayList<>();
+    private List<Article> articlesFiltered = new ArrayList<>();
     boolean isLoading = false;
-
-    private LayoutInflater layoutInflater;
 
     // 用于管理 RecyclerView 和其显示数据
     private RecyclerView recyclerView;
@@ -46,24 +47,6 @@ public class CardListFragment extends Fragment
     public CardListFragment(String type, String title) {
         this.type = type;
         this.title = title;
-    }
-
-    // 添加一个 Article 到列表
-    public void addArticleCard(Article article) {
-        articles.add(0, article);
-        adapter.notifyItemInserted(0);
-    }
-
-    // 根据 article 的成员变量返回相应的 CardView（以显示到屏幕上）
-    public View articleToCardLayout(Article article) {
-        View cardLayout = layoutInflater.inflate(R.layout.card_article, null, true);
-        TextView textTitle = cardLayout.findViewById(R.id.card_article_title);
-        TextView textContent = cardLayout.findViewById(R.id.card_article_content);
-        TextView textTime = cardLayout.findViewById(R.id.card_article_time);
-        textTitle.setText(article.title);
-        textContent.setText(article.content);
-        textTime.setText(article.date);
-        return cardLayout;
     }
 
     @Override
@@ -77,8 +60,6 @@ public class CardListFragment extends Fragment
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.card_list_fragment, container, false);
-        layoutInflater = inflater;
-
 
         // 以下下代码不能放在 onCreate 因为那时候 GetView() 返回 null。
         // （因为此 Fragment 的 View 仍未创建）
@@ -92,18 +73,18 @@ public class CardListFragment extends Fragment
         initAdapter();
         initRefreshListener();
         initScrollListener();
+        onRefresh();
         return root;
     }
 
     private void initAdapter() {
-        adapter = new CardListRecyclerViewAdapter(articles); // bind data (list of articles) to Adapter
+        adapter = new CardListRecyclerViewAdapter(articlesFiltered); // bind data (list of articles) to Adapter
         recyclerView.setAdapter(adapter);                   // bind RecyclerView and Adapter
     }
 
     private void initRefreshListener() {
         // listen to refresh gesture (swipe down)
         swipeRefreshLayout.setOnRefreshListener(this);
-        onRefresh();
     }
 
     private void initScrollListener(){
@@ -116,8 +97,8 @@ public class CardListFragment extends Fragment
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 LinearLayoutManager llm = (LinearLayoutManager) recyclerView.getLayoutManager();
-                if (!isLoading) {
-                    if (llm != null && llm.findLastVisibleItemPosition() == articles.size() - 1) {
+                if (!isLoading && articles.size() < maxLoadedArticlesCount) {
+                    if (llm != null && llm.findLastVisibleItemPosition() == articlesFiltered.size() - 1) {
                         loadMore();
                         isLoading = true;
                     }
@@ -126,16 +107,36 @@ public class CardListFragment extends Fragment
         });
     }
 
-    public void updateArticles(List<Article> articles) {
-        this.articles = articles;
-        adapter = new CardListRecyclerViewAdapter(articles);
-        adapter.notifyDataSetChanged();
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-    }
-
     public void addArticles(List<Article> articles) {
         this.articles.addAll(articles);
+        articlesFiltered.addAll(filterArticles(articles, filter));
+        adapter.notifyDataSetChanged();
+    }
+
+    public void clearArticles() {
+        articles.clear();
+        articlesFiltered.clear();
+    }
+
+    public List<Article> filterArticles(List<Article> articles, String filter) {
+        filter = filter.toLowerCase();
+        System.out.println("filterArticles with filter: " + filter + " in articles cnt: " + articles.size());
+        List<Article> filtered = new ArrayList<>();
+        for (Article a : articles) {
+            String title = a.title.toLowerCase();
+            if (title.contains(filter)) {
+                filtered.add(a);
+            }
+        }
+        System.out.println(filtered.size());
+        return filtered;
+    }
+
+    public void updateFilter(String filter) {
+        this.filter = filter;
+        pageSize = 20 + filter.length() * 10;
+        articlesFiltered.clear();
+        articlesFiltered.addAll(filterArticles(articles, filter));
         adapter.notifyDataSetChanged();
     }
 
@@ -144,7 +145,7 @@ public class CardListFragment extends Fragment
     public void onFetchedArticles(EpidemicApiThread thread) {
         System.out.println("onThreadFinish");
         if (swipeRefreshLayout.isRefreshing()) { // refresh
-            articles.clear();
+            clearArticles();
             swipeRefreshLayout.setRefreshing(false); // make sure refresh animation stops
             nPage = 0;
         }
@@ -162,13 +163,11 @@ public class CardListFragment extends Fragment
     @Override
     public void onRefresh() {
         System.out.println("onRefresh, type: " + type);
-        // TODO: don't refresh if just recently refreshed;
-
+        // TODO: don't refresh if just recently refreshed
         // make sure the refreshing animation starts
         if (!swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(true);
         }
-
         nPage = 1;
         Activity act = getActivity();
         System.out.println(act);
@@ -182,8 +181,8 @@ public class CardListFragment extends Fragment
     public void loadMore() {
         System.out.println("loadMore");
         // NOTE: must not block UI thread
-        articles.add(null);
-        adapter.notifyItemInserted(articles.size() - 1);
+        articlesFiltered.add(null);
+        adapter.notifyItemInserted(articlesFiltered.size() - 1);
 
         class LoadMoreRunnable implements Runnable {
             EpidemicApiThreadListener listener;
@@ -192,15 +191,29 @@ public class CardListFragment extends Fragment
             }
             @Override
             public void run() {
-                articles.remove(articles.size() - 1);
-                int scrollPosition = articles.size();
-                adapter.notifyItemRemoved(scrollPosition);
-
+                if (articlesFiltered.size() > 0){
+                    articlesFiltered.remove(articlesFiltered.size() - 1);
+                    int scrollPosition = articlesFiltered.size();
+                    adapter.notifyItemRemoved(scrollPosition);
+                }
                 fetctArticles(type, nPage + 1, pageSize);
             }
         }
         Handler handler = new Handler();
-        handler.postDelayed(new LoadMoreRunnable(this), 1600);
+        handler.postDelayed(new LoadMoreRunnable(this), 1200);
+        if (!isLoading) {
+            loadMoreOnNeed();
+        }
+    }
+
+    public void loadMoreOnNeed() {
+        LinearLayoutManager llm = (LinearLayoutManager) recyclerView.getLayoutManager();
+        if (!isLoading && articles.size() < maxLoadedArticlesCount) {
+            if (llm != null && llm.findLastVisibleItemPosition() == articlesFiltered.size() - 1) {
+                loadMore();
+                isLoading = true;
+            }
+        }
     }
 
     public void fetctArticles(String type, int page, int size) {
@@ -211,5 +224,11 @@ public class CardListFragment extends Fragment
 
     public String getType() {
         return type;
+    }
+
+    public void search(String query) {
+        System.out.println("onSearchTextChanged");
+        updateFilter(query);
+        loadMoreOnNeed();
     }
 }

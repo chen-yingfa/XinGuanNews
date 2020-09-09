@@ -42,7 +42,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alpha="@dimen/card_view_time_alpha"
-                android:padding="@dimen/card_view_time_padding"
+                android:paddingTop="@dimen/card_view_time_padding_top"
+                android:paddingLeft="@dimen/card_view_time_padding_left"
+                android:paddingRight="@dimen/card_view_time_padding"
+                android:paddingBottom="@dimen/card_view_time_padding"
                 android:text="2020-09-05"
                 android:textSize="12sp" />
         </LinearLayout>

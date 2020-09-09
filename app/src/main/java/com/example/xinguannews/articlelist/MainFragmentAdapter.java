@@ -26,15 +26,6 @@ public class MainFragmentAdapter extends FragmentStatePagerAdapter {
         this.context = context;
     }
 
-    // 在所有 Fragment 中添加一个给定文章
-    public void addArticle(Article article) {
-        System.out.println("addArticle in SectionsPagerAdapter");
-        for (CardListFragment f : fragments) {
-//            System.out.println("articleFragment.addArticleCard(article)");
-            f.addArticleCard(article);
-        }
-    }
-
     // 添加一个 Fragment
     public void addFragment(CardListFragment fragment) {
         fragments.add(fragment);
