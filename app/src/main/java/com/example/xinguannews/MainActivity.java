@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         // 英发 这段代码是用来解决bug的， bottom_nav_menu 加了超过了3个item之后显示就会有问题,字会消失
         //--------------------------------------------
-//        bottomNavigationMenu.setLabelVisibilityMode(0);  //默认动画
-//        bottomNavigationMenu.setLabelVisibilityMode(1); //默认清除动画（显示文字）
+        bottomNavigationMenu.setLabelVisibilityMode(0);  //默认动画
+        bottomNavigationMenu.setLabelVisibilityMode(1); //默认清除动画（显示文字）
         //---------------------------------------------------fix bug
 
 //        // 这里指定默认选中item （即一开始进入哪一个页面）
