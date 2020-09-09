@@ -104,6 +104,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationMenu.setOnNavigationItemSelectedListener(this);
     }
 
+
+
+
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         switch (item.getItemId()) {

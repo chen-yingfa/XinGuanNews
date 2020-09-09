@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -48,13 +49,16 @@ public class ArticleActivity extends AppCompatActivity implements WbShareCallbac
         mWBAPI.authorize(new WbAuthListener() {
             @Override
             public void onComplete(Oauth2AccessToken token) {
-                Toast.makeText(ArticleActivity.this, "", Toast.LENGTH_SHORT);}
+             //   Toast.makeText(ArticleActivity.this, "注册完毕", Toast.LENGTH_SHORT);
+            }
             @Override
             public void onError(UiError error) {
-                Toast.makeText(ArticleActivity.this, "", Toast.LENGTH_SHORT);}
+            //    Toast.makeText(ArticleActivity.this, "注册失败", Toast.LENGTH_SHORT);
+            }
             @Override
             public void onCancel() {
-                Toast.makeText(ArticleActivity.this, "", Toast.LENGTH_SHORT);}
+            //    Toast.makeText(ArticleActivity.this, "注册取消", Toast.LENGTH_SHORT);
+            }
         });
     }
     @Override
@@ -74,6 +78,15 @@ public class ArticleActivity extends AppCompatActivity implements WbShareCallbac
             }
         });
 
+        textTitle = findViewById(R.id.article_activity_text_title);
+        textTime = findViewById(R.id.article_activity_text_time);
+        textContent = findViewById(R.id.article_activity_text_content);
+        textSource = findViewById(R.id.article_activity_text_source);
+
+        setTextViews(article);
+
+
+
         buttonShare = findViewById(R.id.article_activity_button_share);
         buttonShare.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,9 +104,11 @@ public class ArticleActivity extends AppCompatActivity implements WbShareCallbac
 
 
                 TextObject textObject = new TextObject();
-                String text = article.title + "\n\n\n" + article.time +"\n" + article.source+ "\n\n" +  article.content;
+                String text = "share what you want!";
 
-                textObject.text = text;
+
+
+                textObject.text = article.title + "\n\n\n" + article.time +"\n" + article.source+ "\n\n" +  article.content;
                 message.textObject = textObject;
 
 
@@ -105,12 +120,7 @@ public class ArticleActivity extends AppCompatActivity implements WbShareCallbac
             }
         });
 
-        textTitle = findViewById(R.id.article_activity_text_title);
-        textTime = findViewById(R.id.article_activity_text_time);
-        textContent = findViewById(R.id.article_activity_text_content);
-        textSource = findViewById(R.id.article_activity_text_source);
 
-        setTextViews(article);
     }
 
     private void setTextViews(Article article) {
@@ -127,7 +137,7 @@ public class ArticleActivity extends AppCompatActivity implements WbShareCallbac
 
     @Override
     public void onComplete() {
-       // Toast.makeText(ArticleActivity.this, "share success", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
@@ -137,7 +147,7 @@ public class ArticleActivity extends AppCompatActivity implements WbShareCallbac
 
     @Override
     public void onCancel() {
-     //   Toast.makeText(ArticleActivity.this, "cancel", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(ArticleActivity.this, "cancel", Toast.LENGTH_SHORT).show();
     }
 
     @Override

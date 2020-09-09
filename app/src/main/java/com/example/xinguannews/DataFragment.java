@@ -11,6 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import lecho.lib.hellocharts.model.ColumnChartData;
+import lecho.lib.hellocharts.view.ColumnChartView;
+import lecho.lib.hellocharts.view.LineChartView;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link DataFragment#newInstance} factory method to
@@ -18,7 +22,23 @@ import android.widget.TextView;
  */
 public class DataFragment extends Fragment {
 
+
+    private static final int DEFAULT_DATA = 0;
+    private static final int SUBCOLUMNS_DATA = 1;
+    private static final int STACKED_DATA = 2;
+    private static final int NEGATIVE_SUBCOLUMNS_DATA = 3;
+    private static final int NEGATIVE_STACKED_DATA = 4;
+
+    private ColumnChartView chart;
+    private ColumnChartData data;
+    private boolean hasAxes = true;
+    private boolean hasAxesNames = true;
+    private boolean hasLabels = false;
+    private boolean hasLabelForSelected = false;
+    private int dataType = DEFAULT_DATA;
     private  String message;
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -67,7 +87,10 @@ public class DataFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_data, container, false);
+        setHasOptionsMenu(true);
+        View view = inflater.inflate(R.layout.fragment_data, container, false);
+
+        return view;
     }
 
     @Override

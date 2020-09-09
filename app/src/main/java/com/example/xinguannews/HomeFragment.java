@@ -77,17 +77,15 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     LinkedHashMap<String, Chip> categoryChips;
     LinkedHashMap<String, Chip> selectedCategoryChips;
 
-    private  String message;
-
+    private String message;
 
     public void setMessage(String message) {
-
+        this.message = message;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -95,7 +93,6 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
-//        return null;
     }
 
     @Override
@@ -201,6 +198,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         // 自定子类以将目前的 Activity 作为参数串给监听器
         class CategoryChipBottomSheetCallback extends BottomSheetBehavior.BottomSheetCallback {
             CategoryChipListener listener;
+
             public CategoryChipBottomSheetCallback(CategoryChipListener listener) {
                 this.listener = listener;
             }
@@ -285,6 +283,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         class CategoryChipOnClickListener implements View.OnClickListener {
             private String category;
             private CategoryChipListener listener;
+
             public CategoryChipOnClickListener(String category, CategoryChipListener listener) {
                 this.category = category;
                 this.listener = listener;
@@ -328,6 +327,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private void hideEditTagSheet() {
         sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
     }
+
     private void addTab(String category) {
         String title = mapCategoryToTitle.get(category);
         cardListPagerAdapter.addFragment(new CardListFragment(category, title));
