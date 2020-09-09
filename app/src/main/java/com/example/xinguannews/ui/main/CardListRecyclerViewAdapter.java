@@ -17,6 +17,7 @@ import com.example.xinguannews.article.Article;
 
 import java.util.List;
 
+// 管理新闻列表中的卡片的 Adapter
 public class CardListRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;

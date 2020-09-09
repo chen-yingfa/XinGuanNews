@@ -27,7 +27,7 @@
     </string-array>
     <string name="title_activity_test2">test2</string>
     <string name="title_activity_main3">MainActivity3</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_blank_fragment">数据的 fragment</string>
     <string name="action_settings">settings</string>
     <string name="action_favorite">favorite</string>
 

@@ -1,28 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/linear_layout_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:id="@+id/linear_layout_sub1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_Height"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/padding_bar_hor"
+            android:paddingRight="@dimen/padding_bar_hor">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="15"
+                android:minWidth="100dp"
+                android:background="@color/colorPrimary"
+                app:titleTextColor="@color/colorWhite">
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:text="@string/app_name"-->
+<!--                    android:textColor="@color/actionBarText"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:showAsAction="ifRoom"/>-->
+
+            </androidx.appcompat.widget.Toolbar>
+            <SearchView
+                android:id="@+id/searchView1"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/toolbar_Height"
+                android:background="@color/colorPrimary"
+                android:foregroundTint="@color/actionBarText"
+                android:paddingLeft="@dimen/search_icon_padding"
+                android:paddingRight="@dimen/search_icon_padding"
+                android:searchIcon="@drawable/ic_action_search">
+
+            </SearchView>
 
 
+        </LinearLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linear_layout_sub2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tab_bar_height">
 
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/button_edit_category"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tabIndicatorColor="@color/colorPrimary"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="@color/colorPrimary"
+                app:tabTextColor="@color/colorText">
 
+            </com.google.android.material.tabs.TabLayout>
 
+            <ImageButton
+                android:id="@+id/button_edit_category"
+                android:layout_width="@dimen/edit_category_icon_size"
+                android:layout_height="@dimen/edit_category_icon_size"
+                android:layout_marginRight="@dimen/padding_bar_hor"
+                android:background="@drawable/ic_add_primarycolor_24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/tabLayout"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="VectorDrawableCompat" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        </androidx.viewpager.widget.ViewPager>
     </LinearLayout>
 
-</FrameLayout>
+    <include layout="@layout/bottom_sheet_edit_category"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
