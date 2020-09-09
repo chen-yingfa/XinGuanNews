@@ -18,9 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_Height"
             android:background="@color/colorPrimary"
-            android:orientation="horizontal"
-            android:paddingLeft="@dimen/padding_bar_hor"
-            android:paddingRight="@dimen/padding_bar_hor">
+            android:orientation="horizontal">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -41,19 +39,31 @@
 <!--                    android:textStyle="bold"-->
 <!--                    android:showAsAction="ifRoom"/>-->
 
+<!--                <EditText-->
+<!--                    android:id="@+id/search_bar"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_margin="6dp"-->
+<!--                    android:background="@drawable/edit_text_box" />-->
+
+<!--                <Button-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@drawable/edit_text_box"-->
+<!--                    android:hint="搜索"-->
+<!--                    android:layout_margin="6dp"-->
+<!--                    android:padding="2dp">-->
+<!--                </Button>-->
             </androidx.appcompat.widget.Toolbar>
-            <SearchView
-                android:id="@+id/searchView1"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/toolbar_Height"
-                android:background="@color/colorPrimary"
-                android:foregroundTint="@color/actionBarText"
-                android:paddingLeft="@dimen/search_icon_padding"
-                android:paddingRight="@dimen/search_icon_padding"
-                android:searchIcon="@drawable/ic_action_search">
 
-            </SearchView>
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:background="@drawable/edit_text_box">
 
+            </androidx.appcompat.widget.SearchView>
 
         </LinearLayout>
 
