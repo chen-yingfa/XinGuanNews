@@ -13,7 +13,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+
         <LinearLayout
+            android:id="@+id/linear_layout_sub1"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_Height"
             android:background="@color/colorPrimary"
@@ -39,11 +41,14 @@
                 android:background="@color/colorPrimary"
                 android:paddingLeft="@dimen/search_icon_padding"
                 android:paddingRight="@dimen/search_icon_padding"
-                android:searchIcon="@drawable/ic_action_search" />
+                android:searchIcon="@drawable/ic_action_search">
+
+            </SearchView>
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linear_layout_sub2"
             android:layout_width="match_parent"
             android:layout_height="@dimen/tab_bar_height"
             android:orientation="horizontal">
@@ -91,8 +96,19 @@
 
         </com.google.android.material.bottomnavigation.BottomNavigationView>
 
+
     </LinearLayout>
 
     <!-- Adding bottom sheet after main content -->
+
+    <FrameLayout
+        android:id="@+id/fragment_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    </FrameLayout>
+
     <include layout="@layout/bottom_sheet_edit_category" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
