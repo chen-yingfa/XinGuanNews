@@ -1,5 +1,6 @@
 package com.example.xinguannews.article;
 
+import com.example.xinguannews.JsonParserUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -74,8 +75,8 @@ public class ArticleJsonParser {
     List<ArticleRelatedEvent> relatedEvents;
 
     public ArticleJsonParser(JsonObject json) {
-        System.out.println("instantiates ArticleJsonParser on ");
-        System.out.println(json);
+//        System.out.println("instantiates ArticleJsonParser on ");
+//        System.out.println(json);
         this.json = json;
 
         // init all possible members, some of them will be null
@@ -106,17 +107,17 @@ public class ArticleJsonParser {
     }
 
     public Article toArticle() {
-        System.out.println("get all values, some of them will be null");
-        System.out.println("type: " + type);
+//        System.out.println("get all values, some of them will be null");
+//        System.out.println("type: " + type);
         switch(type) {
             case "news":
-                System.out.println("toNews()");
+//                System.out.println("toNews()");
                 return toNews();
             case "paper":
-                System.out.println("toPaper()");
+//                System.out.println("toPaper()");
                 return toPaper();
             case "event":
-                System.out.println("toEvent()");
+//                System.out.println("toEvent()");
                 return toEvent();
             default:
                 return null;
@@ -306,27 +307,12 @@ public class ArticleJsonParser {
 
     // fundamental parser
     public static String parseString(JsonObject json, final String name) {
-        JsonElement val = json.get(name);
-        if (val == null || val.isJsonNull()) {
-            System.out.println("parseString(), missing: " + name);
-            return null;
-        }
-        return val.getAsString();
+        return JsonParserUtils.parseString(json, name);
     }
     public static Float parseFloat(JsonObject json, final String name) {
-        JsonElement val = json.get(name);
-        if (val == null || val.isJsonNull()) {
-            System.out.println("ParseFloat(), missing: " + name);
-            return null;
-        }
-        return val.getAsFloat();
+        return JsonParserUtils.parseFloat(json, name);
     }
     public static Long parseLong(JsonObject json, final String name) {
-        JsonElement val = json.get(name);
-        if (val == null || val.isJsonNull()) {
-            System.out.println("parseLong(), missing: " + name);
-            return null;
-        }
-        return val.getAsLong();
+        return JsonParserUtils.parseLong(json, name);
     }
 }

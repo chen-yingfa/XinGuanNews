@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
@@ -16,11 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.example.xinguannews.article.ArticleThread;
-import com.example.xinguannews.ui.main.CardListFragment;
-import com.example.xinguannews.ui.main.MainFragmentAdapter;
+import com.example.xinguannews.api.EpidemicApiThread;
+import com.example.xinguannews.api.EpidemicApiThreadListener;
+import com.example.xinguannews.articlelist.CardListFragment;
+import com.example.xinguannews.articlelist.MainFragmentAdapter;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -34,13 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, ArticleThreadListener, CategoryChipListener {
-
-    private View linearLayoutMain;
-    private Toolbar toolbar;
-    private View DisappearView;
-    private View DisappearView2;
-    private View DisappearView3;
+public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, EpidemicApiThreadListener, CategoryChipListener {
 
     private ImageButton buttonEditCategory;
     private MainFragmentAdapter cardListPagerAdapter;
@@ -62,7 +55,6 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private final String categoryTitleNews = "新闻";
     private final String categoryTitlePaper = "学术论文";
     private final String categoryTitleEvent = "事件";
-    private final String toolbarTitle = "新冠疫情新闻";
     private final Map<String, String> mapCategoryToTitle = new HashMap<>();
 
     // Shared Preferences key
@@ -334,10 +326,15 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     @Override
-    public void onFinishGettingArticles(ArticleThread thread) {
+    public void onFetchedArticles(EpidemicApiThread thread) {
         for (CardListFragment fragment : cardListPagerAdapter.getFragments()) {
-            fragment.onFinishGettingArticles(thread);
+            fragment.onFetchedArticles(thread);
         }
+    }
+
+    @Override
+    public void onFetchedEpidemicData(EpidemicApiThread thread) {
+
     }
 
     @Override

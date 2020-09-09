@@ -1,4 +1,4 @@
-package com.example.xinguannews.ui.main;
+package com.example.xinguannews.articlelist;
 
 import android.content.Context;
 import android.content.Intent;

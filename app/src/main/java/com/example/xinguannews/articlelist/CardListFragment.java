@@ -1,4 +1,4 @@
-package com.example.xinguannews.ui.main;
+package com.example.xinguannews.articlelist;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -15,21 +15,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.xinguannews.R;
-import com.example.xinguannews.ArticleThreadListener;
+import com.example.xinguannews.api.EpidemicApiThreadListener;
 import com.example.xinguannews.article.Article;
-import com.example.xinguannews.article.ArticleApiAdapter;
-import com.example.xinguannews.article.ArticleThread;
+import com.example.xinguannews.api.EpidemicApi;
+import com.example.xinguannews.api.EpidemicApiThread;
 
-import java.sql.Time;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A placeholder fragment containing a simple view.
- */
+*   一个由卡片组成的列表的 fragment，用于显示新闻（文章）列表
+* */
 public class CardListFragment extends Fragment
-        implements SwipeRefreshLayout.OnRefreshListener, ArticleThreadListener {
+        implements SwipeRefreshLayout.OnRefreshListener, EpidemicApiThreadListener {
     private int nPage = 1;
     private int pageSize = 20;
     public String type;
@@ -143,7 +141,7 @@ public class CardListFragment extends Fragment
 
     // 在下载线程下载完毕时候运行（该线程将下载的文章数据传过来）
     @Override
-    public void onFinishGettingArticles(ArticleThread thread) {
+    public void onFetchedArticles(EpidemicApiThread thread) {
         System.out.println("onThreadFinish");
         if (swipeRefreshLayout.isRefreshing()) { // refresh
             articles.clear();
@@ -152,8 +150,13 @@ public class CardListFragment extends Fragment
         }
         ++nPage;
         // load more
-        addArticles(thread.getArticles());
+        addArticles(thread.getArticleList());
         isLoading = false;
+    }
+
+    @Override
+    public void onFetchedEpidemicData(EpidemicApiThread thread) {
+        // this Fragment do not react to getting epidemic data
     }
 
     @Override
@@ -170,9 +173,7 @@ public class CardListFragment extends Fragment
         Activity act = getActivity();
         System.out.println(act);
         if (act != null) {
-            ArticleApiAdapter aaa = new ArticleApiAdapter(act);
-            aaa.addListener(this);
-            aaa.getArticles(type, nPage, pageSize);
+            fetctArticles(type, nPage, pageSize);
             isLoading = false;
         }
     }
@@ -185,8 +186,8 @@ public class CardListFragment extends Fragment
         adapter.notifyItemInserted(articles.size() - 1);
 
         class LoadMoreRunnable implements Runnable {
-            ArticleThreadListener listener;
-            public LoadMoreRunnable(ArticleThreadListener listener) {
+            EpidemicApiThreadListener listener;
+            public LoadMoreRunnable(EpidemicApiThreadListener listener) {
                 this.listener = listener;
             }
             @Override
@@ -195,19 +196,17 @@ public class CardListFragment extends Fragment
                 int scrollPosition = articles.size();
                 adapter.notifyItemRemoved(scrollPosition);
 
-                ArticleApiAdapter aaa = new ArticleApiAdapter(getActivity());
-                aaa.addListener(listener);
-                aaa.getArticles(type, nPage + 1, pageSize);
+                fetctArticles(type, nPage + 1, pageSize);
             }
         }
         Handler handler = new Handler();
         handler.postDelayed(new LoadMoreRunnable(this), 1600);
     }
 
-    private void getNextPage() {
-        ArticleApiAdapter aaa = new ArticleApiAdapter(getActivity());
-        aaa.addListener(this);
-        aaa.getArticles(type, nPage + 1, pageSize);
+    public void fetctArticles(String type, int page, int size) {
+        EpidemicApi api = new EpidemicApi(getActivity());
+        api.addListener(this);
+        api.getArticles(type, nPage, pageSize);
     }
 
     public String getType() {

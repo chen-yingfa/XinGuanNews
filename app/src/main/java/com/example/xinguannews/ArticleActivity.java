@@ -113,10 +113,6 @@ public class ArticleActivity extends AppCompatActivity implements WbShareCallbac
 
 
                 mWBAPI.shareMessage(message, true);
-
-
-
-
             }
         });
 

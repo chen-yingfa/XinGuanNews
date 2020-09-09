@@ -9,7 +9,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import com.example.xinguannews.api.EpidemicApi;
+import com.example.xinguannews.api.EpidemicApiThread;
+import com.example.xinguannews.api.EpidemicApiThreadListener;
+import com.example.xinguannews.epidemicdata.EpidemicData;
+
+import java.util.Set;
 
 import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.view.ColumnChartView;
@@ -20,7 +26,7 @@ import lecho.lib.hellocharts.view.LineChartView;
  * Use the {@link DataFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DataFragment extends Fragment {
+public class DataFragment extends Fragment implements EpidemicApiThreadListener {
 
 
     private static final int DEFAULT_DATA = 0;
@@ -90,11 +96,37 @@ public class DataFragment extends Fragment {
         setHasOptionsMenu(true);
         View view = inflater.inflate(R.layout.fragment_data, container, false);
 
+        // TODO: 去掉下一行 (仅为查看是否成功获取 EpidemicData 疫情数据)
+        fetchEpidemicData();
+
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
+    }
+
+    @Override
+    public void onFetchedArticles(EpidemicApiThread thread) {
+        // EpidemicApiThread 要求重写此函数，
+        // 但本 Fragment 不会对成功获取文章数据有反应，所以此处无代码
+    }
+
+    // 本函数在成功获取 EpidemicData （地区疫情数据）时会触发
+    @Override
+    public void onFetchedEpidemicData(EpidemicApiThread thread) {
+        System.out.println("onFinishGettingEpidemicData");
+
+        // 师叔，
+        // 在此编写下载地区数据完毕后的逻辑
+        Set<EpidemicData> epidemicDataSet = thread.getEpidemicDataSet(); // 包含所有地区的疫情数据，是一个 HashSet
+    }
+
+    // 师叔，你需要获得不同地区疫情数据就调用这个，下载完毕后自动会触发上面的 onFinishGettingEpidemicData()
+    public void fetchEpidemicData() {
+        EpidemicApi api = new EpidemicApi(getActivity());
+        api.addListener(this);
+        api.getEpidemicData();
     }
 }
