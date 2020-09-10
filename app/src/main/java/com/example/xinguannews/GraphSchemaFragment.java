@@ -11,12 +11,17 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example.xinguannews.api.EpidemicApi;
+import com.example.xinguannews.api.EpidemicApiThread;
+import com.example.xinguannews.api.EpidemicApiThreadListener;
+import com.example.xinguannews.epidemicdata.EpidemicData;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link GraphSchemaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class GraphSchemaFragment extends Fragment {
+public class GraphSchemaFragment extends Fragment implements EpidemicApiThreadListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -88,4 +93,22 @@ public class GraphSchemaFragment extends Fragment {
 
 
     }
+
+    @Override
+    public void onFetchedArticles(EpidemicApiThread thread) {}
+
+    @Override
+    public void onFetchedEpidemicData(EpidemicApiThread thread) {}
+
+    @Override
+    public void onFetchedEntity(EpidemicApiThread thread) {
+        // 师叔，在这里先写获得 Entity 数据后的逻辑
+    }
+
+    public void fetchEntity(String entity) {
+        EpidemicApi api = new EpidemicApi(getActivity());
+        api.addListener(this);
+        api.getEntity(entity);
+    }
+
 }

@@ -54,6 +54,7 @@ public class EpidemicApiThread extends Thread {
 
     // related to parsing Entity
     public Entity entity;
+    public String entityQuery;
 
     // 最少参数的构造函数
     public EpidemicApiThread(Activity activity) {
@@ -77,6 +78,9 @@ public class EpidemicApiThread extends Thread {
         this.type = type;
         this.page = page;
         this.size = size;
+    }
+    public void setEntityParams(String entityQuery) {
+        this.entityQuery = entityQuery;
     }
 
     /**************************************************
@@ -102,6 +106,9 @@ public class EpidemicApiThread extends Thread {
                 break;
             case "epidemicData":
                 fetchEpidemicData();
+                break;
+            case "entity":
+                fetchEntity();
                 break;
             default:
                 System.out.println("ERROR: did not set task before running apiThread");
@@ -195,8 +202,8 @@ public class EpidemicApiThread extends Thread {
     }
 
 
-    public void fetchEntity(String query) {
-        String url = urlEntityQuery + "?entity=" + query;
+    public void fetchEntity() {
+        String url = urlEntityQuery + "?entity=" + entityQuery;
         String jsonStr = getStringFromUrl(url);
         JsonObject jsonObject = JsonParser.parseString(jsonStr).getAsJsonObject();
         JsonElement data = jsonObject.get("data");

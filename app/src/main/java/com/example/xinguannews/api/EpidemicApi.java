@@ -36,4 +36,13 @@ public class EpidemicApi {
         thr.addListener(listener);
         thr.start();
     }
+
+    public void getEntity(String entityQuery) {
+        System.out.println("start getting entity...");
+        EpidemicApiThread thr = new EpidemicApiThread(activity);
+        thr.setEntityParams(entityQuery);
+        thr.setTask("entity");
+        thr.addListener(listener);
+        thr.start();
+    }
 }
