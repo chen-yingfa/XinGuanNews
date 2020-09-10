@@ -517,6 +517,7 @@ public class HomeFragment
     public void doQuery(String query) {
         addQuery(query);
         saveQueriesToPref();
+        saveQueryToPref(query);
         hideQueriesRecyclerView();
         searchBar.setQuery(query, false);
         updateQuery(query);
@@ -548,9 +549,9 @@ public class HomeFragment
     }
 
     @Override
-    public void onItemClick(View view, int pos) {
-        System.out.println("onItemClick " + pos);
-        String query = queries.get(pos);
-        doQuery(query);
+    public void onItemClick(String text) {
+//        System.out.println("onItemClick " + pos);
+//        String query = queries.get(pos);
+        doQuery(text);
     }
 }

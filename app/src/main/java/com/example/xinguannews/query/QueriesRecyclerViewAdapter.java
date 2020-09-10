@@ -2,18 +2,14 @@ package com.example.xinguannews.query;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.xinguannews.HomeFragment;
 import com.example.xinguannews.R;
-import com.example.xinguannews.SearchActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class QueriesRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -59,13 +55,13 @@ public class QueriesRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
         public void onClick(View view) {
             System.out.println("onClick");
             if (itemClickListener != null) {
-                itemClickListener.onItemClick(view, getAdapterPosition());
+                itemClickListener.onItemClick((String) textView.getText());
             }
         }
     }
 
     public interface ItemClickListener {
-        void onItemClick(View view, int pos);
+        void onItemClick(String text);
     }
 
     private void setListItem(QueriesRecyclerViewAdapter.QueryViewHolder holder, int pos) {

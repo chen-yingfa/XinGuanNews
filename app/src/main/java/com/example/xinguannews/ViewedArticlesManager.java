@@ -24,7 +24,7 @@ public class ViewedArticlesManager {
     public static List<Article> viewedArticles = new ArrayList<Article>();
     public static Set<String> viewedIds = new HashSet<>();
     public static final String FILENAME_ARTICLE = "articles.json";
-    public static final int bufferSize = 3;   // TODO: make this much larger
+    public static final int bufferSize = 30;   // TODO: make this much larger
 
     // saves a map of articles in article.json
     public static void saveViewedArticles(Context context) {
@@ -80,13 +80,13 @@ public class ViewedArticlesManager {
 
     public static void addViewedArticle(Article article) {
         if (viewedArticles.size() >= bufferSize) {
-            System.out.println("too many viewed articles, remove first one");
-            System.out.println(viewedArticles.get(0));
+//            System.out.println("too many viewed articles, remove first one");
+//            System.out.println(viewedArticles.get(0));
 
             viewedIds.remove(viewedArticles.get(0)._id);
-            viewedArticles.remove(0); // pop
+            viewedArticles.remove(viewedArticles.size() - 1); // pop
         }
-        viewedArticles.add(article);  // push
+        viewedArticles.add(0, article);  // push
         viewedIds.add(article._id);
     }
 
