@@ -27,6 +27,7 @@ import java.util.Set;
 
 public class DataFragment extends Fragment implements EpidemicApiThreadListener {
     private LinearLayout tableCountries;
+    private LinearLayout tableProvinces;
     private View view;
     private final String headerProvince = "省份";
     private final String headerCountry = "国家";
@@ -78,13 +79,16 @@ public class DataFragment extends Fragment implements EpidemicApiThreadListener 
         Map<String, EpidemicData.CountryData> map = new HashMap<>();
         for (EpidemicData elem : epidemicDataSet) {
             EpidemicDataOneDay curData = elem.data.get(elem.data.size() - 1);
-            if (!map.containsKey(elem.country)) {
+            if (elem.province == null) {
+
+
                 EpidemicData.CountryData countryData = new EpidemicData.CountryData();
+
                 countryData.country = elem.country;
+
                 countryData.initData(curData);
+
                 map.put(elem.country, countryData);
-            } else {
-                map.get(elem.country).addData(curData);
             }
         }
 
@@ -92,20 +96,61 @@ public class DataFragment extends Fragment implements EpidemicApiThreadListener 
         sorted.addAll(map.values());
         Collections.sort(sorted);
 
-        tableCountries = view.findViewById(R.id.epidemic_data_countries);
-//        tableCountries.addView(getCountryDataHeaderRow());     // 添加第一行（每列的标题），现在不用了，在 XML 里添加了
+            tableCountries = view.findViewById(R.id.epidemic_data_countries);
+        //        tableCountries.addView(getCountryDataHeaderRow());     // 添加第一行（每列的标题），现在不用了，在 XML 里添加了
         for (EpidemicData.CountryData countryData : sorted) {
             View rowView = countryDataToRow(countryData);
             tableCountries.addView(rowView);
         }
+
+        //////////////////////////////////////////////////////////////////////////////////////
+
+        Map<String, EpidemicData.CountryData> map2 = new HashMap<>();
+
+        for (EpidemicData elem : epidemicDataSet) {
+            EpidemicDataOneDay curData = elem.data.get(elem.data.size() - 1);
+            if(elem.country.equals( "China")) {
+                if (elem.county == null) {
+
+                    EpidemicData.CountryData provinceData = new EpidemicData.CountryData();
+
+                    provinceData.country = elem.country;
+                    provinceData.province = elem.province;
+                    System.out.println(elem.country);
+
+                    provinceData.initData(curData);
+
+                    map2.put(elem.province, provinceData);
+                }
+            }
+        }
+
+     //   List<EpidemicData.CountryData> sorted = new ArrayList<>();
+        sorted.clear();
+        sorted.addAll(map2.values());
+        Collections.sort(sorted);
+
+             tableProvinces = view.findViewById(R.id.epidemic_data_provinces);
+        //        tableCountries.addView(getCountryDataHeaderRow());     // 添加第一行（每列的标题），现在不用了，在 XML 里添加了
+        for (EpidemicData.CountryData countryData : sorted) {
+            View rowView = provinceDataToRow(countryData);
+            tableProvinces.addView(rowView);
+        }
+
+
+
     }
     private View countryDataToRow(EpidemicData.CountryData countryData) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View view = inflater.inflate(R.layout.country_data_row, null, false);
+
+
         TextView viewCountry = view.findViewById(R.id.country_data_row_text_country);
         TextView viewConfirmed = view.findViewById(R.id.country_data_row_text_confirmed);
         TextView viewCured = view.findViewById(R.id.country_data_row_text_cured);
         TextView viewDead = view.findViewById(R.id.country_data_row_text_dead);
+
+
         viewCountry.setText(countryData.country);
         viewConfirmed.setText(countryData.confirmed.toString());
         viewCured.setText(countryData.cured.toString());
@@ -113,22 +158,50 @@ public class DataFragment extends Fragment implements EpidemicApiThreadListener 
         return view;
     }
 
+    private View provinceDataToRow(EpidemicData.CountryData provinceData )
+    {
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View view = inflater.inflate(R.layout.province_data_row, null, false);
+
+
+        TextView viewProvince = view.findViewById(R.id.province_data_row_text_province);
+        TextView viewConfirmed = view.findViewById(R.id.province_data_row_text_confirmed);
+        TextView viewCured = view.findViewById(R.id.province_data_row_text_cured);
+        TextView viewDead = view.findViewById(R.id.province_data_row_text_dead);
+
+
+        viewProvince.setText(provinceData.province);
+
+        if(provinceData.province == null)
+            viewProvince.setText("全国");
+
+        viewConfirmed.setText(provinceData.confirmed.toString());
+        viewCured.setText(provinceData.cured.toString());
+        viewDead.setText(provinceData.dead.toString());
+        return view;
+    }
+
     private View getCountryDataHeaderRow() {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View view = inflater.inflate(R.layout.country_data_row, null, false);
+
         TextView viewCountry = view.findViewById(R.id.country_data_row_text_country);
         TextView viewConfirmed = view.findViewById(R.id.country_data_row_text_confirmed);
         TextView viewCured = view.findViewById(R.id.country_data_row_text_cured);
         TextView viewDead = view.findViewById(R.id.country_data_row_text_dead);
+
         viewCountry.setText(headerCountry);
         viewConfirmed.setText(headerConfirmed);
         viewCured.setText(headerCured);
         viewDead.setText(headerDead);
+
         int textColor = ContextCompat.getColor(getContext(), R.color.text);
+
         viewCountry.setTextColor(textColor);
         viewConfirmed.setTextColor(textColor);
         viewCured.setTextColor(textColor);
         viewDead.setTextColor(textColor);
+
         return view;
     }
 }

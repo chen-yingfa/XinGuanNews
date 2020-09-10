@@ -27,6 +27,8 @@ public class EpidemicData {
 
     public static class CountryData implements Comparable<CountryData> {
         public String country;
+        public String province;
+        public String county;
         public Integer confirmed;
         public Integer cured;
         public Integer dead;
