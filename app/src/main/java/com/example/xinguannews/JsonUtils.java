@@ -29,4 +29,12 @@ public class JsonUtils {
         }
         return val.getAsLong();
     }
+
+    public static Boolean parseBoolean(JsonObject json, final String name) {
+        JsonElement val = json.get(name);
+        if (val == null || val.isJsonNull()) {
+            return null;
+        }
+        return val.getAsBoolean();
+    }
 }

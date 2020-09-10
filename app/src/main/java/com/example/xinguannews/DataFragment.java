@@ -68,6 +68,9 @@ public class DataFragment extends Fragment implements EpidemicApiThreadListener 
         loadTableData(epidemicDataSet);
     }
 
+    @Override
+    public void onFetchedEntity(EpidemicApiThread thread) {}
+
     // 师叔，你需要获得不同地区疫情数据就调用这个，下载完毕后自动会触发上面的 onFinishGettingEpidemicData()
     public void fetchEpidemicData() {
         EpidemicApi api = new EpidemicApi(getActivity());

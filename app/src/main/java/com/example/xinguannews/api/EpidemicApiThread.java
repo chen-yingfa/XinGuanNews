@@ -4,6 +4,8 @@ import android.app.Activity;
 
 import com.example.xinguannews.article.Article;
 import com.example.xinguannews.article.ArticleJson;
+import com.example.xinguannews.entity.Entity;
+import com.example.xinguannews.entity.EntityJsonParser;
 import com.example.xinguannews.epidemicdata.EpidemicData;
 import com.example.xinguannews.epidemicdata.EpidemicDataJsonParser;
 import com.google.gson.JsonArray;
@@ -28,7 +30,7 @@ public class EpidemicApiThread extends Thread {
     private final String urlEvent = "https://covid-dashboard.aminer.cn/api/event/";
     private final String urlEpidemicData = "https://covid-dashboard.aminer.cn/api/dist/epidemic.json";
     private final String urlAllEvents = "https://covid-dashboard.aminer.cn/api/dist/events.json";
-    private final String urlDiagram = "https://innovaapi.aminer.cn/covid/api/v1/pneumonia/entityquery";
+    private final String urlEntityQuery = "https://innovaapi.aminer.cn/covid/api/v1/pneumonia/entityquery";
     private final String urlParamStrType = "type";
     private final String urlParamStrPage = "page";
     private final String urlParamStrSize = "size";
@@ -49,6 +51,9 @@ public class EpidemicApiThread extends Thread {
 
     // related to parsing EpidemicData
     private Set<EpidemicData> epidemicDataSet = new HashSet<>();
+
+    // related to parsing Entity
+    public Entity entity;
 
     // 最少参数的构造函数
     public EpidemicApiThread(Activity activity) {
@@ -110,6 +115,8 @@ public class EpidemicApiThread extends Thread {
                 notifyListenersOfFinishGettingArticles(thread);
             case "epidemicData":
                 notifyListenersOfFinishGettingEpidemicData(thread);
+            case "entity":
+                notifyListenersOfFinishFetchingEntity(thread);
         }
     }
 
@@ -130,6 +137,17 @@ public class EpidemicApiThread extends Thread {
             public void run() {
                 for (EpidemicApiThreadListener listener : listeners) {
                     listener.onFetchedEpidemicData(thread);
+                }
+            }
+        });
+    }
+
+    public void notifyListenersOfFinishFetchingEntity(final EpidemicApiThread thread) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                for (EpidemicApiThreadListener listener : listeners) {
+                    listener.onFetchedEntity(thread);
                 }
             }
         });
@@ -173,6 +191,20 @@ public class EpidemicApiThread extends Thread {
         JsonObject jsonObject = JsonParser.parseString(jsonStr).getAsJsonObject();
         EpidemicDataJsonParser parser = new EpidemicDataJsonParser(jsonObject);
         epidemicDataSet = parser.toEpidemicDataSet();
+        notifyListenersOfFinish(this);
+    }
+
+
+    public void fetchEntity(String query) {
+        String url = urlEntityQuery + "?entity=" + query;
+        String jsonStr = getStringFromUrl(url);
+        JsonObject jsonObject = JsonParser.parseString(jsonStr).getAsJsonObject();
+        JsonElement data = jsonObject.get("data");
+        if (data == null || data.isJsonNull()) {
+            notifyListenersOfFinish(this);
+        }
+        EntityJsonParser entityJsonParser = new EntityJsonParser(data.getAsJsonObject());
+        entity = entityJsonParser.toEntity();
         notifyListenersOfFinish(this);
     }
 

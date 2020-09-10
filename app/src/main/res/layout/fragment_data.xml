@@ -1,24 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/data"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DataFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_data_fragment"
+        app:layout_constraintBottom_toTopOf="@+id/data_fragmeent_scroll_view"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/toolbar_Height"
+        android:background="@color/primary">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_data"
+            android:textColor="@color/textToolBar"
+            android:textSize="@dimen/text_size_toolbar"
+            android:textStyle="bold">
+
+        </TextView>
+
+    </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:id="@+id/data_fragmeent_scroll_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_data_fragment">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_margin="@dimen/padding_article_activity"
-            >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -78,16 +102,16 @@
                 android:id="@+id/epidemic_data_provinces"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:orientation="vertical"></LinearLayout>
+                android:paddingRight="12dp"></LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/epidemic_data_row_height"
+                android:layout_marginTop="12dp"
                 android:background="@drawable/edit_text_box"
                 android:backgroundTint="@color/primary"
-                android:layout_marginTop="12dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -140,12 +164,11 @@
                 android:id="@+id/epidemic_data_countries"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:orientation="vertical"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
-                android:paddingBottom="24dp"
-                android:layout_margin="6dp"
-                android:orientation="vertical">
-            </LinearLayout>
+                android:paddingBottom="24dp"></LinearLayout>
         </LinearLayout>
     </ScrollView>
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

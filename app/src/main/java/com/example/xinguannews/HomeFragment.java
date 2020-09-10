@@ -362,6 +362,9 @@ public class HomeFragment
     }
 
     @Override
+    public void onFetchedEntity(EpidemicApiThread thread) {}
+
+    @Override
     public void onRefresh() {
         for (CardListFragment fragment : cardListFragmentAdapter.getFragments()) {
             fragment.onRefresh();

@@ -159,9 +159,10 @@ public class CardListFragment extends Fragment
     }
 
     @Override
-    public void onFetchedEpidemicData(EpidemicApiThread thread) {
-        // this Fragment do not react to getting epidemic data
-    }
+    public void onFetchedEpidemicData(EpidemicApiThread thread) {}
+
+    @Override
+    public void onFetchedEntity(EpidemicApiThread thread) {}
 
     @Override
     public void onRefresh() {
