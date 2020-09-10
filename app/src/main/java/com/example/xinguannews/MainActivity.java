@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case R.id.nav_bottom_expert:
                 break;
             case R.id.nav_bottom_diagram:
+                openFragment(new GraphSchemaFragment());
                 break;
             case R.id.nav_bottom_downloaded:
                 openFragment(new DownloadedFragment());
