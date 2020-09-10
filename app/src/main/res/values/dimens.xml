@@ -41,4 +41,5 @@
     <dimen name="edit_category_icon_size">24dp</dimen>
     <dimen name="epidemic_data_row_height">24dp</dimen>
     <dimen name="epidemic_data_text_size">11sp</dimen>
+    <dimen name="text_size_toolbar">18sp</dimen>
 </resources>

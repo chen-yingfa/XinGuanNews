@@ -6,6 +6,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_downloaded_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_Height"
+        android:background="@color/primary"
+        app:layout_constraintBottom_toTopOf="@+id/recycler_view_card_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textToolBar"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_toolbar"
+            android:text="@string/title_downloaded">
+
+        </TextView>
+
+    </androidx.appcompat.widget.Toolbar>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_card_list"
         android:layout_width="match_parent"
@@ -13,7 +34,8 @@
         android:paddingTop="@dimen/card_view_margin_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/toolbar_downloaded_fragment"
+        >
 
     </androidx.recyclerview.widget.RecyclerView>
 
