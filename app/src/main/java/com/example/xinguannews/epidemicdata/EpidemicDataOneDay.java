@@ -1,10 +1,10 @@
 package com.example.xinguannews.epidemicdata;
 
 public class EpidemicDataOneDay {
-    Integer confirmed;
-    Integer suspected;
-    Integer cured;
-    Integer dead;
+    public Integer confirmed;
+     Integer suspected;
+    public Integer cured;
+    public Integer dead;
     Integer severe;
     Integer risk;
     Integer inc24;

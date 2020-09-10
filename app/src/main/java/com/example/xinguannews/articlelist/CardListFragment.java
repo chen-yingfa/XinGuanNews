@@ -218,6 +218,7 @@ public class CardListFragment extends Fragment
 
     public void fetctArticles(String type, int page, int size) {
         EpidemicApi api = new EpidemicApi(getActivity());
+
         api.addListener(this);
         api.getArticles(type, nPage, pageSize);
     }
