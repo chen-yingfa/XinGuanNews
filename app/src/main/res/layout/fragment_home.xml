@@ -29,31 +29,6 @@
                 android:background="@color/colorPrimary"
                 app:titleTextColor="@color/colorWhite">
 
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:gravity="center_vertical"-->
-<!--                    android:text="@string/app_name"-->
-<!--                    android:textColor="@color/actionBarText"-->
-<!--                    android:textSize="16sp"-->
-<!--                    android:textStyle="bold"-->
-<!--                    android:showAsAction="ifRoom"/>-->
-
-<!--                <EditText-->
-<!--                    android:id="@+id/search_bar"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_margin="6dp"-->
-<!--                    android:background="@drawable/edit_text_box" />-->
-
-<!--                <Button-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:background="@drawable/edit_text_box"-->
-<!--                    android:hint="搜索"-->
-<!--                    android:layout_margin="6dp"-->
-<!--                    android:padding="2dp">-->
-<!--                </Button>-->
             </androidx.appcompat.widget.Toolbar>
 
             <androidx.appcompat.widget.SearchView

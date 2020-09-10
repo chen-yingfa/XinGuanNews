@@ -9,7 +9,8 @@ public class EpidemicData {
     public String begin;
     public List<EpidemicDataOneDay> data;
 
-    public EpidemicData() {}
+    public EpidemicData() {
+    }
 
     public EpidemicData(String country, String province, String county,
                         String begin, List<EpidemicDataOneDay> data) {
@@ -24,13 +25,46 @@ public class EpidemicData {
         return country + " " + province + " " + county + " " + begin + " " + data.get(0);
     }
 
-    public static class covData
-    {
+    public static class CountryData implements Comparable<CountryData> {
+        public String country;
+        public Integer confirmed;
         public Integer cured;
         public Integer dead;
-        public Integer confirmed;
-        public covData() {};
 
+        public CountryData() {
+        }
+
+        public void addData(CountryData other) {
+            confirmed += other.confirmed;
+            cured += other.cured;
+            dead += other.dead;
+        }
+
+        public void addData(EpidemicDataOneDay other) {
+            confirmed += other.confirmed;
+            cured += other.cured;
+            dead += other.dead;
+        }
+
+        public void initData(EpidemicDataOneDay other) {
+            confirmed = other.confirmed;
+            cured = other.cured;
+            dead = other.dead;
+        }
+
+        @Override
+        public int compareTo(CountryData other) {
+            if (confirmed == other.confirmed) {
+                if (dead == other.dead) {
+                    if (cured == other.cured) {
+                        return other.country.compareTo(country);
+                    }
+                    return other.cured.compareTo(cured);
+                }
+                return other.dead.compareTo(dead);
+            }
+            return other.confirmed.compareTo(confirmed);
+        }
     }
 
 
