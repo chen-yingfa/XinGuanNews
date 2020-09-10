@@ -1,11 +1,14 @@
 package com.example.xinguannews.article;
 
 import com.google.gson.JsonObject;
+import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
 public class ArticleRelatedEvent implements Serializable {
+    @SerializedName("id")
     public String id;
+    @SerializedName("score")
     public float score;
     public String jsonNameRelEventId = "id";
     public String jsonNameRelEventScore = "score";
@@ -16,7 +19,7 @@ public class ArticleRelatedEvent implements Serializable {
     }
 
     public ArticleRelatedEvent(JsonObject json) {
-        String id = ArticleJsonParser.parseString(json, jsonNameRelEventId);
-        Float score = ArticleJsonParser.parseFloat(json, jsonNameRelEventScore);
+        String id = ArticleJson.parseString(json, jsonNameRelEventId);
+        Float score = ArticleJson.parseFloat(json, jsonNameRelEventScore);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.xinguannews.article;
 
-import com.example.xinguannews.JsonParserUtils;
+import com.example.xinguannews.JsonUtils;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -9,7 +10,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ArticleJsonParser {
+// class for conversion between Article and JsonObject
+public class ArticleJson {
     // json member names
     public final String jsonName_id = "_id";
     public final String jsonNameCategory = "category";
@@ -71,10 +73,10 @@ public class ArticleJsonParser {
     List<String> segText;
     List<String> urls;
     List<ArticleEntity> entities;
-    List<ArticleGeoInfo> geoInfos;
+    List<ArticleGeoInfo> geoInfo;
     List<ArticleRelatedEvent> relatedEvents;
 
-    public ArticleJsonParser(JsonObject json) {
+    public ArticleJson(JsonObject json) {
 //        System.out.println("instantiates ArticleJsonParser on ");
 //        System.out.println(json);
         this.json = json;
@@ -103,88 +105,134 @@ public class ArticleJsonParser {
         authors = parseAuthors();
         relatedEvents = parseRelatedEvents();
         entities = parseArticleEntities();
-        geoInfos = parseGeoInfos();
+        geoInfo = parseGeoInfos();
+    }
+
+    public ArticleJson(Article article) {
+        _id = article._id;
+        category = article.category;
+        content = article.content;
+        date = article.date;
+        ID = article.ID;
+        type = article.type;
+        lang = article.lang;
+        title = article.title;
+        time = article.time;
+        source = article.source;
+        aminerId = article.aminerId;
+        doi = article.doi;
+        pdf = article.pdf;
+
+        influence = article.influence;
+        tFlag = article.tFlag;
+        segText = article.segText;
+        regionIds = article.regionIds;
+        urls = article.urls;
+        authors = article.authors;
+        relatedEvents = article.relatedEvents;
+        geoInfo = article.geoInfo;
     }
 
     public Article toArticle() {
 //        System.out.println("get all values, some of them will be null");
 //        System.out.println("type: " + type);
-        switch(type) {
-            case "news":
-//                System.out.println("toNews()");
-                return toNews();
-            case "paper":
-//                System.out.println("toPaper()");
-                return toPaper();
-            case "event":
-//                System.out.println("toEvent()");
-                return toEvent();
-            default:
-                return null;
-        }
+        return new Article(_id, category, content, date, entities, geoInfo, ID, influence,
+                lang, regionIds, relatedEvents, segText, source, tFlag, time, title, type,
+                urls, aminerId, authors, doi, pdf);
+//        switch(type) {
+//            case "news":
+////                System.out.println("toNews()");
+//                return toNews();
+//            case "paper":
+////                System.out.println("toPaper()");
+//                return toPaper();
+//            case "event":
+////                System.out.println("toEvent()");
+//                return toEvent();
+//            default:
+//                return null;
+//        }
     }
 
-    public News toNews() {
-        return new News(_id, category, content, date, entities, geoInfos, ID, influence, lang,
-                regionIds, relatedEvents, segText, source, tFlag, time, title, type, urls);
+    public JsonElement toJsonElement() {
+        Gson gson = new Gson();
+        return gson.toJsonTree(this);
     }
-    public Paper toPaper() {
-        return new Paper(_id, category, content, date, entities, geoInfos, ID, influence, lang,
-                regionIds, relatedEvents, segText, source, tFlag, time, title, type, urls,
-                aminerId, authors, doi, pdf);
-    }
-    public Event toEvent(){
-        return new Event(_id, category, content, date, entities, geoInfos, ID, influence, lang,
-                regionIds, relatedEvents, segText, source, tFlag, time, title, type, urls);
-    }
+
+//    public News toNews() {
+//        return new News(_id, category, content, date, entities, geoInfos, ID, influence, lang,
+//                regionIds, relatedEvents, segText, source, tFlag, time, title, type, urls);
+//    }
+//    public Paper toPaper() {
+//        return new Paper(_id, category, content, date, entities, geoInfos, ID, influence, lang,
+//                regionIds, relatedEvents, segText, source, tFlag, time, title, type, urls,
+//                aminerId, authors, doi, pdf);
+//    }
+//    public Event toEvent(){
+//        return new Event(_id, category, content, date, entities, geoInfos, ID, influence, lang,
+//                regionIds, relatedEvents, segText, source, tFlag, time, title, type, urls);
+//    }
 
     // parse String
     public String parse_id() {
         return parseString(json, jsonName_id);
     }
+
     public String parseCategory() {
         return parseString(json, jsonNameCategory);
     }
+
     public String parseContent() {
         return parseString(json, jsonNameContent);
     }
+
     public String parseDate() {
         return parseString(json, jsonNameDate);
     }
-    public String parseID(){
+
+    public String parseID() {
         return parseString(json, jsonNameID);
     }
+
     public String parseLang() {
         return parseString(json, jsonNameLang);
     }
-    public String parseSource(){
+
+    public String parseSource() {
         return parseString(json, jsonNameSource);
     }
-    public String parseTime(){
+
+    public String parseTime() {
         return parseString(json, jsonNameTime);
     }
-    public String parseTitle(){
+
+    public String parseTitle() {
         return parseString(json, jsonNameTitle);
     }
-    public String parseType(){
+
+    public String parseType() {
         return parseString(json, jsonNameType);
     }
+
     public String parseAminerId() {
         return parseString(json, jsonNameAminerId);
     }
+
     public String parseDoi() {
         return parseString(json, jsonNameDoi);
     }
-    public String parsePdf(){
+
+    public String parsePdf() {
         return parseString(json, jsonNamePdf);
     }
 
     // parse Long
-    public Long parseTFlag(){
+    public Long parseTFlag() {
         return parseLong(json, jsonNameTFlag);
     }
+
     // parse Float
-    public Float parseInfluence(){
+    public Float parseInfluence() {
         return parseFloat(json, jsonNameInfluence);
     }
 
@@ -307,12 +355,14 @@ public class ArticleJsonParser {
 
     // fundamental parser
     public static String parseString(JsonObject json, final String name) {
-        return JsonParserUtils.parseString(json, name);
+        return JsonUtils.parseString(json, name);
     }
+
     public static Float parseFloat(JsonObject json, final String name) {
-        return JsonParserUtils.parseFloat(json, name);
+        return JsonUtils.parseFloat(json, name);
     }
+
     public static Long parseLong(JsonObject json, final String name) {
-        return JsonParserUtils.parseLong(json, name);
+        return JsonUtils.parseLong(json, name);
     }
 }

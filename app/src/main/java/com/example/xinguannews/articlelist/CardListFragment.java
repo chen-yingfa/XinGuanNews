@@ -231,4 +231,8 @@ public class CardListFragment extends Fragment
         updateFilter(query);
         loadMoreOnNeed();
     }
+
+    public void setClickable(boolean b) {
+        adapter.clickable = b;
+    }
 }

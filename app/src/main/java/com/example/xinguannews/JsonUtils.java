@@ -3,7 +3,7 @@ package com.example.xinguannews;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-public class JsonParserUtils {
+public class JsonUtils {
     // fundamental parser
     public static String parseString(JsonObject json, final String name) {
         JsonElement val = json.get(name);

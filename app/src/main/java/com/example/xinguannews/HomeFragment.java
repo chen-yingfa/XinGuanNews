@@ -11,8 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +20,7 @@ import android.widget.LinearLayout;
 import com.example.xinguannews.api.EpidemicApiThread;
 import com.example.xinguannews.api.EpidemicApiThreadListener;
 import com.example.xinguannews.articlelist.CardListFragment;
-import com.example.xinguannews.articlelist.MainFragmentAdapter;
+import com.example.xinguannews.articlelist.CardListFragmentAdapter;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -46,7 +44,7 @@ public class HomeFragment
         SearchView.OnQueryTextListener {
 
     private ImageButton buttonEditCategory;
-    private MainFragmentAdapter cardListPagerAdapter;
+    private CardListFragmentAdapter cardListFragmentAdapter;
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -135,7 +133,7 @@ public class HomeFragment
     private void initTabLayout() {
         View view = getView();
         // Setup tab layout
-        cardListPagerAdapter = new MainFragmentAdapter(getContext(), getFragmentManager());
+        cardListFragmentAdapter = new CardListFragmentAdapter(getContext(), getFragmentManager());
 
         for (String category : selectedCategories) {
             addTab(category);
@@ -145,7 +143,7 @@ public class HomeFragment
         viewPager = view.findViewById(R.id.viewPager);
 
         viewPager.setOffscreenPageLimit(5);
-        viewPager.setAdapter(cardListPagerAdapter);
+        viewPager.setAdapter(cardListFragmentAdapter);
         tabLayout.setupWithViewPager(viewPager);
     }
 
@@ -262,7 +260,7 @@ public class HomeFragment
         for (String category : selectedCategories) {
             if (!curSelectedCategories.contains(category)) {
                 System.out.println(category);
-                cardListPagerAdapter.removeFragmentByType(category);
+                cardListFragmentAdapter.removeFragmentByType(category);
                 toRm.add(category);
             }
         }
@@ -331,21 +329,29 @@ public class HomeFragment
     }
 
     private void showEditTagSheet() {
+        setFragmentsClickable(false);
         sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
     private void hideEditTagSheet() {
+        setFragmentsClickable(true) ;
         sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
     }
 
     private void addTab(String category) {
         String title = mapCategoryToTitle.get(category);
-        cardListPagerAdapter.addFragment(new CardListFragment(category, title));
+        cardListFragmentAdapter.addFragment(new CardListFragment(category, title));
+    }
+
+    private void setFragmentsClickable(boolean b) {
+        for (CardListFragment fragment : cardListFragmentAdapter.getFragments()) {
+            fragment.setClickable(b);
+        }
     }
 
     @Override
     public void onFetchedArticles(EpidemicApiThread thread) {
-        for (CardListFragment fragment : cardListPagerAdapter.getFragments()) {
+        for (CardListFragment fragment : cardListFragmentAdapter.getFragments()) {
             fragment.onFetchedArticles(thread);
         }
     }
@@ -357,7 +363,7 @@ public class HomeFragment
 
     @Override
     public void onRefresh() {
-        for (CardListFragment fragment : cardListPagerAdapter.getFragments()) {
+        for (CardListFragment fragment : cardListFragmentAdapter.getFragments()) {
             fragment.onRefresh();
         }
     }
@@ -366,7 +372,7 @@ public class HomeFragment
     @Override
     public boolean onQueryTextChange(String newText) {
         System.out.println("onQueryTextChange");
-        for (CardListFragment fragment : cardListPagerAdapter.getFragments()) {
+        for (CardListFragment fragment : cardListFragmentAdapter.getFragments()) {
             fragment.search(newText);
         }
         return false;

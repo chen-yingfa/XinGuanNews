@@ -3,6 +3,7 @@ package com.example.xinguannews;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
@@ -12,6 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.xinguannews.article.Article;
+import com.example.xinguannews.article.ArticleJson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.sina.weibo.sdk.api.TextObject;
 import com.sina.weibo.sdk.api.WeiboMultiMessage;
 import com.sina.weibo.sdk.auth.AuthInfo;
@@ -21,6 +26,11 @@ import com.sina.weibo.sdk.common.UiError;
 import com.sina.weibo.sdk.openapi.IWBAPI;
 import com.sina.weibo.sdk.openapi.WBAPIFactory;
 import com.sina.weibo.sdk.share.WbShareCallback;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.util.List;
 //import com.sina.weibo.sdk.share.WbShareHandler;
 
 
@@ -31,6 +41,7 @@ public class ArticleActivity extends AppCompatActivity implements WbShareCallbac
     TextView textTime;
     ImageButton buttonBack;
     ImageButton buttonShare;
+    Article article;
 
     private static final String APP_KY = "3487978721";
     private static final String REDIRECT_URL = "http://open.weibo.com/apps/3487978721/privilege/oauth";
@@ -44,23 +55,26 @@ public class ArticleActivity extends AppCompatActivity implements WbShareCallbac
         mWBAPI.registerApp(this, authInfo);
     }
 
-    private void startAuth() {
-//auth
-        mWBAPI.authorize(new WbAuthListener() {
-            @Override
-            public void onComplete(Oauth2AccessToken token) {
-             //   Toast.makeText(ArticleActivity.this, "注册完毕", Toast.LENGTH_SHORT);
-            }
-            @Override
-            public void onError(UiError error) {
-            //    Toast.makeText(ArticleActivity.this, "注册失败", Toast.LENGTH_SHORT);
-            }
-            @Override
-            public void onCancel() {
-            //    Toast.makeText(ArticleActivity.this, "注册取消", Toast.LENGTH_SHORT);
-            }
-        });
-    }
+//    private void startAuth() {
+////auth
+//        mWBAPI.authorize(new WbAuthListener() {
+//            @Override
+//            public void onComplete(Oauth2AccessToken token) {
+//                //   Toast.makeText(ArticleActivity.this, "注册完毕", Toast.LENGTH_SHORT);
+//            }
+//
+//            @Override
+//            public void onError(UiError error) {
+//                //    Toast.makeText(ArticleActivity.this, "注册失败", Toast.LENGTH_SHORT);
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//                //    Toast.makeText(ArticleActivity.this, "注册取消", Toast.LENGTH_SHORT);
+//            }
+//        });
+//    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +82,7 @@ public class ArticleActivity extends AppCompatActivity implements WbShareCallbac
 
         initSdk();
 
-        final Article article = (Article) getIntent().getSerializableExtra("article");
+        article = (Article) getIntent().getSerializableExtra("article");
 
         buttonBack = findViewById(R.id.article_activity_button_back);
         buttonBack.setOnClickListener(new View.OnClickListener() {
@@ -84,9 +98,11 @@ public class ArticleActivity extends AppCompatActivity implements WbShareCallbac
         textSource = findViewById(R.id.article_activity_text_source);
 
         setTextViews(article);
+        initButtonShare();
+        saveArticle(article);
+    }
 
-
-
+    private void initButtonShare() {
         buttonShare = findViewById(R.id.article_activity_button_share);
         buttonShare.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,21 +118,15 @@ public class ArticleActivity extends AppCompatActivity implements WbShareCallbac
                 //将要发送到微博得消息 message
                 WeiboMultiMessage message = new WeiboMultiMessage();
 
-
                 TextObject textObject = new TextObject();
-                String text = "share what you want!";
+//                String text = "share what you want!";
 
-
-
-                textObject.text = article.title + "\n\n\n" + article.time +"\n" + article.source+ "\n\n" +  article.content;
+                textObject.text = article.title + "\n\n\n" + article.time + "\n" + article.source + "\n\n" + article.content;
                 message.textObject = textObject;
-
 
                 mWBAPI.shareMessage(message, true);
             }
         });
-
-
     }
 
     private void setTextViews(Article article) {
@@ -127,23 +137,23 @@ public class ArticleActivity extends AppCompatActivity implements WbShareCallbac
     }
 
     private void backToMainActivity() {
+        loadArticles();
         startActivity(new Intent(this, MainActivity.class));
     }
 
 
     @Override
     public void onComplete() {
-
     }
 
     @Override
     public void onError(UiError uiError) {
-      //  Toast.makeText(ArticleActivity.this, "share fail:" , Toast.LENGTH_SHORT).show();
+        //  Toast.makeText(ArticleActivity.this, "share fail:" , Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onCancel() {
-       // Toast.makeText(ArticleActivity.this, "cancel", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(ArticleActivity.this, "cancel", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -152,6 +162,39 @@ public class ArticleActivity extends AppCompatActivity implements WbShareCallbac
         if (mWBAPI != null) {
             mWBAPI.doResultIntent(data, new ArticleActivity());
         }
+    }
+
+    private void saveArticle(Article article) {
+        System.out.println("saveArticle");
+        try {
+            FileOutputStream fos = openFileOutput(FileIO.ARTICLE_FILENAME, Context.MODE_PRIVATE);
+            fos.write("{ title: \"some news\" ; content: \"this is the content\"}".getBytes());
+            fos.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    private List<Article> loadArticles() {
+        System.out.println("loadArticles");
+        String jsonStr = "";
+        try {
+            FileInputStream fis = openFileInput(FileIO.ARTICLE_FILENAME);
+            int c;
+            while ((c = fis.read()) != -1) {
+                jsonStr += (char) c;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        System.out.println("jsonStr:");
+        System.out.println(jsonStr);
+        JsonElement jsonElement = JsonParser.parseString(jsonStr);
+        JsonObject jsonObject = jsonElement.getAsJsonObject();
+        ArticleJson articleJson = new ArticleJson(jsonObject);
+        Article article = articleJson.toArticle();
+        System.out.println(article);
+        return null;
     }
 }
 

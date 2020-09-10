@@ -1,6 +1,6 @@
 package com.example.xinguannews.epidemicdata;
 
-import com.example.xinguannews.JsonParserUtils;
+import com.example.xinguannews.JsonUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -34,7 +34,7 @@ public class EpidemicDataJsonParser {
             String county = locInfo[2];
 
             JsonObject val = entry.getValue().getAsJsonObject();
-            String begin = JsonParserUtils.parseString(val, beginName);
+            String begin = JsonUtils.parseString(val, beginName);
             List<EpidemicDataOneDay> data = new ArrayList<>();
             JsonArray arr = val.get(dataName).getAsJsonArray();
 

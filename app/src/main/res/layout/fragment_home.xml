@@ -58,6 +58,9 @@
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/search_view"
+                app:queryBackground="@android:color/transparent"
+                android:color="@color/colorPrimary"
+                android:colorAccent="@color/colorPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="6dp"

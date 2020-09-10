@@ -1,5 +1,6 @@
 package com.example.xinguannews.articlelist;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -14,7 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.xinguannews.ArticleActivity;
 import com.example.xinguannews.R;
 import com.example.xinguannews.article.Article;
+import com.example.xinguannews.article.ArticleJson;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.annotations.SerializedName;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.util.List;
 
 // 管理新闻列表中的卡片的 Adapter
@@ -23,6 +30,7 @@ public class CardListRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
     private final int VIEW_TYPE_LOADING = 1;
     final int maxLenContent = 64;
     final int maxLenTitle = 42;
+    public boolean clickable = true;
 
     public List<Article> articles;
 
@@ -102,6 +110,9 @@ public class CardListRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 
         @Override
         public void onClick(View view) {
+            if (clickable == false) {
+                return;
+            }
             int pos = getLayoutPosition();
             Article article = articles.get(pos);
 
@@ -119,6 +130,7 @@ public class CardListRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
     // Loading view, at the end of the list
     private class LoadingViewHolder extends RecyclerView.ViewHolder {
         ProgressBar progressBar;
+
         public LoadingViewHolder(@NonNull View itemView) {
             super(itemView);
             progressBar = itemView.findViewById(R.id.progressBar);

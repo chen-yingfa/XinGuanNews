@@ -3,7 +3,7 @@ package com.example.xinguannews.api;
 import android.app.Activity;
 
 import com.example.xinguannews.article.Article;
-import com.example.xinguannews.article.ArticleJsonParser;
+import com.example.xinguannews.article.ArticleJson;
 import com.example.xinguannews.epidemicdata.EpidemicData;
 import com.example.xinguannews.epidemicdata.EpidemicDataJsonParser;
 import com.google.gson.JsonArray;
@@ -215,7 +215,7 @@ public class EpidemicApiThread extends Thread {
 
     // 解析一个 Article 的 JSON 串
     private Article parseArticle(JsonElement json) {
-        ArticleJsonParser parser = new ArticleJsonParser(json.getAsJsonObject());
+        ArticleJson parser = new ArticleJson(json.getAsJsonObject());
         return parser.toArticle();
     }
 }
