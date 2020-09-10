@@ -53,7 +53,7 @@ public class EpidemicApiThread extends Thread {
     private Set<EpidemicData> epidemicDataSet = new HashSet<>();
 
     // related to parsing Entity
-    public Entity entity;
+    public List<Entity> entities = new ArrayList<>();
     public String entityQuery;
 
     // 最少参数的构造函数
@@ -94,6 +94,7 @@ public class EpidemicApiThread extends Thread {
     // getters to use by listeners when finished
     public List<Article> getArticleList() { return articleList; }
     public Set<EpidemicData> getEpidemicDataSet() { return epidemicDataSet; }
+    public List<Entity> getEntities() { return entities; }
 
     public void run() {
         switch (task) {
@@ -210,8 +211,11 @@ public class EpidemicApiThread extends Thread {
         if (data == null || data.isJsonNull()) {
             notifyListenersOfFinish(this);
         }
-        EntityJsonParser entityJsonParser = new EntityJsonParser(data.getAsJsonObject());
-        entity = entityJsonParser.toEntity();
+        JsonArray arr = data.getAsJsonArray();
+        for (JsonElement e : arr) {
+            EntityJsonParser entityJsonParser = new EntityJsonParser(e.getAsJsonObject());
+            entities.add(entityJsonParser.toEntity());
+        }
         notifyListenersOfFinish(this);
     }
 

@@ -30,14 +30,8 @@ public class EntityJsonParser {
     String nameForward = "forward";
     String nameImg = "img";
 
-    Set<EpidemicData> epidemicDataSet = new HashSet<>();
-
     public EntityJsonParser(JsonObject json) {
         parseJson(json);
-    }
-
-    public Set<EpidemicData> toEpidemicDataSet() {
-        return epidemicDataSet;
     }
 
     private void parseJson(JsonObject json) {
