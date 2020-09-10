@@ -5,7 +5,7 @@
     <dimen name="text_size">14sp</dimen>
     <dimen name="text_margin">16dp</dimen>
 
-<!--    Card view (of Article) -->
+    <!--    Card view (of Article) -->
     <dimen name="card_view_title_text_size">16sp</dimen>
     <dimen name="card_view_corner_radius">10dp</dimen>
     <dimen name="card_view_content_padding">8dp</dimen>
@@ -16,13 +16,13 @@
     <dimen name="card_view_margin_top">6dp</dimen>
     <dimen name="card_view_margin_bottom">6dp</dimen>
     <dimen name="card_view_title_padding">8dp</dimen>
-    <item name="card_view_time_alpha" type="dimen" format="float">0.7</item>
+    <item name="card_view_time_alpha" format="float" type="dimen">0.7</item>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-<!--    Card List Fragment -->
+    <!--    Card List Fragment -->
     <dimen name="search_icon_padding">10dp</dimen>
     <dimen name="tab_bar_height">36dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
@@ -31,7 +31,7 @@
     <dimen name="sheet_edit_tag_margin_top">64dp</dimen>
     <dimen name="padding_panel_edit_tag_body">12dp</dimen>
 
-<!--    Article activity -->
+    <!--    Article activity -->
     <dimen name="padding_article_activity_title">6dp</dimen>
     <dimen name="padding_article_activity_time">6dp</dimen>
     <dimen name="padding_article_activity_content">12dp</dimen>
@@ -42,4 +42,5 @@
     <dimen name="epidemic_data_row_height">24dp</dimen>
     <dimen name="epidemic_data_text_size">11sp</dimen>
     <dimen name="text_size_toolbar">18sp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
 </resources>

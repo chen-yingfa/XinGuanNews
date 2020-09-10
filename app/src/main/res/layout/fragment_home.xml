@@ -2,56 +2,55 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_fragment_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
     tools:context=".HomeFragment">
 
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linear_layout_main"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/linear_layout_sub1"
+        <RelativeLayout
+            android:id="@+id/toolbar_fragment_home"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_Height"
             android:background="@color/primary"
-            android:orientation="horizontal">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="15"
-                android:minWidth="100dp"
-                android:background="@color/primary"
-                app:titleTextColor="@color/white">
-
-            </androidx.appcompat.widget.Toolbar>
+            android:orientation="horizontal"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/search_view"
-                app:queryBackground="@android:color/transparent"
-                android:color="@color/primary"
-                android:colorAccent="@color/primary"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="6dp"
-                android:background="@drawable/edit_text_box">
+                android:background="@drawable/edit_text_box"
+                android:color="@color/primary"
+                android:colorAccent="@color/primary"
+                app:queryBackground="@android:color/transparent">
 
             </androidx.appcompat.widget.SearchView>
-
-        </LinearLayout>
+        </RelativeLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/linear_layout_sub2"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/tab_bar_height">
+            android:id="@+id/bar_below_toolbar_fragment_home"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/tab_bar_height"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_fragment_home"
+            >
 
             <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
+                android:id="@+id/tab_layout_fragment_home"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -73,7 +72,7 @@
                 android:background="@drawable/ic_add_primarycolor_24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/tabLayout"
+                app:layout_constraintLeft_toRightOf="@id/tab_layout_fragment_home"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="VectorDrawableCompat" />
 
@@ -84,10 +83,23 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="10"
+            app:layout_constraintTop_toBottomOf="@id/bar_below_toolbar_fragment_home"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         </androidx.viewpager.widget.ViewPager>
-    </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/queries_recycler_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/bg"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_fragment_home">
 
-    <include layout="@layout/bottom_sheet_edit_category"/>
+        </androidx.recyclerview.widget.RecyclerView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include layout="@layout/bottom_sheet_edit_category" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

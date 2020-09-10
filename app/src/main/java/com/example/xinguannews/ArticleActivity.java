@@ -3,7 +3,6 @@ package com.example.xinguannews;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,9 +18,6 @@ import com.sina.weibo.sdk.openapi.IWBAPI;
 import com.sina.weibo.sdk.openapi.WBAPIFactory;
 import com.sina.weibo.sdk.share.WbShareCallback;
 
-import java.util.List;
-
-
 public class ArticleActivity extends AppCompatActivity implements WbShareCallback {
     TextView textTitle;
     TextView textSource;
@@ -30,7 +26,6 @@ public class ArticleActivity extends AppCompatActivity implements WbShareCallbac
     ImageButton buttonBack;
     ImageButton buttonShare;
     Article article;
-    Activity prev;
 
     private static final String APP_KY = "3487978721";
     private static final String REDIRECT_URL = "http://open.weibo.com/apps/3487978721/privilege/oauth";
@@ -47,7 +42,7 @@ public class ArticleActivity extends AppCompatActivity implements WbShareCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.article_activity);
+        setContentView(R.layout.activity_article);
 
         initSdk();
 

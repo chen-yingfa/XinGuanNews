@@ -133,9 +133,9 @@ public class CardListFragment extends Fragment
         return filtered;
     }
 
-    public void updateFilter(String filter) {
+    public void updateQuery(String filter) {
         this.filter = filter;
-        pageSize = 20 + filter.length() * 10;
+        pageSize = 20 + filter.length() * 40;
         articlesFiltered.clear();
         articlesFiltered.addAll(filterArticles(articles, filter));
         if (adapter != null) {
@@ -234,7 +234,7 @@ public class CardListFragment extends Fragment
 
     public void search(String query) {
         System.out.println("onSearchTextChanged");
-        updateFilter(query);
+        updateQuery(query);
         loadMoreOnNeed();
     }
 

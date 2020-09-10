@@ -4,24 +4,24 @@
 
     <item
         android:id="@+id/nav_bottom_home"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/ic_home_white_24dp"
         android:title="@string/title_home"
         />
     <item
         android:id="@+id/nav_bottom_data"
-        android:icon="@drawable/ic_diagram_black_24dp"
+        android:icon="@drawable/ic_diagram_white_24dp"
         android:title="@string/title_data"
         />
 
     <item
         android:id="@+id/nav_bottom_expert"
-        android:icon="@drawable/ic_person_black_24dp"
+        android:icon="@drawable/ic_person_white_24dp"
         android:title="@string/title_expert"
         />
 
     <item
         android:id="@+id/nav_bottom_diagram"
-        android:icon="@drawable/ic_diagram_black_24dp"
+        android:icon="@drawable/ic_blur_white_24dp"
         android:title="@string/title_diagram"
         />
 

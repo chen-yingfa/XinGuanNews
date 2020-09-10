@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
@@ -21,11 +23,13 @@ import com.example.xinguannews.api.EpidemicApiThread;
 import com.example.xinguannews.api.EpidemicApiThreadListener;
 import com.example.xinguannews.articlelist.CardListFragment;
 import com.example.xinguannews.articlelist.CardListFragmentAdapter;
+import com.example.xinguannews.query.QueriesRecyclerViewAdapter;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -33,6 +37,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class HomeFragment
         extends Fragment
@@ -40,8 +45,10 @@ public class HomeFragment
         SwipeRefreshLayout.OnRefreshListener,
         EpidemicApiThreadListener,
         CategoryChipListener,
-//        TextWatcher,
-        SearchView.OnQueryTextListener {
+        SearchView.OnQueryTextListener,
+        SearchView.OnCloseListener,
+        SearchView.OnFocusChangeListener,
+        QueriesRecyclerViewAdapter.ItemClickListener {
 
     private ImageButton buttonEditCategory;
     private CardListFragmentAdapter cardListFragmentAdapter;
@@ -98,14 +105,6 @@ public class HomeFragment
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         init();
-        final SearchView searchBar = view.findViewById(R.id.search_view);
-        searchBar.setOnQueryTextListener(this);
-        searchBar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                searchBar.setIconified(false);
-            }
-        });
     }
 
     // init methods（同时获得 XML 元素）
@@ -128,6 +127,7 @@ public class HomeFragment
         initCategories();
         initEditCategoryUi();
         initTabLayout();
+        initSearchBar();
     }
 
     private void initTabLayout() {
@@ -139,7 +139,7 @@ public class HomeFragment
             addTab(category);
         }
 
-        tabLayout = view.findViewById(R.id.tabLayout);
+        tabLayout = view.findViewById(R.id.tab_layout_fragment_home);
         viewPager = view.findViewById(R.id.viewPager);
 
         viewPager.setOffscreenPageLimit(5);
@@ -334,7 +334,7 @@ public class HomeFragment
     }
 
     private void hideEditTagSheet() {
-        setFragmentsClickable(true) ;
+        setFragmentsClickable(true);
         sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
     }
 
@@ -368,30 +368,189 @@ public class HomeFragment
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getView().findViewById(R.id.root_fragment_home).requestFocus();
+        loadQuery();
+        for (CardListFragment fragment : cardListFragmentAdapter.getFragments()) {
+            fragment.notifyDataSetChanged();
+        }
+    }
+    ///////////////////////////////////////////////////////
+    //             methods related to querying
+    ///////////////////////////////////////////////////////
+
+    // related to querying
+    private int maxQueryCnt = 20;
+    private SearchView searchBar;
+    private List<String> queries = new ArrayList<String>();
+    private QueriesRecyclerViewAdapter queriesRecyclerViewAdapter;
+    private RecyclerView queriesRecyclerView;
+
+    private boolean querying = false;
+
+    private void initSearchBar() {
+        searchBar = getView().findViewById(R.id.search_view);
+        loadQueriesFromPref();
+//        saveQueryToPref("");
+
+        initQueriesRecyclerView();
+        searchBar.setOnQueryTextListener(this);
+        searchBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchBar.setIconified(false);
+
+                // show queries recycler view
+                showQueriesRecyclerView();
+            }
+        });
+
+        searchBar.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+
+            @Override
+            public void onViewDetachedFromWindow(View arg0) {
+                doQuery("");
+            }
+
+            @Override
+            public void onViewAttachedToWindow(View arg0) {
+                // search was opened
+            }
+        });
+    }
+
+    public void initQueriesRecyclerView() {
+        queriesRecyclerView = getView().findViewById(R.id.queries_recycler_list);
+        hideQueriesRecyclerView();
+        queriesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        queriesRecyclerViewAdapter = new QueriesRecyclerViewAdapter(queries, this, getContext()); // bind data (list of json_articles) to Adapter
+        queriesRecyclerView.setAdapter(queriesRecyclerViewAdapter);                        // bind RecyclerView and Adapter
+    }
+
+    private void hideQueriesRecyclerView() {
+        System.out.println("hideQueriesRecyclerView");
+        searchBar.clearFocus();
+        getView().findViewById(R.id.toolbar_fragment_home).requestFocus();
+        getView().findViewById(R.id.toolbar_fragment_home).requestFocus();
+//        queriesRecyclerView.setEnabled(false);
+        queriesRecyclerView.setVisibility(View.GONE);
+    }
+
+    private void showQueriesRecyclerView() {
+//        queriesRecyclerView.setEnabled(true);
+        queriesRecyclerView.setVisibility(View.VISIBLE);
+    }
+
+    public void loadQuery() {
+        SharedPreferences pref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        String query = pref.getString("query", null);
+        if (query != null) {
+            searchBar.setQuery(query, true);
+            searchBar.clearFocus();
+        }
+    }
 
     @Override
-    public boolean onQueryTextChange(String newText) {
-        System.out.println("onQueryTextChange");
-        for (CardListFragment fragment : cardListFragmentAdapter.getFragments()) {
-            fragment.search(newText);
+    public boolean onQueryTextChange(String query) {
+        if (querying) {
+            return true;
         }
-        return false;
+        if (query.equals("")) {
+            querying = true;
+            this.onQueryTextSubmit("");
+        }
+        return true;
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-//        System.out.println("onQueryTextSubmit");
-//        for (CardListFragment fragment : cardListPagerAdapter.getFragments()) {
-//            fragment.search(query);
-//        }
+        System.out.println("onQueryTextSubmit");
+        hideQueriesRecyclerView();
+        if (query == null) {
+            query = "";
+        }
+        doQuery(query);
+        return true;
+    }
+
+    @Override
+    public boolean onClose() {
+        System.out.println("onClose");
+        doQuery("");
         return false;
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        for (CardListFragment fragment : cardListFragmentAdapter.getFragments()) {
-            fragment.notifyDataSetChanged();
+    public void onFocusChange(View view, boolean var) {
+        System.out.println("onFocusChange");
+        if (var) {
+            showQueriesRecyclerView();
+        } else {
+//            hideQueriesRecyclerView();
         }
+    }
+
+    public void addQuery(String query) {
+        if (query.equals("")) {
+            return;
+        }
+        if (queries.size() >= maxQueryCnt) {
+            queries.remove(queries.size() - 1);
+        }
+        // check if contains
+        for (String q : queries) {
+            if (q.equals(query)) {
+                return;
+            }
+        }
+        queries.add(0, query);
+    }
+
+    public void updateQuery(String query) {
+        for (CardListFragment fragment : cardListFragmentAdapter.getFragments()) {
+            fragment.updateQuery(query);
+        }
+    }
+
+    public void doQuery(String query) {
+        addQuery(query);
+        saveQueriesToPref();
+        hideQueriesRecyclerView();
+        searchBar.setQuery(query, false);
+        updateQuery(query);
+        querying = false;
+    }
+
+    public void saveQueryToPref(String query) {
+        SharedPreferences pref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("query", query);
+        editor.commit();
+    }
+
+    public void saveQueriesToPref(){
+        SharedPreferences pref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        Set<String> set = new TreeSet<>(queries);
+        editor.putStringSet("queries", set);
+        editor.commit();
+    }
+
+    public void loadQueriesFromPref() {
+        SharedPreferences pref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        Set<String> set = pref.getStringSet("queries", new HashSet<String>());
+        queries.clear();
+        for (String s : set) {
+            queries.add(s);
+        }
+    }
+
+    @Override
+    public void onItemClick(View view, int pos) {
+        System.out.println("onItemClick " + pos);
+        String query = queries.get(pos);
+        doQuery(query);
     }
 }
