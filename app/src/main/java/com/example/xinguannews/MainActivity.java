@@ -5,10 +5,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.net.InetAddress;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     public static boolean firstInit = true;
@@ -59,6 +62,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 break;
             case R.id.nav_bottom_diagram:
                 break;
+            case R.id.nav_bottom_downloaded:
+                openFragment(new DownloadedFragment());
+                break;
+
         }
         return true;
     }
@@ -74,6 +81,17 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public void onPause() {
         super.onPause();
 //        ViewedArticlesManager.saveViewedArticles(this);
+    }
+
+    // check if device can use internet
+    public static boolean isInternetAvailable() {
+        try {
+            InetAddress ipAddr = InetAddress.getByName("bing.com");
+            // You can replace it with your name
+            return !ipAddr.equals("");
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
 

@@ -59,14 +59,14 @@ public class CardListFragment extends Fragment
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.card_list_fragment, container, false);
+        View view = inflater.inflate(R.layout.card_list_fragment, container, false);
 
         // 以下下代码不能放在 onCreate 因为那时候 GetView() 返回 null。
         // （因为此 Fragment 的 View 仍未创建）
 
         // 与 RecyclerView 及其 Adapter 连接
-        recyclerView = root.findViewById(R.id.recycler_view_card_list);
-        swipeRefreshLayout = root.findViewById(R.id.swiperefresh_article);
+        recyclerView = view.findViewById(R.id.recycler_view_card_list);
+        swipeRefreshLayout = view.findViewById(R.id.swiperefresh_article);
         linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
@@ -74,7 +74,7 @@ public class CardListFragment extends Fragment
         initRefreshListener();
         initScrollListener();
         onRefresh();
-        return root;
+        return view;
     }
 
     private void initAdapter() {

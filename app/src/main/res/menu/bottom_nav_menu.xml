@@ -25,4 +25,10 @@
         android:title="@string/title_diagram"
         />
 
+    <item
+        android:id="@+id/nav_bottom_downloaded"
+        android:icon="@drawable/ic_storage_white_24dp"
+        android:title="离线"
+        />
+
 </menu>

@@ -16,16 +16,12 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Queue;
 import java.util.Set;
 
 public class ViewedArticlesManager {
     // key is _id, value if the article
-    public static Queue<Article> viewedArticles = new LinkedList<Article>();
+    public static List<Article> viewedArticles = new ArrayList<Article>();
     public static Set<String> viewedIds = new HashSet<>();
     public static final String FILENAME_ARTICLE = "articles.json";
     public static final int bufferSize = 3;   // TODO: make this much larger
@@ -51,6 +47,12 @@ public class ViewedArticlesManager {
 
         // 读取 JSON 串
         String jsonStr = readStringFromFile(FILENAME_ARTICLE, context);
+        if (jsonStr == "") {
+            // Failed to read from file;
+            viewedArticles = new ArrayList<>();
+            return;
+        }
+
         JsonArray jsonArray = JsonParser.parseString(jsonStr).getAsJsonArray();
 
         // 将读取的 JsonArray 转成 List<Article>
@@ -58,15 +60,8 @@ public class ViewedArticlesManager {
         }.getType();
         List<Article> articleList = new Gson().fromJson(jsonArray, listType);
 
-//        // 转成 LinkedHashMap，O(1) lookup
-//        viewedArticles = new LinkedHashMap<>();
-//        for (Article a : articleList) {
-//            viewedArticles.put(a._id, a);
-//        }
-
-
-        // 转成 Queue (LinkedList)
-        viewedArticles = new LinkedList<>(articleList);
+        // 转成 List
+        viewedArticles = new ArrayList<>(articleList);
         for (Article a : articleList) {
             viewedIds.add(a._id);
         }
@@ -86,23 +81,16 @@ public class ViewedArticlesManager {
     public static void addViewedArticle(Article article) {
         if (viewedArticles.size() >= bufferSize) {
             System.out.println("too many viewed articles, remove first one");
-            System.out.println(viewedArticles.peek());
+            System.out.println(viewedArticles.get(0));
 
-            // remove the first element
-//            Object key = viewedArticles.keySet().iterator().next();
-//            Object val = viewedArticles.get(key);
-//            viewedArticles.remove(val);
-
-            viewedIds.remove(viewedArticles.peek()._id);
-            viewedArticles.remove(); // pop()
+            viewedIds.remove(viewedArticles.get(0)._id);
+            viewedArticles.remove(0); // pop
         }
-//        viewedArticles.put(article._id, article);
-        viewedArticles.add(article);
+        viewedArticles.add(article);  // push
         viewedIds.add(article._id);
     }
 
     public static boolean isViewed(Article article) {
-//        return viewedArticles.containsKey(article._id);
         return viewedIds.contains(article._id);
     }
 
