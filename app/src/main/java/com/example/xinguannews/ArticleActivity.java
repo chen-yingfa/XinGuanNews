@@ -3,6 +3,7 @@ package com.example.xinguannews;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -29,6 +30,7 @@ public class ArticleActivity extends AppCompatActivity implements WbShareCallbac
     ImageButton buttonBack;
     ImageButton buttonShare;
     Article article;
+    Activity prev;
 
     private static final String APP_KY = "3487978721";
     private static final String REDIRECT_URL = "http://open.weibo.com/apps/3487978721/privilege/oauth";
@@ -96,7 +98,8 @@ public class ArticleActivity extends AppCompatActivity implements WbShareCallbac
     }
 
     private void backToMainActivity() {
-        startActivity(new Intent(this, MainActivity.class));
+//        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
 
@@ -121,10 +124,10 @@ public class ArticleActivity extends AppCompatActivity implements WbShareCallbac
     }
 
     private void markArticleAsViewed(Article article) {
-//        System.out.println("markArticleAsViewed");
-//        System.out.println(article);
+        System.out.println("markArticleAsViewed");
+        System.out.println(article);
         ViewedArticlesManager.markArticlesAsViewed(article);
-//        System.out.println("num of viewed articles: " + ViewedArticlesManager.viewedArticles.size());
+        System.out.println("num of viewed articles: " + ViewedArticlesManager.viewedArticles.size());
     }
 }
 

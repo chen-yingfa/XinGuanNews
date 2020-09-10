@@ -386,4 +386,12 @@ public class HomeFragment
 //        }
         return false;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        for (CardListFragment fragment : cardListFragmentAdapter.getFragments()) {
+            fragment.notifyDataSetChanged();
+        }
+    }
 }

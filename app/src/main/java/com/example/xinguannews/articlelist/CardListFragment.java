@@ -23,8 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-*   一个由卡片组成的列表的 fragment，用于显示新闻（文章）列表
-* */
+ * 一个由卡片组成的列表的 fragment，用于显示新闻（文章）列表
+ */
 public class CardListFragment extends Fragment
         implements SwipeRefreshLayout.OnRefreshListener, EpidemicApiThreadListener {
     private int nPage = 1;
@@ -87,12 +87,13 @@ public class CardListFragment extends Fragment
         swipeRefreshLayout.setOnRefreshListener(this);
     }
 
-    private void initScrollListener(){
+    private void initScrollListener() {
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
             }
+
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -137,7 +138,9 @@ public class CardListFragment extends Fragment
         pageSize = 20 + filter.length() * 10;
         articlesFiltered.clear();
         articlesFiltered.addAll(filterArticles(articles, filter));
-        adapter.notifyDataSetChanged();
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
     }
 
     // 在下载线程下载完毕时候运行（该线程将下载的文章数据传过来）
@@ -186,12 +189,14 @@ public class CardListFragment extends Fragment
 
         class LoadMoreRunnable implements Runnable {
             EpidemicApiThreadListener listener;
+
             public LoadMoreRunnable(EpidemicApiThreadListener listener) {
                 this.listener = listener;
             }
+
             @Override
             public void run() {
-                if (articlesFiltered.size() > 0){
+                if (articlesFiltered.size() > 0) {
                     articlesFiltered.remove(articlesFiltered.size() - 1);
                     int scrollPosition = articlesFiltered.size();
                     adapter.notifyItemRemoved(scrollPosition);
@@ -235,5 +240,10 @@ public class CardListFragment extends Fragment
 
     public void setClickable(boolean b) {
         adapter.clickable = b;
+    }
+
+    public void notifyDataSetChanged() {
+        if (adapter == null) return;
+        adapter.notifyDataSetChanged();
     }
 }

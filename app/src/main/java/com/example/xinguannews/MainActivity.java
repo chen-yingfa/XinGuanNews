@@ -27,8 +27,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             System.out.println("firstInit");
             ViewedArticlesManager.loadViewedArticles(this);  // 载入浏览过的文章
             firstInit = false;
-        } else {
-            ViewedArticlesManager.saveViewedArticles(this);
         }
         initBottomNavMenu();
         openFragment(new HomeFragment());
@@ -92,6 +90,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         } catch (Exception e) {
             return false;
         }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        System.out.println("onResume");
+        ViewedArticlesManager.saveViewedArticles(this);
     }
 }
 
