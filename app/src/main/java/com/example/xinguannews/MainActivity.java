@@ -1,33 +1,32 @@
 package com.example.xinguannews;
 
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
-    private static boolean initted = false;
-
-    private View linearLayoutMain;
-    private Toolbar toolbar;
-    private View DisappearView;
-    private View DisappearView2;
-    private View DisappearView3;
+    public static boolean firstInit = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        linearLayoutMain = findViewById(R.id.linear_layout_main);
+        // TODO: uncomment the following code when finished
+        // Load previously viewed articles on boot up
+        if (firstInit) {
+            System.out.println("firstInit");
+            ViewedArticlesManager.loadViewedArticles(this);  // 载入浏览过的文章
+            firstInit = false;
+        } else {
+            ViewedArticlesManager.saveViewedArticles(this);
+        }
         initBottomNavMenu();
         openFragment(new HomeFragment());
     }
@@ -36,22 +35,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private void initBottomNavMenu() {
         BottomNavigationView bottomNavigationMenu = findViewById(R.id.bottom_nav_menu);
 
-        // 英发 这段代码是用来解决bug的， bottom_nav_menu 加了超过了3个item之后显示就会有问题,字会消失
-        //--------------------------------------------
-        bottomNavigationMenu.setLabelVisibilityMode(0);  //默认动画
-        bottomNavigationMenu.setLabelVisibilityMode(1); //默认清除动画（显示文字）
-        //---------------------------------------------------fix bug
+        // 英发 这段代码是用来解决 bug 的， bottom_nav_menu 加了超过了 3 个 item 之后显示就会有问题，字会消失
+        // 师叔，我觉得字消失更漂亮。
+        //-----------------------------------------------
+//        bottomNavigationMenu.setLabelVisibilityMode(0); // 默认动画
+//        bottomNavigationMenu.setLabelVisibilityMode(1); // 默认清除动画（显示文字）
+        //----------------------------------------------- fix bug
 
-//        // 这里指定默认选中item （即一开始进入哪一个页面）
-//        bottomNavigationMenu.getMenu().getItem(2).setChecked(true);
-//        // the next it the listener
-//
-//        final DataFragment Data_Fragment = new DataFragment();
-//        final HomeFragment Home_Fragment = new HomeFragment();
-//        Data_Fragment.setMessage("图谱");
-//        Home_Fragment.setMessage("主页");
-
-        //设置导航栏菜单项Item选中监听
+        // 设置导航栏菜单项 item 选中监听
         bottomNavigationMenu.setOnNavigationItemSelectedListener(this);
     }
 
@@ -62,16 +53,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 openFragment(new HomeFragment());
                 break;
             case R.id.nav_bottom_data:
-//                        DisappearView = findViewById(R.id.linear_layout_sub1);
-//                        DisappearView2 = findViewById(R.id.linear_layout_sub2);
-//                        DisappearView3 = findViewById(R.id.view_pager);
-//                        DisappearView3.setVisibility(View.GONE);
-//
-//                        DisappearView.setVisibility(View.GONE);
-//                        DisappearView2.setVisibility(View.GONE);
                 openFragment(new DataFragment());
-
-//                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_content, Data_Fragment).commitNow();
                 break;
             case R.id.nav_bottom_expert:
                 break;
@@ -86,6 +68,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         transaction.replace(R.id.bottom_nav_fragment_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+//        ViewedArticlesManager.saveViewedArticles(this);
     }
 }
 

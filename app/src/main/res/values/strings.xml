@@ -44,4 +44,6 @@
     <string name="group_deselected_categorys_title">未选标签</string>
 
     <string name="sharedPrefKey">com.example.xinguannews.sharedPref</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

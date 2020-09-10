@@ -124,7 +124,7 @@ public class DataFragment extends Fragment implements EpidemicApiThreadListener 
         viewConfirmed.setText(headerConfirmed);
         viewCured.setText(headerCured);
         viewDead.setText(headerDead);
-        int textColor = ContextCompat.getColor(getContext(), R.color.colorText);
+        int textColor = ContextCompat.getColor(getContext(), R.color.text);
         viewCountry.setTextColor(textColor);
         viewConfirmed.setTextColor(textColor);
         viewCured.setTextColor(textColor);

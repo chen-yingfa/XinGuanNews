@@ -1,6 +1,5 @@
 package com.example.xinguannews.articlelist;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -14,14 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.xinguannews.ArticleActivity;
 import com.example.xinguannews.R;
+import com.example.xinguannews.ViewedArticlesManager;
 import com.example.xinguannews.article.Article;
-import com.example.xinguannews.article.ArticleJson;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.annotations.SerializedName;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.util.List;
 
 // 管理新闻列表中的卡片的 Adapter
@@ -31,11 +25,13 @@ public class CardListRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
     final int maxLenContent = 64;
     final int maxLenTitle = 42;
     public boolean clickable = true;
+    final Context context;
 
     public List<Article> articles;
 
-    public CardListRecyclerViewAdapter(List<Article> articles) {
+    public CardListRecyclerViewAdapter(List<Article> articles, Context context) {
         this.articles = articles;
+        this.context = context;
     }
 
     // inflate a layout from XML, and return a corresponding holder instance;
@@ -58,8 +54,6 @@ public class CardListRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
     // 然后 RecyclerView 会自动添加到列表中
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int pos) {
-        final int maxLenContent = 64;
-        final int maxLenTitle = 42;
         if (holder instanceof ArticleViewHolder) {
             setListItem((ArticleViewHolder) holder, pos);
         } else {
@@ -105,8 +99,10 @@ public class CardListRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
             textTitle = itemView.findViewById(R.id.card_article_title);
             textContent = itemView.findViewById(R.id.card_article_content);
             textTime = itemView.findViewById(R.id.card_article_time);
+
             itemView.setOnClickListener(this);
         }
+
 
         @Override
         public void onClick(View view) {
@@ -150,5 +146,17 @@ public class CardListRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
         textTitle.setText(cutIfOverflow(article.title, maxLenTitle));
         textContent.setText(cutIfOverflow(article.content, maxLenContent));
         textTime.setText(article.time);
+
+//        System.out.println("setListItem " + pos);
+//        System.out.println(article);
+
+        // 若已浏览，灰色标题
+        int titleColor = context.getResources().getColor(R.color.text);
+        int viewedColor = context.getResources().getColor(R.color.titleViewedCard);
+        textTitle.setTextColor(titleColor);
+        if (ViewedArticlesManager.isViewed(article)) {
+//            System.out.println("set color");
+            textTitle.setTextColor(viewedColor);
+        }
     }
 }

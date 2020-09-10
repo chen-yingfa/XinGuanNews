@@ -88,9 +88,9 @@ public class EpidemicApiThread extends Thread {
 
     public void run() {
         switch (task) {
-            case "articles":
+            case "json_articles":
                 if (type == null || page == null || size == null) {
-                    System.out.println("ERROR: did not set parameter before fetching articles");
+                    System.out.println("ERROR: did not set parameter before fetching json_articles");
                     return;
                 }
                 fetchArticles();
@@ -106,7 +106,7 @@ public class EpidemicApiThread extends Thread {
     public void notifyListenersOfFinish(final EpidemicApiThread thread) {
         System.out.println("notifyListenersOfFinish");
         switch(task) {
-            case "articles":
+            case "json_articles":
                 notifyListenersOfFinishGettingArticles(thread);
             case "epidemicData":
                 notifyListenersOfFinishGettingEpidemicData(thread);
@@ -176,7 +176,7 @@ public class EpidemicApiThread extends Thread {
         notifyListenersOfFinish(this);
     }
 
-    // 根据参数 type，page，size 生成用于获得 articles 信息（通过新闻接口）的 URL
+    // 根据参数 type，page，size 生成用于获得 json_articles 信息（通过新闻接口）的 URL
     private String getUrlArticles(String type, int page, int size) {
         StringBuilder sb = new StringBuilder(urlEventList);
         sb.append("?" + urlParamStrType + "=" + type + "&"
@@ -188,7 +188,7 @@ public class EpidemicApiThread extends Thread {
     // 解析新闻接口所返回的 JSON 串
     // 返回 Articles 数组（ List<Article> ）
     private List<Article> parseArticlesJson(String jsonStr) {
-        System.out.println("start parsing JSON string of articles...");
+        System.out.println("start parsing JSON string of json_articles...");
         System.out.println("type, page, size = " + type + ", " + page + ", " + size);
         List<Article> articles = new ArrayList<>();
         try {
@@ -206,8 +206,8 @@ public class EpidemicApiThread extends Thread {
             System.out.println(e);
         }
         System.out.println("Done getting JSON string");
-        System.out.println("Got " + articles.size() + " articles");
-//        for (Article art : articles) {
+        System.out.println("Got " + articles.size() + " json_articles");
+//        for (Article art : json_articles) {
 //            System.out.println(art);
 //        }
         return articles;

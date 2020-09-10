@@ -78,7 +78,7 @@ public class CardListFragment extends Fragment
     }
 
     private void initAdapter() {
-        adapter = new CardListRecyclerViewAdapter(articlesFiltered); // bind data (list of articles) to Adapter
+        adapter = new CardListRecyclerViewAdapter(articlesFiltered, getContext()); // bind data (list of json_articles) to Adapter
         recyclerView.setAdapter(adapter);                   // bind RecyclerView and Adapter
     }
 
@@ -120,7 +120,7 @@ public class CardListFragment extends Fragment
 
     public List<Article> filterArticles(List<Article> articles, String filter) {
         filter = filter.toLowerCase();
-        System.out.println("filterArticles with filter: " + filter + " in articles cnt: " + articles.size());
+        System.out.println("filterArticles with filter: " + filter + " in json_articles cnt: " + articles.size());
         List<Article> filtered = new ArrayList<>();
         for (Article a : articles) {
             String title = a.title.toLowerCase();
@@ -177,7 +177,7 @@ public class CardListFragment extends Fragment
         }
     }
 
-    // load more articles and append to end of list
+    // load more json_articles and append to end of list
     public void loadMore() {
         System.out.println("loadMore");
         // NOTE: must not block UI thread

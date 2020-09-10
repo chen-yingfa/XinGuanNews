@@ -17,7 +17,7 @@
             android:id="@+id/linear_layout_sub1"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_Height"
-            android:background="@color/colorPrimary"
+            android:background="@color/primary"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.Toolbar
@@ -26,16 +26,16 @@
                 android:layout_height="match_parent"
                 android:layout_weight="15"
                 android:minWidth="100dp"
-                android:background="@color/colorPrimary"
-                app:titleTextColor="@color/colorWhite">
+                android:background="@color/primary"
+                app:titleTextColor="@color/white">
 
             </androidx.appcompat.widget.Toolbar>
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/search_view"
                 app:queryBackground="@android:color/transparent"
-                android:color="@color/colorPrimary"
-                android:colorAccent="@color/colorPrimary"
+                android:color="@color/primary"
+                android:colorAccent="@color/primary"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="6dp"
@@ -58,10 +58,10 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/button_edit_category"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tabIndicatorColor="@color/colorPrimary"
+                app:tabIndicatorColor="@color/primary"
                 app:tabMode="scrollable"
-                app:tabSelectedTextColor="@color/colorPrimary"
-                app:tabTextColor="@color/colorText">
+                app:tabSelectedTextColor="@color/primary"
+                app:tabTextColor="@color/text">
 
             </com.google.android.material.tabs.TabLayout>
 

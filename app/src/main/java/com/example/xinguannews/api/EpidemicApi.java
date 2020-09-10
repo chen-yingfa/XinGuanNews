@@ -24,7 +24,7 @@ public class EpidemicApi {
     public void getArticles(String type, int page, int size) {
         System.out.println("getArticles: " + type + " " + page + " " + size);
         EpidemicApiThread thr = new EpidemicApiThread(activity, type, page, size);
-        thr.setTask("articles");
+        thr.setTask("json_articles");
         thr.addListener(listener);
         thr.start();
     }

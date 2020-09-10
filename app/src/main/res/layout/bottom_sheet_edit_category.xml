@@ -24,7 +24,7 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:background="#00FFFFFF"
-            android:tint="@color/colorPrimary"
+            android:tint="@color/primary"
             app:srcCompat="@drawable/ic_close_white_24dp" />
 
         <LinearLayout

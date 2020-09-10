@@ -8,7 +8,7 @@ public class JsonUtils {
     public static String parseString(JsonObject json, final String name) {
         JsonElement val = json.get(name);
         if (val == null || val.isJsonNull()) {
-            System.out.println("parseString(), missing: " + name);
+//            System.out.println("parseString(), missing: " + name);
             return null;
         }
         return val.getAsString();
@@ -16,7 +16,7 @@ public class JsonUtils {
     public static Float parseFloat(JsonObject json, final String name) {
         JsonElement val = json.get(name);
         if (val == null || val.isJsonNull()) {
-            System.out.println("ParseFloat(), missing: " + name);
+//            System.out.println("ParseFloat(), missing: " + name);
             return null;
         }
         return val.getAsFloat();
@@ -24,7 +24,7 @@ public class JsonUtils {
     public static Long parseLong(JsonObject json, final String name) {
         JsonElement val = json.get(name);
         if (val == null || val.isJsonNull()) {
-            System.out.println("parseLong(), missing: " + name);
+//            System.out.println("parseLong(), missing: " + name);
             return null;
         }
         return val.getAsLong();

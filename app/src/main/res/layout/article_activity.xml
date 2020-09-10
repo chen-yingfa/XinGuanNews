@@ -18,10 +18,10 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_Height"
-            android:background="@color/colorPrimary"
+            android:background="@color/primary"
             android:gravity="right"
             android:minHeight="@dimen/toolbar_Height"
-            app:titleTextColor="@color/colorWhite">
+            app:titleTextColor="@color/white">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/linearLayout"
@@ -70,6 +70,7 @@
                     android:layout_gravity="center_horizontal"
                     android:padding="@dimen/padding_article_activity_title"
                     android:text="@string/article_default_title"
+                    android:textColor="@color/textDark"
                     android:textAlignment="center"
                     android:textSize="20sp"
                     android:textStyle="bold" />

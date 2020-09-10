@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#DD4444</color>
-    <color name="colorPrimaryDark">#663333</color>
-    <color name="colorAccent">#03DAC5</color>
-    <color name="colorBg">#EEEEEE</color>
-    <color name="colorCardBg">#FFFFFF</color>
-    <color name="colorText">#000000</color>
-    <color name="colorBgDark">#222222</color>
-    <color name="colorCardBgDark">#444444</color>
-    <color name="colorTextDark">#BBBBBB</color>
+    // main colors
+    <color name="primary">#DD4444</color>
+    <color name="accent">#03DAC5</color>
+    <color name="bg">#EEEEEE</color>
+    <color name="cardBg">#FFFFFF</color>
+    <color name="text">#444444</color>
+    <color name="textDark">#3a3a3a</color>
 
-    //austin add
-    <color name="colorRed">#F00</color>
-    <color name="colorBlack">#000</color>
-    <color name="colorWhite">#FFF</color>
+    // dark counterparts
+    <color name="darkPrimary">#663333</color>
+    <color name="darkBg">#222222</color>
+    <color name="darkCardBg">#444444</color>
+    <color name="darkText">#BBBBBB</color>
 
-
-    <color name="actionBarText">#FFFFFF</color>
+    <color name="titleViewedCard">#BBBBBB</color>
+    <color name="textToolBar">#FFFFFF</color>
     <color name="grayTranslucent">#CB929292</color>
     <color name="transparent">#00FFFFFF</color>
+
+    // Solid color (shouldn't be used)
+    <color name="red">#F00</color>
+    <color name="black">#000</color>
+    <color name="white">#FFF</color>
 </resources>
