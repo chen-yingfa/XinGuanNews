@@ -261,9 +261,5 @@ public class EpidemicApiThread extends Thread {
         ArticleJson parser = new ArticleJson(json.getAsJsonObject());
         return parser.toArticle();
     }
-
-    public Entity getEntity() {
-        return entity;
-    }
 }
 

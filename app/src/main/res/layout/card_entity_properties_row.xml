@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/card_view_time_padding">
+
+    <TextView
+        android:id="@+id/text_card_view_properties_row_key"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="特征"
+        android:background="@drawable/edit_text_box"
+        android:backgroundTint="@color/primary"
+        android:textColor="@color/textToolBar"
+        android:gravity="center"
+        android:padding="@dimen/card_view_title_padding">
+
+    </TextView>
+    <TextView
+        android:id="@+id/text_card_view_properties_row_value"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="很多特征，不知道啥"
+        android:padding="@dimen/card_view_title_padding">
+
+    </TextView>
+
+
+</LinearLayout>

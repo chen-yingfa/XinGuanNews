@@ -43,4 +43,13 @@
     <dimen name="epidemic_data_text_size">11sp</dimen>
     <dimen name="text_size_toolbar">18sp</dimen>
     <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="text_size_article_activity_title">20sp</dimen>
+    <dimen name="icon_size">24dp</dimen>
+
+<!--    card entity -->
+    <dimen name="card_entity_padding">12dp</dimen>
+    <dimen name="card_entity_relation_padding">24dp</dimen>
+    <dimen name="card_entity_sep_line_height">1dp</dimen>
+    <dimen name="card_entity_sep_line_margin">12dp</dimen>
+    <dimen name="card_entity_relation_height">48dp</dimen>
 </resources>

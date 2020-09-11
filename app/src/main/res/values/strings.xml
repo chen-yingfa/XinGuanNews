@@ -113,4 +113,5 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="default_relation_entity">另一个实体的名称</string>
 </resources>

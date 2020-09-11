@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="2dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewTemplate"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/card_entity_relation_height"
+        android:layout_marginLeft="@dimen/card_view_margin"
+        android:layout_marginTop="@dimen/card_view_margin_top"
+        android:layout_marginRight="@dimen/card_view_margin"
+        android:layout_marginBottom="@dimen/card_view_margin_bottom"
+        app:cardBackgroundColor="@color/cardBg"
+        app:cardCornerRadius="@dimen/card_view_corner_radius"
+        app:contentPadding="@dimen/card_view_content_padding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/card_entity_padding"
+            android:paddingRight="@dimen/card_entity_padding">
+
+            <TextView
+                android:id="@+id/card_entity_relation_relation"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="实体之间的关系" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:id="@+id/card_entity_relation_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingRight="@dimen/search_icon_padding"
+                    app:srcCompat="@drawable/abc_vector_test"
+                    app:tint="@color/primary">
+
+                </ImageView>
+
+                <TextView
+                    android:id="@+id/card_entity_relation_entity"
+                    android:background="@drawable/edit_text_box"
+                    android:backgroundTint="@color/grayTranslucent"
+                    android:padding="6dp"
+                    layout="@layout/layout_category_chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:textAlignment="center"
+                    android:text="@string/default_relation_entity">
+                </TextView>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/card_entity_relation_search"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="@dimen/search_icon_padding"
+                app:srcCompat="@drawable/ic_action_search"
+                app:tint="@color/primary">
+
+            </ImageView>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

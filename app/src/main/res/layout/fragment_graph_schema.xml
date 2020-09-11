@@ -5,7 +5,22 @@
     android:layout_height="match_parent"
     tools:context=".GraphSchemaFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_downloaded_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_Height"
+        android:background="@color/primary">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textToolBar"
+            android:textSize="@dimen/text_size_toolbar"
+            android:textStyle="bold">
+
+        </TextView>
+
+    </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,24 +29,28 @@
 
         <SearchView
             android:id="@+id/mSearch"
+            android:foregroundTint="@color/textToolBar"
+            android:backgroundTint="@color/textToolBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/toolbar_Height"
             android:queryHint="请输入你想知道的疫情知识">
 
         </SearchView>
 
-        <ScrollView
+        <include layout="@layout/anim_load_more"
+            android:id="@+id/activity_graph_schema_load_anim"/>
+
+        <!--        <ScrollView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="609dp">-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/graph_schema_result_container"
             android:layout_width="match_parent"
-            android:layout_height="609dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-            </LinearLayout>
-        </ScrollView>
+            android:layout_height="match_parent"
+            android:orientation="vertical"></androidx.recyclerview.widget.RecyclerView>
+        <!--        </ScrollView>-->
     </LinearLayout>
-
 
 
 </FrameLayout>

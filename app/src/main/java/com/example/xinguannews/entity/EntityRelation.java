@@ -12,4 +12,8 @@ public class EntityRelation {
         this.label = label;
         this.forward = forward;
     }
+
+    public String toString(){
+        return relation + " " + label;
+    }
 }

@@ -16,7 +16,7 @@
 
     <color name="titleViewedCard">#AAAAAA</color>
     <color name="textToolBar">#FFFFFF</color>
-    <color name="grayTranslucent">#CB929292</color>
+    <color name="grayTranslucent">#9CC8C6C6</color>
     <color name="transparent">#00FFFFFF</color>
 
     // Solid color (shouldn't be used)

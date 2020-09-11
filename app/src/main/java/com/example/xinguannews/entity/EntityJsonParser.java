@@ -1,6 +1,7 @@
 package com.example.xinguannews.entity;
 
 import com.example.xinguannews.JsonUtils;
+import com.example.xinguannews.entitylist.EntityRecyclerViewAdapter;
 import com.example.xinguannews.epidemicdata.EpidemicData;
 import com.example.xinguannews.epidemicdata.EpidemicDataOneDay;
 import com.google.gson.JsonArray;
@@ -15,7 +16,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class EntityJsonParser {
-    public Entity entity;
+    public Entity entity = new Entity();
     String nameHot = "hot";
     String nameLabel = "label";
     String nameUrl = "url";
@@ -38,6 +39,7 @@ public class EntityJsonParser {
         entity.hot = JsonUtils.parseFloat(json, nameHot);
         entity.label = JsonUtils.parseString(json, nameLabel);
         entity.url = JsonUtils.parseString(json, nameUrl);
+        entity.img = JsonUtils.parseString(json, nameImg);
 
         // abstractInfo
         json = json.get(nameAbstractInfo).getAsJsonObject();
@@ -58,17 +60,17 @@ public class EntityJsonParser {
         }
 
         // relations
-        EntityRelation rel = new EntityRelation();
+        entity.relations = new ArrayList<>();
         JsonArray relations = json.get(nameRelations).getAsJsonArray();
         for (JsonElement e : relations) {
-            json = e.getAsJsonObject();
-            rel.relation = JsonUtils.parseString(json, nameRelation);
-            rel.url = JsonUtils.parseString(json, nameUrl);
-            rel.label = JsonUtils.parseString(json, nameLabel);
-            rel.forward = JsonUtils.parseBoolean(json, nameForward);
+            JsonObject obj = e.getAsJsonObject();
+            EntityRelation rel = new EntityRelation();
+            rel.relation = JsonUtils.parseString(obj, nameRelation);
+            rel.url = JsonUtils.parseString(obj, nameUrl);
+            rel.label = JsonUtils.parseString(obj, nameLabel);
+            rel.forward = JsonUtils.parseBoolean(obj, nameForward);
+            entity.relations.add(rel);
         }
-
-        entity.img = JsonUtils.parseString(json, nameImg);
     }
 
     public Entity toEntity() {
