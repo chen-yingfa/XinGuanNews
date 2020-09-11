@@ -6,50 +6,47 @@
     tools:context=".GraphSchemaFragment">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_downloaded_fragment"
+        android:id="@+id/toolbar_graph_schema_fragment"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_Height"
         android:background="@color/primary">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/textToolBar"
-            android:textSize="@dimen/text_size_toolbar"
-            android:textStyle="bold">
-
-        </TextView>
+        =
 
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusableInTouchMode="false"
         android:orientation="vertical">
 
-        <SearchView
-            android:id="@+id/mSearch"
-            android:foregroundTint="@color/textToolBar"
-            android:backgroundTint="@color/textToolBar"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_Height"
-            android:queryHint="请输入你想知道的疫情知识">
+            android:orientation="vertical">
 
-        </SearchView>
+            <SearchView
+                android:id="@+id/fragment_graph_schema_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:background="@drawable/edit_text_box"
+                android:queryHint="请输入关键词">
 
-        <include layout="@layout/anim_load_more"
-            android:id="@+id/activity_graph_schema_load_anim"/>
+            </SearchView>
+        </LinearLayout>
 
-        <!--        <ScrollView-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="609dp">-->
+        <include
+            android:id="@+id/activity_graph_schema_load_anim"
+            layout="@layout/anim_load_more" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/graph_schema_result_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"></androidx.recyclerview.widget.RecyclerView>
-        <!--        </ScrollView>-->
+            android:orientation="vertical">
+
+        </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 
 

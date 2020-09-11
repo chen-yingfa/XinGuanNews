@@ -34,6 +34,7 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:id="@+id/card_entity_label_div"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingLeft="@dimen/card_entity_padding"

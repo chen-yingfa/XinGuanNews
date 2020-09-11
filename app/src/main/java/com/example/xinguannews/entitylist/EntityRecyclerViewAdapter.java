@@ -3,21 +3,23 @@ package com.example.xinguannews.entitylist;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.xinguannews.GraphSchemaFragment;
 import com.example.xinguannews.R;
 import com.example.xinguannews.entity.Entity;
 import com.example.xinguannews.entity.EntityRelation;
@@ -36,13 +38,15 @@ public class EntityRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     final Context context;
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
+    GraphSchemaFragment fragment;
 
     public List<Entity> entities;
     public List<Integer> viewTypes = new ArrayList<>();
 
-    public EntityRecyclerViewAdapter(List<Entity> entities, Context context) {
+    public EntityRecyclerViewAdapter(List<Entity> entities, Context context, GraphSchemaFragment fragment) {
         this.entities = entities;
         this.context = context;
+        this.fragment = fragment;
 
         // init other members
         linearLayoutManager = new LinearLayoutManager(context);
@@ -164,6 +168,7 @@ public class EntityRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         public LinearLayout propertiesDiv;
         public LinearLayout relationsList;
         public LinearLayout propertiesList;
+        public View labelDiv;
         private ImageButton buttonCollapse;
 
         public ViewHolderExpanded(@NonNull View view) {
@@ -177,8 +182,9 @@ public class EntityRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             propertiesDiv = view.findViewById(R.id.card_entity_properties_div);
             propertiesList = view.findViewById(R.id.card_entity_properties_list);
             buttonCollapse = view.findViewById(R.id.card_entity_button_collapse);
+            labelDiv = view.findViewById(R.id.card_entity_label_div);
 
-
+            labelDiv.setOnClickListener(this);
             buttonCollapse.setOnClickListener(this);
         }
 
@@ -203,13 +209,10 @@ public class EntityRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         label.setText(entity.label);
         baidu.setText(entity.baidu);
 
-        // show image in the ImageView
-//        new DownloadImageTask(img).execute("http://java.sogeti.nl/JavaBlog/wp-content/uploads/2009/04/android_icon_256.png");
-
-        System.out.println("setItemExpanded");
-        System.out.println(entity);
-        System.out.println(entity.relations);
-        System.out.println(entity.properties);
+//        System.out.println("setItemExpanded");
+//        System.out.println(entity);
+//        System.out.println(entity.relations);
+//        System.out.println(entity.properties);
 
         // relations
         holder.relationsList.removeAllViewsInLayout();
@@ -234,6 +237,9 @@ public class EntityRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             }
         }
 
+        // show image in the ImageView
+        new DownloadImageTask(img).execute(entity.img);
+
     }
 
     private void setItemCollapsed(ViewHolderCollapsed holder, int pos) {
@@ -254,15 +260,30 @@ public class EntityRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         return view;
     }
 
-    private View genRelationRow(EntityRelation rel) {
+    private View genRelationRow(final EntityRelation rel) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.card_entity_relations_card, null, false);
 
         TextView relation = view.findViewById(R.id.card_entity_relation_relation);
         TextView entity = view.findViewById(R.id.card_entity_relation_entity);
+        ImageButton buttonQuery = view.findViewById(R.id.card_entity_relation_query);
+        ImageView arrow = view.findViewById(R.id.card_entity_relation_arrow);
+        Drawable arrowForward = ContextCompat.getDrawable(context, R.drawable.ic_arrow_forward_white_24dp);
+        Drawable arrowBack = ContextCompat.getDrawable(context, R.drawable.ic_arrow_back_white_24dp);
+        if (rel.forward == true) {
+            arrow.setBackground(arrowForward);
+        } else {
+            arrow.setBackground(arrowBack);
+        }
 
         relation.setText(rel.relation);
         entity.setText(rel.label);
+        buttonQuery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragment.onQuery(rel.label);
+            }
+        });
 
         return view;
     }
@@ -290,5 +311,9 @@ public class EntityRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         protected void onPostExecute(Bitmap result) {
             bmImage.setImageBitmap(result);
         }
+    }
+
+    public interface OnSearchRelationListener {
+        void onSearchRelation(String entity);
     }
 }

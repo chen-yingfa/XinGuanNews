@@ -1,7 +1,5 @@
 package com.example.xinguannews;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -19,7 +17,6 @@ import com.example.xinguannews.api.EpidemicApi;
 import com.example.xinguannews.api.EpidemicApiThread;
 import com.example.xinguannews.api.EpidemicApiThreadListener;
 import com.example.xinguannews.entity.Entity;
-import com.example.xinguannews.entity.EntityRelation;
 import com.example.xinguannews.entitylist.EntityRecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -28,6 +25,7 @@ import java.util.List;
 public class GraphSchemaFragment extends Fragment implements EpidemicApiThreadListener {
 
     private SearchView searchView;
+    private View toolbar;
     private LinearLayout resultContainer;
     private View view;
     private String query;
@@ -53,7 +51,19 @@ public class GraphSchemaFragment extends Fragment implements EpidemicApiThreadLi
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_graph_schema, container, false);
-        searchView = view.findViewById(R.id.mSearch);
+
+        initSearchView();
+
+        loadingAnim = view.findViewById(R.id.activity_graph_schema_load_anim);
+        recyclerView = view.findViewById(R.id.graph_schema_result_container);
+        setIsLoading(false);
+        initRecyclerView();
+        return view;
+    }
+
+    public void initSearchView() {
+        searchView = view.findViewById(R.id.fragment_graph_schema_search);
+        toolbar = view.findViewById(R.id.toolbar_graph_schema_fragment);
         searchView.setSubmitButtonEnabled(true);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             //输入完成后，提交时触发的方法，一般情况是点击输入法中的搜索按钮才会触发，表示现在正式提交了
@@ -64,20 +74,22 @@ public class GraphSchemaFragment extends Fragment implements EpidemicApiThreadLi
 
             //在输入时触发的方法，当字符真正显示到searchView中才触发，像是拼音，在输入法组词的时候不会触发
             public boolean onQueryTextChange(String newText) {
+
                 return true;
             }
         });
 
-        loadingAnim = view.findViewById(R.id.activity_graph_schema_load_anim);
-        recyclerView = view.findViewById(R.id.graph_schema_result_container);
-        setIsLoading(false);
-        initRecyclerView();
-        return view;
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchView.requestFocus();
+            }
+        });
     }
 
     public void initRecyclerView() {
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
-        adapter = new EntityRecyclerViewAdapter(entities, getContext());
+        adapter = new EntityRecyclerViewAdapter(entities, getContext(), this);
         recyclerView.setLayoutManager(llm);
         recyclerView.setAdapter(adapter);
     }
@@ -139,6 +151,15 @@ public class GraphSchemaFragment extends Fragment implements EpidemicApiThreadLi
             loadingAnim.setVisibility(View.GONE);
         }
         isLoading = b;
+    }
+
+    public void onQuery(String entity) {
+        System.out.println("onQuery: " + entity);
+//        initSearchView();
+//        searchView.clearFocus();
+//        searchView.requestFocus();
+//        SearchView searchView = view.findViewById(R.id.fragment_graph_schema_search);
+        searchView.setQuery(query, true);
     }
 
 }
