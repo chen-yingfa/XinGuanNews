@@ -8,13 +8,18 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.xinguannews.api.EpidemicApi;
 import com.example.xinguannews.api.EpidemicApiThread;
 import com.example.xinguannews.api.EpidemicApiThreadListener;
+import com.example.xinguannews.entity.Entity;
 import com.example.xinguannews.epidemicdata.EpidemicData;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +37,12 @@ public class GraphSchemaFragment extends Fragment implements EpidemicApiThreadLi
     private String mParam1;
     private String mParam2;
     private SearchView mSearchView;
+
+    private LinearLayout  tableEntity;
+    private LinearLayout  tableANangel;
+    private LinearLayout  table
+
+    private String searchEntity;
 
 
     public GraphSchemaFragment() {
@@ -76,6 +87,7 @@ public class GraphSchemaFragment extends Fragment implements EpidemicApiThreadLi
             //输入完成后，提交时触发的方法，一般情况是点击输入法中的搜索按钮才会触发，表示现在正式提交了
             public boolean onQueryTextSubmit(String query) {
 
+                fetchEntity(query);
 
                 return true;
             }
@@ -103,6 +115,13 @@ public class GraphSchemaFragment extends Fragment implements EpidemicApiThreadLi
     @Override
     public void onFetchedEntity(EpidemicApiThread thread) {
         // 师叔，在这里先写获得 Entity 数据后的逻辑
+        List<Entity> entity = thread.getEntities();
+        TextView viewEntity = getView().findViewById(R.id.text_entity);
+        TextView viewBaidu = getView().findViewById(R.id.text_description);
+
+        viewEntity.setText(entity.label);
+        viewBaidu.setText(entity.baidu);
+
     }
 
     public void fetchEntity(String entity) {
