@@ -38,19 +38,6 @@
                 app:queryBackground="@android:color/transparent">
 
             </androidx.appcompat.widget.SearchView>
-
-<!--            <scut.carson_ho.searchview.SearchView-->
-<!--                android:id="@+id/search_view"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:textSizeSearch="5dp"-->
-<!--                app:textColorSearch="#3F51B5"-->
-<!--                app:textHintSearch="输入查询关键字"-->
-<!--                app:searchBlockHeight="150"-->
-<!--                app:searchBlockColor="#ffffff"-->
-<!--                >-->
-
-            </scut.carson_ho.searchview.SearchView>
         </RelativeLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
