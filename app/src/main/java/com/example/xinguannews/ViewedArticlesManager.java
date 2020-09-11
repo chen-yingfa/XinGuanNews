@@ -24,7 +24,7 @@ public class ViewedArticlesManager {
     public static List<Article> viewedArticles = new ArrayList<Article>();
     public static Set<String> viewedIds = new HashSet<>();
     public static final String FILENAME_ARTICLE = "articles.json";
-    public static final int bufferSize = 30;   // TODO: make this much larger
+    public static final int bufferSize = 100;   // TODO: make this much larger
 
     // saves a map of articles in article.json
     public static void saveViewedArticles(Context context) {

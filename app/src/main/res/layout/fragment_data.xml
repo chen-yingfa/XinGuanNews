@@ -9,13 +9,13 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_data_fragment"
-        app:layout_constraintBottom_toTopOf="@+id/data_fragmeent_scroll_view"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="0dp"
         android:layout_height="@dimen/toolbar_Height"
-        android:background="@color/primary">
+        android:background="@color/primary"
+        app:layout_constraintBottom_toTopOf="@+id/data_fragmeent_scroll_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
@@ -33,142 +33,102 @@
         android:id="@+id/data_fragmeent_scroll_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar_data_fragment">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_article_activity"
             android:orientation="vertical">
 
+            <include
+                android:id="@+id/load_anim_fragment_data"
+                layout="@layout/anim_load_more"></include>
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/epidemic_data_row_height"
-                android:background="@drawable/edit_text_box"
-                android:backgroundTint="@color/primary"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_margin="12dp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/province_data_row_text_country"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_box"
+                    android:backgroundTint="@color/primary"
                     android:gravity="center"
-                    android:text="省份"
+                    android:padding="10dp"
+                    android:text="中国"
                     android:textColor="@color/textToolBar"
-                    android:textSize="@dimen/epidemic_data_text_size"
-                    android:textStyle="bold" />
+                    android:textSize="20sp"
+                    android:textStyle="bold">
 
-                <TextView
-                    android:id="@+id/province_data_row_text_confirmed"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="6"
-                    android:gravity="center"
-                    android:text="确诊"
-                    android:textColor="@color/textToolBar"
-                    android:textSize="@dimen/epidemic_data_text_size"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/province_data_row_text_cured"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="6"
-                    android:gravity="center"
-                    android:text="治愈"
-                    android:textColor="@color/textToolBar"
-                    android:textSize="@dimen/epidemic_data_text_size"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/province_data_row_text_dead"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="6"
-                    android:gravity="center"
-                    android:text="死亡"
-                    android:textColor="@color/textToolBar"
-                    android:textSize="@dimen/epidemic_data_text_size"
-                    android:textStyle="bold" />
+                </TextView>
 
             </LinearLayout>
 
+            <include
+                android:id="@+id/province_header_row"
+                layout="@layout/data_table_header_row"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/epidemic_data_provinces"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp">
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
             <LinearLayout
-                android:id="@+id/epidemic_data_provinces"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"></LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/epidemic_data_row_height"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/edit_text_box"
-                android:backgroundTint="@color/primary"
+                android:gravity="center_horizontal"
+                android:layout_margin="12dp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/country_data_row_text_country"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_box"
+                    android:backgroundTint="@color/primary"
                     android:gravity="center"
-                    android:text="国家"
+                    android:padding="10dp"
+                    android:text="国外"
                     android:textColor="@color/textToolBar"
-                    android:textSize="@dimen/epidemic_data_text_size"
-                    android:textStyle="bold" />
+                    android:textSize="20sp"
+                    android:textStyle="bold">
 
-                <TextView
-                    android:id="@+id/country_data_row_text_confirmed"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="6"
-                    android:gravity="center"
-                    android:text="确诊"
-                    android:textColor="@color/textToolBar"
-                    android:textSize="@dimen/epidemic_data_text_size"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/country_data_row_text_cured"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="6"
-                    android:gravity="center"
-                    android:text="治愈"
-                    android:textColor="@color/textToolBar"
-                    android:textSize="@dimen/epidemic_data_text_size"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/country_data_row_text_dead"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="6"
-                    android:gravity="center"
-                    android:text="死亡"
-                    android:textColor="@color/textToolBar"
-                    android:textSize="@dimen/epidemic_data_text_size"
-                    android:textStyle="bold" />
+                </TextView>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/epidemic_data_countries"
+            <include layout="@layout/data_table_header_row"/>
+
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="6dp"
-                android:orientation="vertical"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:paddingBottom="24dp"></LinearLayout>
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/epidemic_data_countries"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:paddingBottom="12dp">
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

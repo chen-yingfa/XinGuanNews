@@ -100,8 +100,9 @@
                 </View>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
                     android:text="Relations">
 
                 </TextView>
@@ -134,8 +135,9 @@
                 </View>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
                     android:paddingBottom="@dimen/card_entity_sep_line_margin"
                     android:text="Properties">
 
