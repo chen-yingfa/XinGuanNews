@@ -78,7 +78,15 @@ public class GraphSchemaFragment extends Fragment implements EpidemicApiThreadLi
                 return true;
             }
         });
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchView.setIconified(false);
 
+                // show queries recycler view
+//                showQueriesRecyclerView();
+            }
+        });
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
