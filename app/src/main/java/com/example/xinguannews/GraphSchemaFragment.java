@@ -25,6 +25,7 @@ import java.util.List;
 public class GraphSchemaFragment extends Fragment implements EpidemicApiThreadListener {
 
     private SearchView searchView;
+    private TextView textHint;
     private View toolbar;
     private LinearLayout resultContainer;
     private View view;
@@ -93,6 +94,10 @@ public class GraphSchemaFragment extends Fragment implements EpidemicApiThreadLi
                 searchView.requestFocus();
             }
         });
+
+        // show hint if empty
+        textHint = view.findViewById(R.id.text_fragment_graph_schema_hint);
+        handleTextHint();
     }
 
     public void initRecyclerView() {
@@ -125,6 +130,7 @@ public class GraphSchemaFragment extends Fragment implements EpidemicApiThreadLi
         setIsLoading(false);
         adapter.setEntities(thread.entities);
         adapter.notifyDataSetChanged();
+        handleTextHint();
     }
 
     public void fetchEntity(String entity) {
@@ -170,4 +176,11 @@ public class GraphSchemaFragment extends Fragment implements EpidemicApiThreadLi
         searchView.setQuery(query, true);
     }
 
+    public void handleTextHint() {
+        if (entities.isEmpty()) {
+            textHint.setVisibility(View.VISIBLE);
+        } else {
+            textHint.setVisibility(View.GONE);
+        }
+    }
 }

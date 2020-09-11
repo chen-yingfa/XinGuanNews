@@ -36,6 +36,16 @@
             </SearchView>
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/text_fragment_graph_schema_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="20dp"
+            android:text="请在上面进行搜索">
+
+        </TextView>
+
         <include
             android:id="@+id/activity_graph_schema_load_anim"
             layout="@layout/anim_load_more" />
